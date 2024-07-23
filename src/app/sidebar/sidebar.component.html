@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <div class="wrapper">
     <!-- Sidebar -->
     <nav id="sidebar">
@@ -6,28 +8,59 @@
         <li [class.active]="isActive('home')">
           
           <a href="#" (click)="setActive('home')">
-          <mat-icon class="align-bottom">home</mat-icon>
+            <mat-icon style="font-size: 1.7rem;" class="align-bottom material-icons-outlined">home</mat-icon>
           <div style="display: inline; margin-left: 0.7rem;"></div>
           <span class="fa fa-home"></span> Home</a>
         </li>
+
         <li [class.active]="isActive('about')">
-          <a href="#" (click)="setActive('about')"><span class="fa fa-user"></span> Prodotti</a>
+
+          <a href="#" (click)="setActive('about')">
+          <mat-icon class="align-bottom material-icons-outlined">inventory</mat-icon>
+          <div style="display: inline; margin-left: 0.7rem;"></div>
+          <span class="fa fa-user"></span> Prodotti</a>
         </li>
+
         <li [class.active]="isActive('blog')">
-          <a href="#" (click)="setActive('blog')"><span class="fa fa-sticky-note"></span> Archivio Ordini</a>
+
+          <a href="#" (click)="setActive('blog')">
+          <mat-icon class="align-bottom material-icons-outlined">archive</mat-icon>
+          <div style="display: inline; margin-left: 0.7rem;"></div>
+          <span class="fa fa-sticky-note"></span> Archivio Ordini</a>
         </li>
+
         <li [class.active]="isActive('services')">
-          <a href="#" (click)="setActive('services')"><span class="fa fa-cogs"></span> Bacheca</a>
+
+          <a href="#" (click)="setActive('services')">
+          <mat-icon class="align-bottom material-icons-outlined">push_pin</mat-icon>
+          <div style="display: inline; margin-left: 0.7rem;"></div>
+          <span class="fa fa-cogs"></span> Bacheca</a>
         </li>
+
         <li [class.active]="isActive('contacts')">
-          <a href="#" (click)="setActive('contacts')"><span class="fa fa-paper-plane"></span> Task</a>
+
+          <a href="#" (click)="setActive('contacts')">
+          <mat-icon class="align-bottom material-icons-outlined">task</mat-icon>
+          <div style="display: inline; margin-left: 0.7rem;"></div>
+          <span class="fa fa-paper-plane"></span> Task</a>
         </li>
+
         <li [class.active]="isActive('contacts')">
-            <a href="#" (click)="setActive('contacts')"><span class="fa fa-paper-plane"></span> Istruzioni</a>
+
+            <a href="#" (click)="setActive('contacts')">
+            <mat-icon class="align-bottom material-icons-outlined">info</mat-icon>
+            <div style="display: inline; margin-left: 0.7rem;"></div>
+            <span class="fa fa-paper-plane"></span> Istruzioni</a>
           </li>
+
           <li [class.active]="isActive('contacts')">
-            <a href="#" (click)="setActive('contacts')"><span class="fa fa-paper-plane"></span> Mansioni</a>
+
+            <a href="#" (click)="setActive('contacts')">
+            <mat-icon class="align-bottom material-icons-outlined">assignment_ind</mat-icon>
+            <div style="display: inline; margin-left: 0.7rem;"></div>
+            <span class="fa fa-paper-plane"></span> Mansioni</a>
           </li>
+
       </ul>
   
       <div class="footer">
