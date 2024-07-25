@@ -1,7 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../../model/user';
+import { User } from '../model/user';
+import { LoginData } from '../model/LoginData';
+import { RegistrationData } from '../model/RegistrationData';
 
 
 /**
@@ -15,11 +17,13 @@ export class AuthService {
 
   constructor(private http:HttpClient) { }
 
-  login(username:string,password:string)
+  
+
+  login(loginData:LoginData)
   {
     this.logout();
-    let body = {'username':username,'password':password};
-    return this.http.post<any>("/api/auth/login",body);
+    // let body = {'username':username,'password':password};
+    return this.http.post<any>("/api/auth/login",loginData);
   }
 
   logout()
@@ -28,17 +32,12 @@ export class AuthService {
     localStorage.removeItem("role");
   }
 
-  register(user:User):Observable<any>
+  register(registrationData:RegistrationData)
   {
     this.logout();
-    const options = { 
-      params: new HttpParams().set('role', user.role),
-      responseType: 'text' as 'json'
-    };
-
-    const body = { 'username': user.username, 'password': user.password,};
-    
-    return this.http.post('/api/auth/register', body, options);
+    console.log("REGISTRATION DATA");
+    console.log(registrationData);
+    return this.http.post('api/auth/register', registrationData, { responseType: 'text' });
   }
 
   isLogged():boolean
