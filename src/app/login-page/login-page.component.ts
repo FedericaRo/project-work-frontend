@@ -54,7 +54,8 @@ export class LoginPageComponent {
         {
           localStorage.setItem("token",data.accessToken);
           localStorage.setItem("role",data.role);
-          this.router.navigate(['']);
+          // this.router.navigate(['']);
+          this.router.navigate(["homepage"]);
         },
         error: err=>
         {
