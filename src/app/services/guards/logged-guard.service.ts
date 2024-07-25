@@ -12,7 +12,10 @@ export class LoggedGuardService {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> 
   {
     if(this.authService.isLogged())
+    {
+      // this.router.navigate(["dashboard"]);
       return true;
+    }
 
     this.router.navigate(["auth/login"]);
     alert('Non hai i permessi necessari per accedere, devi prima fare il Login.');
