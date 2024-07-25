@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FormRegisterComponent } from "../form-register/form-register.component";
 import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
 
-  imports: [MatIconModule, FormRegisterComponent,CommonModule],
+  imports: [MatIconModule, FormRegisterComponent,CommonModule, RouterOutlet],
 
  
 

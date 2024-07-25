@@ -9,8 +9,8 @@ import { HomepageComponent } from './homepage/homepage.component';
 export const routes: Routes = [
 
     {path:"products",component:ProductListComponent},
-    
-// {path:"",component:HomepageComponent},
+
+    // {path:"",component:HomepageComponent},
         { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
         { path: 'auth/login', component: LoginPageComponent },
         { path: 'auth/register', component: RegisterPageComponent },
