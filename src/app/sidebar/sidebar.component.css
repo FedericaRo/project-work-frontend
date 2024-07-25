@@ -91,7 +91,7 @@
 	top: 1rem; /* Space from the top */
 	/* width: calc(100% - 250px - 2rem); Adjust for sidebar width and margins */
 	width: 80%;
-	left: 250px; /* Adjust for sidebar width */
+	left: 14rem; /* Adjust for sidebar width */
 	margin-left: 5rem; /* Left margin */
 	margin-right: 5rem; /* Right margin */
 	z-index: 1001;
