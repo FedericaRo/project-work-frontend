@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FormRegisterComponent } from "../form-register/form-register.component";
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SidebarComponent {
 
-  constructor(){}
+  constructor(public authService:AuthService){}
 
   showModal:boolean = false;
 

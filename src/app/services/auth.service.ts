@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../model/user';
 import { LoginData } from '../model/LoginData';
 import { RegistrationData } from '../model/RegistrationData';
+import { Router } from '@angular/router';
 
 
 /**
@@ -15,7 +16,7 @@ import { RegistrationData } from '../model/RegistrationData';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private router:Router) { }
 
   
 
@@ -30,6 +31,7 @@ export class AuthService {
   {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    this.router.navigate(["auth/login"]);
   }
 
   register(registrationData:RegistrationData)

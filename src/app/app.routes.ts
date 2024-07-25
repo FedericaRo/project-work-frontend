@@ -6,7 +6,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 
 export const routes: Routes = [
     // {path:"",component:HomepageComponent},
-        { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+        { path: '', redirectTo: 'homepage', pathMatch: 'full', },
         { path: 'auth/login', component: LoginPageComponent },
         { path: 'auth/register', component: RegisterPageComponent },
         { path: 'homepage', component: HomepageComponent, canActivate: [LoggedGuardService] },

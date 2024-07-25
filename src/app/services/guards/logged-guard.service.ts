@@ -14,7 +14,8 @@ export class LoggedGuardService {
     if(this.authService.isLogged())
       return true;
 
-    this.router.navigate(["unauthorized"]);
+    this.router.navigate(["auth/login"]);
+    alert('Non hai i permessi necessari per accedere, devi prima fare il Login.');
     return false;
   }
 }
