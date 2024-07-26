@@ -6,6 +6,7 @@ import { LoggedGuardService } from './services/guards/logged-guard.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 // export const routes: Routes = [
     // {path:"",component:HomepageComponent},
@@ -19,33 +20,33 @@ import { AppComponent } from './app.component';
         
 // ];
 export const routes: Routes = [
-    { path: 'auth/login', component: LoginPageComponent },
+  { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
 
   // Rotte con barra laterale
-//   {
-//     path: '',
-//     component: AppComponent,  // AppComponent include Sidebar
-//     children: [
-    //   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
+  // {
+  //   path: '',
+  //   component: AppComponent,  // AppComponent include Sidebar
+  //   children: [
+      // { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       {
         path: '',
-        component: SidebarComponent,
+        component: DashboardComponent,
         canActivate: [LoggedGuardService],
         children: [
           { path: 'homepage', component: HomepageComponent },
           // Altre rotte con barra laterale
         ]
-    //   }
-    // ]
-  },
+      },
+  //   ]
+  // },
 
   // Redirige qualsiasi altra rotta a login
   { path: '**', redirectTo: 'auth/login' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule { }
