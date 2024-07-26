@@ -6,6 +6,7 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 // export const routes: Routes = [
     // {path:"",component:HomepageComponent},
@@ -30,7 +31,7 @@ export const routes: Routes = [
       // { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       {
         path: '',
-        component: SidebarComponent,
+        component: DashboardComponent,
         canActivate: [LoggedGuardService],
         children: [
           { path: 'homepage', component: HomepageComponent },

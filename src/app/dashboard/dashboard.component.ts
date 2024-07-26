@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-sidebar-test',
+  selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './sidebar-test.component.html',
-  styleUrl: './sidebar-test.component.css'
+  imports: [CommonModule, RouterOutlet],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
 })
-export class SidebarTestComponent {
+export class DashboardComponent {
 
   isSidebarOpen = true; // State variable to track sidebar visibility
 
@@ -25,4 +26,3 @@ export class SidebarTestComponent {
     console.log(this.isUserMenuOpen);
   }
 }
- 
