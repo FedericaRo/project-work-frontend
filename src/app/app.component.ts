@@ -5,12 +5,13 @@ import { FormRegisterComponent } from "./form-register/form-register.component";
 import { LoginPageComponent } from "./login-page/login-page.component";
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthService } from './services/auth.service';
+import { SidebarTestComponent } from "./sidebar-test/sidebar-test.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent, FormRegisterComponent, LoginPageComponent, RegisterPageComponent],
+  imports: [RouterOutlet, SidebarComponent, FormRegisterComponent, LoginPageComponent, RegisterPageComponent, SidebarTestComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
