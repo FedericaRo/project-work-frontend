@@ -7,6 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 // export const routes: Routes = [
     // {path:"",component:HomepageComponent},
@@ -35,6 +36,7 @@ export const routes: Routes = [
         canActivate: [LoggedGuardService],
         children: [
           { path: 'homepage', component: HomepageComponent },
+          { path: 'products', component: ProductListComponent },
           // Altre rotte con barra laterale
         ]
       },
