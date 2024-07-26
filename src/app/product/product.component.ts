@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Product } from '../model/Product';
 
 @Component({
-  selector: 'app-product',
+  selector: 'tr[app-product]',
   standalone: true,
   imports: [],
   templateUrl: './product.component.html',
@@ -10,6 +10,7 @@ import { Product } from '../model/Product';
 })
 export class ProductComponent 
 {
+
   @Input() product!:Product;
 
   stockQuantity():number
