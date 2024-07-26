@@ -61,7 +61,6 @@ export class LoginPageComponent {
         {
           console.log(err)
         }
-
       }
     )
   }

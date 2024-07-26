@@ -57,13 +57,13 @@ export class RegisterPageComponent {
               {
                 localStorage.setItem("token",data.accessToken);
                 localStorage.setItem("role", data.role);
+                alert(`Sei loggato come user ${this.registerForm.value.username}`)
+                this.router.navigate(['homepage']);
               },
             );
-            alert(`Sei loggato come user ${this.registerForm.value.username}`)
+            
             this.registerForm.reset();
-            console.log("YAY");
-            console.log(data);
-            this.router.navigate(['']);
+            
           },
           error: err =>
           {
