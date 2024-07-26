@@ -7,6 +7,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthService } from './services/auth.service';
 
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,7 +17,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
 
-  // constructor(public authService:AuthService){}
+  constructor(public authService:AuthService){}
   
   title = 'project-work-frontend';
 }

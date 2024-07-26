@@ -18,7 +18,7 @@ export class LoggedGuardService {
     }
 
     this.router.navigate(["auth/login"]);
-    alert('Non hai i permessi necessari per accedere, devi prima fare il Login.');
+    // alert('Non hai i permessi necessari per accedere, devi prima fare il Login.');
     return false;
   }
 }
