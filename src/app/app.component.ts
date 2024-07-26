@@ -17,7 +17,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 })
 export class AppComponent {
 
-  // constructor(public authService:AuthService){}
+  constructor(public authService:AuthService){}
   
   title = 'project-work-frontend';
 }
