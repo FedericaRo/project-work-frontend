@@ -42,7 +42,7 @@
   /* Sidebar */
   #sidebar {
 	height: 97%;
-	width: 16rem;
+	width: 13rem;
 	position: fixed;
 	top: 1rem;
 	left: 0.7rem;
@@ -121,7 +121,7 @@
 	top: 1rem; /* Space from the top */
 	width: calc(100% - 250px - 2rem); /* Adjust for sidebar width and margins */
 	left: 250px; /* Adjust for sidebar width */
-	margin-left: 5rem; /* Left margin */
+	margin-left: 0.1rem; /* Left margin */
 	margin-right: 5rem; /* Right margin */
 	z-index: 500;
 	display: flex;

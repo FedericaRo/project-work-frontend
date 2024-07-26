@@ -1,11 +1,11 @@
-<div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-    <div class="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+<div class="min-h-screen  text-gray-900 flex justify-center">
+    <div class="max-w-screen-xl m-8 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 items-center flex flex-col justify-center">
-            <div>
+            <!-- <div>
                 <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
                     class="w-32 mx-auto" />
-            </div>
-            <div class="mt-12 flex flex-col items-center">
+            </div> -->
+            <div class="mt-12 w-full flex flex-col items-center">
                 <h1 class="text-2xl xl:text-3xl font-extrabold">
                     Registrati
                 </h1>
@@ -30,7 +30,7 @@
                                     formControlName="password"/>
                                 <button type="button" 
                                 (click)="togglePasswordVisibility()"
-                                type="button" class="absolute top-6 end-0 p-3.5">
+                                type="button" class="absolute top-16 end-0 p-3.5">
                                   <svg *ngIf="passwordInputType !== 'password'" class="flex-shrink-0 text-gray-400 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path class="hs-password-active:hidden" d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                                     <path class="hs-password-active:hidden" d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -57,7 +57,7 @@
                                 type="password" placeholder="Confirm Password" formControlName="passwordConfirmation"/>
                                 <button type="button" 
                                 (click)="togglePasswordConfirmationVisibility()"
-                                type="button" class="absolute top-6 end-0 p-3.5">
+                                type="button" class="absolute top-16  end-0 p-3.5">
                                   <svg *ngIf="passwordInputType !== 'password'" class="flex-shrink-0 text-gray-400 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                     <path class="hs-password-active:hidden" d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z"/>
                                     <path class="hs-password-active:hidden" d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"/>
@@ -96,7 +96,7 @@
                                     <path d="M20 8v6M23 11h-6" />
                                 </svg>
                                 <span class="ml-3">
-                                    Sign Up
+                                    REGISTRATI
                                 </span>
                             </button>
                         </form> 
@@ -106,7 +106,7 @@
 								Already have an account? Login!
 							</a>
 						</div>
-                        <p class="mt-6 text-xs text-gray-600 text-center">
+                        <!-- <p class="mt-6 text-xs text-gray-600 text-center">
                             I agree to abide by templatana's
                             <a href="#" class="border-b border-gray-500 border-dotted">
                                 Terms of Service
@@ -115,13 +115,13 @@
                             <a href="#" class="border-b border-gray-500 border-dotted">
                                 Privacy Policy
                             </a>
-                        </p>
+                        </p> -->
                     </div>
                     <!-- </div> -->
                 </div>
             </div>
         </div>
-        <div class="flex-1 bg-indigo-100 text-center hidden lg:flex">
+        <div class="flex-1 bg-indigo-100 text-center hidden lg:flex rounded-tr-lg">
             <div class="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
                 style="background-image: url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg');">
             </div>
