@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
-import { LoggedGuardService } from './services/guards/logged-guard.service';
 import { HomepageComponent } from './homepage/homepage.component';
+import { LoggedGuardService } from './services/guards/logged-guard.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
