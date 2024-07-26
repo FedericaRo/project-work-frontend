@@ -1,8 +1,15 @@
 <tr class="bg-white transition-all duration-500 hover:bg-gray-50">
-    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 "> Louis Vuitton</td>
-    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> 20010510 </td>
-    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> Customer</td>
-    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> Accessories</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{{product.supplierCode}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.supplierName}} </td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.productName}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.unitTypeQuantity}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.unitType}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.unitPrice}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.packagingTypeQuantity}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.packagingType}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.categoryName}}</td>
+    <td class="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{stockQuantity()}}</td>
+    
     <td class=" p-5 ">
         <div class="flex items-center gap-1">
             <button class="p-2  rounded-full  group transition-all duration-500  flex item-center">
@@ -23,3 +30,4 @@
         </div>
     </td>
 </tr>
+

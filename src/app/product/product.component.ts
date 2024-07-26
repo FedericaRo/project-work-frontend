@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Product } from '../model/Product';
 
 @Component({
   selector: 'app-product',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
-export class ProductComponent {
+export class ProductComponent 
+{
+  @Input() product!:Product;
 
+  stockQuantity():number
+  {
+    return this.product.unitTypeQuantity+(this.product.unitsPerPackaging*this.product.packagingTypeQuantity)
+  }
 }
