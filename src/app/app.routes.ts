@@ -19,15 +19,15 @@ import { AppComponent } from './app.component';
         
 // ];
 export const routes: Routes = [
-    { path: 'auth/login', component: LoginPageComponent },
+  { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
 
   // Rotte con barra laterale
-  {
-    path: '',
-    component: AppComponent,  // AppComponent include Sidebar
-    children: [
-      { path: '', redirectTo: 'homepage', pathMatch: 'full' },
+  // {
+  //   path: '',
+  //   component: AppComponent,  // AppComponent include Sidebar
+  //   children: [
+      // { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       {
         path: '',
         component: SidebarComponent,
@@ -36,16 +36,16 @@ export const routes: Routes = [
           { path: 'homepage', component: HomepageComponent },
           // Altre rotte con barra laterale
         ]
-      }
-    ]
-  },
+      },
+  //   ]
+  // },
 
   // Redirige qualsiasi altra rotta a login
   { path: '**', redirectTo: 'auth/login' }
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+// export class AppRoutingModule { }
