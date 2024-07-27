@@ -14,4 +14,9 @@ export class ProductsService {
   {
     return this.http.get<Product[]>("/api/products");
   }
+
+  filterProducts(products:Product[], criteria:string):Product[] | any
+  {
+    products.filter(p => p.categoryName == criteria)
+  }
 }

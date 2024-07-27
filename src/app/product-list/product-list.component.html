@@ -2,31 +2,36 @@
     <div class=" overflow-x-auto" >
       <div class="min-w-full inline-block align-middle" >
           <div class="relative  text-gray-500 focus-within:text-gray-900 mb-4" >
-              <div class="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none " >
+              <div class="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none" >
                   <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" />
                       <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
                       <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
                   </svg>
               </div>
-              <input type="text" id="default-search" class="block w-80 h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" placeholder="Search for company">
+              <input 
+              [(ngModel)]="filterCriteria" 
+              type="text" id="default-search" 
+              class="block w-80 h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" 
+              placeholder="Search for company"
+              (input)="filterByEverything()"
+              >
           </div>
           <div class="overflow-hidden ">
               <table class=" min-w-full rounded-xl">
                   <thead>
                       <tr class="bg-gray-50 " >
-                          <th scope="col" class="rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" > Identificativo </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Fornitore </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Categoria </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Nome Prodotto </th>
+                          <th scope="col" class="sortbtn rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCode()"> Identificativo </th>
+                          <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortBySupplier()"> Fornitore </th>
+                          <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCategory()"> Categoria </th>
+                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" > Nome Prodotto </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Prezzo <br> unitario </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Unità <br> rimanenti </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> u.m.1 </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Confezioni <br> rimanenti </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> u.m.2 </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Totale <br> rimanente </th>
+                          <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortQuantityRemaining()"> Totale <br> rimanente </th>
                           <th scope="col" class="rounded-tr-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Azioni rapide </th>
-    
                       </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-300 ">
