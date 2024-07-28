@@ -37,7 +37,12 @@
                   <tbody class="divide-y divide-gray-300 ">
                       @for (product of products; track $index)
                        {
-                            <tr app-product class="bg-white transition-all duration-500 hover:bg-gray-50" [product]="product"></tr>
+                            <tr 
+                            app-product 
+                            class="bg-white transition-all duration-500 hover:bg-gray-50" 
+                            [ngClass]="{'bg-white': $index % 2 === 0, 'bg-violet-50': $index % 2 !== 0}" 
+                            [product]="product">
+                            </tr>
                        }
                     
                   </tbody>

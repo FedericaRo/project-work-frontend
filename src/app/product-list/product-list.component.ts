@@ -69,14 +69,14 @@ export class ProductListComponent implements OnInit
       
       for(let product of this.products)
         {
-          if(product.supplierCode.includes(this.filterCriteria))
-            this.products = this.products.filter(p => p.supplierCode.includes(this.filterCriteria));
-          else if(product.supplierName.includes(this.filterCriteria))
-            this.products = this.products.filter(p => p.supplierName.includes(this.filterCriteria));
-          else if(product.categoryName.includes(this.filterCriteria))
-            this.products = this.products.filter(p => p.categoryName.includes(this.filterCriteria));
-          else if(product.productName.includes(this.filterCriteria))
-            this.products = this.products.filter(p => p.productName.includes(this.filterCriteria));
+          if(product.supplierCode.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+            this.products = this.products.filter(p => p.supplierCode.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          else if(product.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+            this.products = this.products.filter(p => p.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          else if(product.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+            this.products = this.products.filter(p => p.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          else if(product.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+            this.products = this.products.filter(p => p.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
         }
       }
       

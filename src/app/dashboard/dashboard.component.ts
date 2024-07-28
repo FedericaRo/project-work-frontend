@@ -18,25 +18,26 @@ export class DashboardComponent implements AfterViewInit {
   @ViewChild('userMenu0') userMenu0!: ElementRef;
   @ViewChild('userMenu') userMenu!: ElementRef;
 
-  ngAfterViewInit(): void 
-  {
-    // this.userMenu.nativeElement.
-    
-  }
+  /**
+   * *Serve per usare i nativeElements con i ViewChild e può essere usato tutto ciò solo
+   * *se la classe è implementata da AfterViewInit
+   * @Santo
+   */
+  ngAfterViewInit(): void {}
 
-  isSidebarOpen = true; // State variable to track sidebar visibility
+  isSidebarOpen = true; 
 
   toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen; // Toggle the sidebar visibility
+    this.isSidebarOpen = !this.isSidebarOpen; 
     console.log(this.isSidebarOpen);
   }
 
 
-  isUserMenuOpen = false; // State variable to track sidebar visibility
+  isUserMenuOpen = false; 
 
   toggleUserMenu() {
 
-    this.isUserMenuOpen = !this.isUserMenuOpen; // Toggle the sidebar visibility
+    this.isUserMenuOpen = !this.isUserMenuOpen; 
     console.log(this.isUserMenuOpen);
   }
 
