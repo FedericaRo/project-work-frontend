@@ -16,17 +16,20 @@
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
           </a>
         </div>
-        <div class="flex items-center">
+        <!-- inizio user menu -->
+        <div class="flex items-center" #userMenu0>
             <div class="flex items-center ms-3">
               <div>
-                <button (click)="authService.logout()">LOGOUT</button>
+                <!-- <button (click)="authService.logout()">LOGOUT</button> -->
                 <button type="button" (click)="toggleUserMenu()" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                   <span class="sr-only">Open user menu</span>
                   <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
                 </button>
               </div>
-              
-              <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+              <div 
+              #userMenu
+              [ngClass]="{'hidden': !isUserMenuOpen, 'block': isUserMenuOpen,}"
+              class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 setPosition" id="dropdown-user">
                 <div class="px-4 py-3" role="none">
                   <p class="text-sm text-gray-900 dark:text-white" role="none">
                     Neil Sims
@@ -52,6 +55,7 @@
               </div>
             </div>
           </div>
+          <!-- fine user menu -->
       </div>
     </div>
   </nav>
@@ -66,7 +70,7 @@
               </a>
            </li>
            <li>
-              <a [routerLink]="['/products']" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <a [routerLink]="['/products']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                   <mat-icon class="align-bottom material-icons-outlined">inventory</mat-icon>
                  <span class="flex-1 ms-3 whitespace-nowrap">Prodotti</span>
 
@@ -101,9 +105,11 @@
               </a>
            </li>
            <li>
-              <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <mat-icon class="align-bottom material-icons-outlined">assignment_ind</mat-icon>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Mansioni</span>
+              <a (click)="authService.logout()" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
+                 </svg>
+                 <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
               </a>
            </li>
            <li>
@@ -119,6 +125,9 @@
         </ul>
      </div>
   </aside>
+  <!-- <div>
+    
+  </div> -->
   
   <div class="p-4 sm:ml-64 mt-14">
     <router-outlet></router-outlet>
@@ -219,6 +228,7 @@
                  </svg>
               </p>
            </div>
-        </div>
-     </div> -->
-  </div>
+        </div> -->
+    <!-- </div> -->
+    <!-- <router-outlet></router-outlet> -->
+  </div> 

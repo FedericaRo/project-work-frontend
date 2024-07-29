@@ -1,0 +1,48 @@
+.active-link
+{
+    color:red;
+}
+.hidden
+{
+    display: none;
+}
+
+@media (min-width: 1770px) and (max-width: 1920px) {
+    .setPosition {
+        position: absolute; /* Posiziona il menu in modo assoluto rispetto al primo antenato posizionato */
+        top: 40%; /* Posiziona il menu subito sotto il bottone */
+        left:93%; /* Allinea il menu con il bordo sinistro del bottone */
+        z-index: 1000; /* Assicurati che il menu sia sopra gli altri contenuti */
+       
+    }
+}
+
+@media (min-width:1200px) and (max-width: 1769px) {
+    .setPosition {
+        position: absolute; /* Posiziona il menu in modo assoluto rispetto al primo antenato posizionato */
+        top: 40%; /* Posiziona il menu subito sotto il bottone */
+        left:90%; /* Allinea il menu con il bordo sinistro del bottone */
+        z-index: 1000; /* Assicurati che il menu sia sopra gli altri contenuti */
+        
+    }
+}
+
+@media (min-width:800px) and (max-width: 1199px) {
+    .setPosition {
+        position: absolute; /* Posiziona il menu in modo assoluto rispetto al primo antenato posizionato */
+        top: 40%; /* Posiziona il menu subito sotto il bottone */
+        left:85%; /* Allinea il menu con il bordo sinistro del bottone */
+        z-index: 1000; /* Assicurati che il menu sia sopra gli altri contenuti */
+        
+    }
+}
+
+@media (min-width:400) and (max-width: 799px) {
+    .setPosition {
+        position: flex; /* Posiziona il menu in modo assoluto rispetto al primo antenato posizionato */
+        top: 40%; /* Posiziona il menu subito sotto il bottone */
+        left:85%; /* Allinea il menu con il bordo sinistro del bottone */
+        z-index: 1000; /* Assicurati che il menu sia sopra gli altri contenuti */
+        
+    }
+}

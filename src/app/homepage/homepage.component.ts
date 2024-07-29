@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { SidebarComponent } from "../sidebar/sidebar.component";
-import { AppComponent } from "../app.component";
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [SidebarComponent, AppComponent],
+  imports: [DashboardComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
