@@ -19,8 +19,21 @@ export class HomepageComponent implements OnInit{
   tasks:Task[] = [];
   
   ngOnInit(): void {
-    this.taskService.getAll().subscribe(data => {
-    this.tasks = data});
+    this.loadTasks();
+  }
+
+  loadTasks(): void {
+      this.taskService.getAll().subscribe(data => {
+      this.tasks = data;
+    });
+  }
+
+  onTaskUpdated(updatedTask: any): void {
+    // Find the updated task in the local array and update it
+    const index = this.tasks.findIndex(task => task.id === updatedTask.id);
+    if (index > -1) {
+      this.tasks[index] = updatedTask;
+    }
   }
 
   // updateTaskFather() 

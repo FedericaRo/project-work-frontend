@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../model/Product';
 import { Task } from '../model/Task';
 import { completionTask } from '../model/completionTask';
@@ -10,7 +10,10 @@ import { completionTask } from '../model/completionTask';
 })
 export class TaskService {
 
-  constructor(private http:HttpClient) { }
+  private apiUrl = '/api/tasks';
+  
+  constructor(private http:HttpClient) { 
+  }
 
   getAll():Observable<Task[]>
   {
@@ -20,7 +23,9 @@ export class TaskService {
   update(id:number, ct:completionTask):Observable<completionTask>
   {
     console.log(ct);
-    return this.http.put<completionTask>(`/api/tasks/${id}`, ct);
+    return this.http.put<completionTask>(`${this.apiUrl}/${id}`, ct);
   }
+
+  
 
 }

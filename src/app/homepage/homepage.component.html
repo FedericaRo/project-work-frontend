@@ -15,7 +15,7 @@
         <div class="flex-1 p-4">
             @for (task of tasks; track $index)
             {
-                <app-single-task [task]="task"></app-single-task>
+                <app-single-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-single-task>
             }
               <!-- Aggiungi il contenuto principale qui -->
         </div>

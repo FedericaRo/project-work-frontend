@@ -4,35 +4,36 @@ import { AuthService } from '../services/auth.service';
 import { completionTask } from '../model/completionTask';
 import { TaskService } from '../services/task.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-single-task',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './single-task.component.html',
   styleUrl: './single-task.component.css'
 })
 export class SingleTaskComponent implements OnInit{
 
   
-  constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient){
-    
-  }
-  
+  constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient,){}
+
   taskACompletamento:completionTask={status:"", signature:""}
-  userRole:string="";
+  userRole:string=this.authService.getUserRole()!;
   
   ngOnInit(): void {
     this.completed=this.task.status==='COMPLETATO' ? true : false;
-    this.userRole=this.authService.getUserRole()!;
+    // this.userRole=this.authService.getUserRole()!;
     // this.isChecked=this.completed;
   }
   
   completed:boolean=false;
   
   @Input() task!:Task;
+  @Output() taskUpdated = new EventEmitter<Task>();
   
-  isChecked:boolean=false;
+  // isChecked:boolean=false;
 
   // toggleCheckbox() {
   //   this.isChecked = !this.isChecked;
@@ -59,12 +60,12 @@ export class SingleTaskComponent implements OnInit{
     if(this.task.status==="COMPLETATO")
     {
       this.taskACompletamento.status='DAFARSI';
-      this.taskACompletamento.signature!="";
+      this.taskACompletamento.signature="";
     }
     else
     {
       this.taskACompletamento.status='COMPLETATO';
-      this.taskACompletamento.signature!=this.userRole;
+      this.taskACompletamento.signature=this.userRole;
     }
   }
 
@@ -73,12 +74,14 @@ export class SingleTaskComponent implements OnInit{
   updateTaskSon() 
   {
       this.switchStatus();
-
+      console.log(this.userRole);
     // this.toggleCheckbox();
 
       this.taskService.update(this.task.id!, this.taskACompletamento)
       .subscribe({
         next: () => {
+          this.taskUpdated.emit({ ...this.task, ...this.taskACompletamento });
+          console.log(this.userRole);
           // this.updateTask.emit();
           // this.taskACompletamento={status:"", signature:""};
         },

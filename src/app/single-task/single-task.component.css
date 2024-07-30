@@ -9,10 +9,15 @@ body{
  }
  
  .card {
-     margin-bottom: 20px;
-     -webkit-box-shadow: 0 2px 3px #eaedf2;
-     box-shadow: 0 2px 3px #eaedf2;
- }
+    margin-bottom: 10px; /* Riduci lo spazio tra le card */
+    -webkit-box-shadow: 0 2px 3px #eaedf2;
+    box-shadow: 0 2px 3px #eaedf2;
+    width: 100%; /* Imposta la larghezza della card al 100% del contenitore */
+    min-height: 75px; /* Imposta un'altezza minima per la card */
+    display: flex;
+    flex-direction: column; /* Allinea il contenuto della card verticalmente */
+    justify-content: space-between; /* Spaziatura uniforme tra i contenuti */
+}
  
  .pb-0 {
      padding-bottom: 0!important;
@@ -77,17 +82,33 @@ body{
      background-color: rgba(243,78,78,.1);
  }
 
- .badge-settimanale {
-    color: #f34e4e;
-    background-color: rgba(243,78,78,.1);
+.badge-settimanale {
+    color: #a34ef3;
+    background-color: rgba(177, 78, 243, 0.1);
 }
- 
- .badge-soft-mid {
-     color: #f7cc53;
-     background-color: rgba(247,204,83,.1);
+.badge-bisettimanale {
+    color: #f7cc53;
+    background-color: rgba(247, 204, 83, 0.1);
+}
+.badge-mensile {
+    color: #4e82f3;
+    background-color: rgba(89, 78, 243, 0.1);
+}
+
+.badge-soft-nevercompleted {
+    color: #b4b4b4;
+    background-color: rgba(233, 233, 233, 0.1);
+}
+.badge-soft-pending {
+     color: #f34e4e;
+     background-color: rgba(243,78,78,.1);
+ }
+.badge-soft-completed {
+     color: #6cd468;
+     background-color: rgba(81,210,140,.1);
  }
 
- .badge-soft-good {
+.badge-soft-good {
     color: #6cd468;
     background-color: rgba(247,204,83,.1);
 }
