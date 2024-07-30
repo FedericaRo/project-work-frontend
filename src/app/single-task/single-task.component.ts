@@ -12,53 +12,75 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './single-task.component.html',
   styleUrl: './single-task.component.css'
 })
-export class SingleTaskComponent{
+export class SingleTaskComponent implements OnInit{
 
+  
+  constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient){
+    
+  }
+  
   taskACompletamento:completionTask={status:"", signature:""}
-
-  constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient){}
-
-
-  // signature:string="";
-
+  userRole:string="";
+  
+  ngOnInit(): void {
+    this.completed=this.task.status==='COMPLETATO' ? true : false;
+    this.userRole=this.authService.getUserRole()!;
+    // this.isChecked=this.completed;
+  }
+  
+  completed:boolean=false;
+  
   @Input() task!:Task;
-  userRole:string= this.authService.getUserRole()!;
   
   isChecked:boolean=false;
 
-  toggleCheckbox() {
-    this.isChecked = !this.isChecked;
-  }
+  // toggleCheckbox() {
+  //   this.isChecked = !this.isChecked;
+  // }
 
+  // switchStatus0():void {
+  //   if(this.isChecked = true)
+  //   {
+  //     this.taskACompletamento.status='COMPLETATO';
+  //     this.taskACompletamento.signature=this.userRole;
+  //     console.log(this.userRole);
+  //     console.log(this.taskACompletamento.signature);
+  //   }
+  //   else if(this.isChecked = false)
+  //   {
+  //     this.taskACompletamento.status='DAFARSI';
+  //     this.taskACompletamento.signature!="";
+  //     console.log(this.userRole);
+  //     console.log(this.taskACompletamento.signature);
+  //   }
+  // }
 
   switchStatus():void {
-    if(this.isChecked)
-    {
-      this.taskACompletamento.status='COMPLETATO';
-      this.taskACompletamento.signature=this.userRole;
-      console.log(this.userRole);
-      console.log(this.taskACompletamento.signature);
-    }
-    else
+    if(this.task.status==="COMPLETATO")
     {
       this.taskACompletamento.status='DAFARSI';
       this.taskACompletamento.signature!="";
     }
+    else
+    {
+      this.taskACompletamento.status='COMPLETATO';
+      this.taskACompletamento.signature!=this.userRole;
+    }
   }
-
 
 
 
   updateTaskSon() 
   {
-      this.toggleCheckbox();
       this.switchStatus();
+
+    // this.toggleCheckbox();
 
       this.taskService.update(this.task.id!, this.taskACompletamento)
       .subscribe({
         next: () => {
           // this.updateTask.emit();
-          this.taskACompletamento={status:"", signature:""};
+          // this.taskACompletamento={status:"", signature:""};
         },
         error: (badResponse) => 
         {
