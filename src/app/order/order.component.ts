@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Order } from '../model/Order';
 import { OrdersService } from '../services/orders.service';
 import { AuthService } from '../services/auth.service';
@@ -14,6 +14,8 @@ import { CommonModule } from '@angular/common';
 })
 export class OrderComponent implements OnInit {
   @Input() order!: Order; // Use non-null assertion since we expect it to be provided
+  @Output() newDeleteEvent:EventEmitter<Order> = new EventEmitter<Order>();
+
   previousPackagingQuantity: number = 0; // Initialize the previous quantity
   previousUnitQuantity: number = 0; // Initialize the previous unit quantity
 
@@ -108,16 +110,55 @@ export class OrderComponent implements OnInit {
 
   changeArrivedStatus() 
   {
-    console.log("Changing arrived status to:", this.order.hasArrived);
+    console.log("Changing arrived status from:", this.order.hasArrived);
     this.orderService.changeArrivedStatus(this.order.id, this.order.hasArrived).subscribe({
+
       next: data => {
         console.log("Arrived status updated successfully:", data);
+        this.order.hasArrived = data.arrivedStatus;
       },
       error: badResponse => {
         console.log("Error updating arrived status:", badResponse);
+
       }
     });
   }
+
+  deleteOrder()
+  {
+    this.orderService.delete(this.order.id).subscribe({
+
+      next: data => {
+        this.newDeleteEvent.emit(data.order)
+        console.log("Order deleted successfully:", data);
+        console.log(data.order);
+      },
+      error: badResponse => {
+        console.log("Error deleting order:", badResponse);
+
+      }
+    });
+
+
+  }
+
+
+  isModalOpen = false;
+
+  openDeleteModal() {
+    this.isModalOpen = true;
+  }
+
+  closeDeleteModal() {
+    this.isModalOpen = false;
+  }
+
+  confirmDelete() {
+    // Add your delete logic here
+    console.log('Item deleted!');
+    this.closeDeleteModal();
+  }
+
 
   /**
  * Checks if the given value is a positive integer.

@@ -62,8 +62,7 @@
     <tbody class="bg-white divide-y divide-gray-200">
         @for (order of orders; track $index) 
         {
-
-            <tr app-order [order]="order"></tr>
+            <tr (newDeleteEvent)="deleteOrder($event)" app-order [order]="order"></tr>
         }
 
         

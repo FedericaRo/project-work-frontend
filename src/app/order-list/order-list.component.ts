@@ -14,7 +14,7 @@ import { OrderComponent } from '../order/order.component';
 export class OrderListComponent 
 {
   constructor(private orderService:OrdersService){ }
-    
+  
   
   ngOnInit(): void 
   {
@@ -25,13 +25,23 @@ export class OrderListComponent
       this.orderService.getAll().subscribe(data => {
         this.ordersBackup = data;});
         
+      }
+      
+      showModal:boolean = false;
+      orders:Order[] = []; 
+      ordersBackup:Order[] = [];
+      
+  deleteOrder(order:Order) 
+  {
+    console.log("------------")
+    console.log(order)
+    let index = this.orders.findIndex((o: Order) => o.id === order.id);
+    if (index !== -1) 
+    {
+    this.orders.splice(index, 1);
+    }
   }
       
-  showModal:boolean = false;
-  orders:Order[] = []; 
-  ordersBackup:Order[] = [];
-  
-  
   toggleModal() 
   {
     this.showModal = !this.showModal;

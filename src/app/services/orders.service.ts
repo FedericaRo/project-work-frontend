@@ -15,10 +15,10 @@ export class OrdersService{
     return this.http.get<Order[]>("/api/orders");
   }
 
-  changeArrivedStatus(id:number, arrivedStatus:boolean):Observable<boolean>
+  changeArrivedStatus(id:number, arrivedStatus:boolean):Observable<any>
   {
     console.log(`SERVICE ${id} ${arrivedStatus}`)
-    return this.http.put<boolean>(`/api/orders/${id}/changeArrivedStatus`, {arrivedStatus});
+    return this.http.put<any>(`/api/orders/${id}/changeArrivedStatus`, {arrivedStatus});
   }
   
 
@@ -32,6 +32,11 @@ export class OrdersService{
   {
     console.log(`SERVICE ${id} ${unitOrderedQuantity}`)
     return this.http.put<number>(`/api/orders/${id}/editUnitQuantity`, {unitOrderedQuantity});
+  }
+
+  delete(id: number):Observable<any>
+  {
+    return this.http.delete<any>(`/api/orders/${id}`);
   }
 
 }
