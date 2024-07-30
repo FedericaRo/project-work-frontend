@@ -42,7 +42,6 @@ export class FormRegisterComponent {
     }, 
     // { validators: passwordMatchCheck('password','passwordConfirmation')}
     // ^(?=.[a-z])(?=.[A-Z])(?=.\d).{8,}$
-
   )
 
 }
