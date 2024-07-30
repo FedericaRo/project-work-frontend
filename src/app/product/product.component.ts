@@ -45,20 +45,30 @@ export class ProductComponent
 
   employeeEditProductUnitsToggle()
   {
-    this.isRestrictedEditModeActiveUnits = false;
+    this.isRestrictedEditModeActiveUnits = !this.isRestrictedEditModeActiveUnits ;
   }
-
-  employeeEditProductUnitsToggleDone()
-  {
-    this.isRestrictedEditModeActiveUnits = true;
-  }
+  
   employeeEditProductPackageToggle()
   {
-    this.isRestrictedEditModeActivePackage = false;
+    this.isRestrictedEditModeActivePackage = !this.isRestrictedEditModeActivePackage;
   }
+  
+  // employeeEditProductUnitsToggle()
+  // {
+  //   this.isRestrictedEditModeActiveUnits = false;
+  // }
+  // employeeEditProductUnitsToggleDone()
+  // {
+  //   this.isRestrictedEditModeActiveUnits = true;
+  // }
+  // employeeEditProductPackageToggle()
+  // {
+  //   this.isRestrictedEditModeActivePackage = false;
+  // }
 
-  employeeEditProductPackageToggleDone()
-  {
-    this.isRestrictedEditModeActivePackage = true;
-  }
+  // employeeEditProductPackageToggleDone()
+  // {
+  //   this.isRestrictedEditModeActivePackage = true;
+  // }
+
 }

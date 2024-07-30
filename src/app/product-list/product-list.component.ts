@@ -21,8 +21,13 @@ export class ProductListComponent implements OnInit
     // this.products = data;
   }
 
-  
+    categoryCounter:number = 0;
+    supplierCounter:number = 0;
+    codeCounter:number = 0;
+    quantityRemainingCounter:number = 0;
+
     products:Product[] = []; 
+
     productsBackup:Product[] = [];
     
     filterCriteria:string = '';
@@ -40,22 +45,94 @@ export class ProductListComponent implements OnInit
 
     sortByCategory():void
     {
-      this.products = this.products.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+      this.categoryCounter++;
+      let valore = this.categoryCounter % 3;
+      // this.products = this.products.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+
+      if (valore == 0)
+      {
+        this.products = this.productsBackup;
+        
+      }
+      if (valore == 1)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+      }
+      if (valore == 2)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => b.categoryName.localeCompare(a.categoryName));
+      }
+
+      
     }
 
     sortBySupplier():void
     {
-      this.products = this.products.sort((a, b) => a.supplierName.localeCompare(b.supplierName));
+
+      this.supplierCounter++;
+      let valore = this.supplierCounter % 3;
+      // this.products = this.products.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+
+      if (valore == 0)
+      {
+        this.products = this.productsBackup;
+        
+      }
+      if (valore == 1)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => a.supplierName.localeCompare(b.supplierName));
+      }
+      if (valore == 2)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => b.supplierName.localeCompare(a.supplierName));
+      }
+
+      // this.products = this.products.sort((a, b) => a.supplierName.localeCompare(b.supplierName));
     }
 
     sortByCode():void
     {
-      this.products = this.products.sort((a, b) => a.supplierCode.localeCompare(b.supplierCode));
+
+      this.codeCounter++;
+      let valore = this.codeCounter % 3;
+      // this.products = this.products.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+
+      if (valore == 0)
+      {
+        this.products = this.productsBackup;
+      }
+      if (valore == 1)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => a.supplierCode.localeCompare(b.supplierCode));
+      }
+      if (valore == 2)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => b.supplierCode.localeCompare(a.supplierCode));
+      }
+
+      // this.products = this.products.sort((a, b) => a.supplierCode.localeCompare(b.supplierCode));
     }
 
     sortQuantityRemaining():void
     {
-      this.products = this.products.sort((a, b) => (a.unitTypeQuantity+(a.unitsPerPackaging*a.packagingTypeQuantity))-(b.unitTypeQuantity+(b.unitsPerPackaging*b.packagingTypeQuantity)));
+      // this.products = this.products.sort((a, b) => (a.unitTypeQuantity+(a.unitsPerPackaging*a.packagingTypeQuantity))-(b.unitTypeQuantity+(b.unitsPerPackaging*b.packagingTypeQuantity)));
+
+      this.quantityRemainingCounter++;
+      let valore = this.quantityRemainingCounter % 3;
+      // this.products = this.products.sort((a, b) => a.categoryName.localeCompare(b.categoryName));
+
+      if (valore == 0)
+      {
+        this.products = this.productsBackup;
+      }
+      if (valore == 1)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => (a.unitTypeQuantity+(a.unitsPerPackaging*a.packagingTypeQuantity))-(b.unitTypeQuantity+(b.unitsPerPackaging*b.packagingTypeQuantity)));
+      }
+      if (valore == 2)
+      {
+        this.products = [...this.productsBackup].sort((a, b) => (b.unitTypeQuantity+(b.unitsPerPackaging*b.packagingTypeQuantity))-(a.unitTypeQuantity+(a.unitsPerPackaging*a.packagingTypeQuantity)));
+      }
     }
 
     

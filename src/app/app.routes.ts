@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { OrderListComponent } from './order-list/order-list.component';
 
 
 /**
@@ -51,6 +52,7 @@ export const routes: Routes = [
           */
           { path: 'homepage', component: HomepageComponent, canActivate: [LoggedGuardService] }, 
           { path: 'products', component: ProductListComponent, canActivate: [LoggedGuardService] },
+          { path: 'orders', component: OrderListComponent, canActivate: [LoggedGuardService] },
           // Altre rotte con barra laterale
         ]
       },
