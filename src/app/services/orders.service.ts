@@ -34,9 +34,9 @@ export class OrdersService{
     return this.http.put<number>(`/api/orders/${id}/editUnitQuantity`, {unitOrderedQuantity});
   }
 
-  delete(id: number):Observable<any>
+  delete(id: number):Observable<Order>
   {
-    return this.http.delete<any>(`/api/orders/${id}`);
+    return this.http.delete<Order>(`/api/orders/${id}`);
   }
 
 }

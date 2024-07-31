@@ -21,7 +21,7 @@
               <table class=" min-w-full rounded-xl">
                   <thead>
                       <tr class="bg-gray-50 " >
-                          <th scope="col" class="sortbtn rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCode()"> Identificativo {{ codeCounter % 3 == 0 ? "-" : codeCounter % 3 == 2 ? "↓" : "↑"}}</th>
+                          <th scope="col" class="sortbtn rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCode()"> Identificativo {{ codeCounter % 3 == 0 ? "" : codeCounter % 3 == 2 ? "↓" : "↑"}}</th>
                           <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortBySupplier()"> Fornitore {{ supplierCounter % 3 == 0 ? "-" : supplierCounter % 3 == 2 ? "↓" : "↑"}} </th>
                           <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCategory()"> Categoria {{ categoryCounter % 3 == 0 ? "-" : categoryCounter % 3 == 2 ? "↓" : "↑"}} </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" > Nome Prodotto </th>

@@ -88,13 +88,13 @@ export class OrderComponent implements OnInit {
     if 
       (
         this.order.unitOrderedQuantity !== this.previousUnitQuantity && 
-        this.isPositiveInteger(this.order.id)                                && 
+        this.isPositiveInteger(this.order.id)                        && 
         this.isPositiveInteger(this.order.unitOrderedQuantity)) 
       {
       console.log("Sending request to update unit quantity...");
       this.orderService.editUnitQuantity(this.order.id, this.order.unitOrderedQuantity).subscribe({
         next: data => {
-          console.log("Unit quantity updated successfully:", data);
+          console.log("Unit quantity updated successfully:");
           // Update the previous unit quantity after successful edit
           this.previousUnitQuantity = this.order.unitOrderedQuantity;
         },
@@ -114,8 +114,8 @@ export class OrderComponent implements OnInit {
     this.orderService.changeArrivedStatus(this.order.id, this.order.hasArrived).subscribe({
 
       next: data => {
-        console.log("Arrived status updated successfully:", data);
-        this.order.hasArrived = data.arrivedStatus;
+        console.log("Arrived status updated successfully");
+        this.order.hasArrived = !this.order.hasArrived;
       },
       error: badResponse => {
         console.log("Error updating arrived status:", badResponse);
@@ -129,9 +129,8 @@ export class OrderComponent implements OnInit {
     this.orderService.delete(this.order.id).subscribe({
 
       next: data => {
-        this.newDeleteEvent.emit(data.order)
+        this.newDeleteEvent.emit(data)
         console.log("Order deleted successfully:", data);
-        console.log(data.order);
       },
       error: badResponse => {
         console.log("Error deleting order:", badResponse);
