@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { CommunicationListComponent } from './communication-list/communication-list.component';
+import { OrderListComponent } from './order-list/order-list.component';
+import { StoredTaskListComponent } from './stored-task-list/stored-task-list.component';
+
 
 
 /**
@@ -52,7 +55,9 @@ export const routes: Routes = [
           */
           { path: 'homepage', component: HomepageComponent, canActivate: [LoggedGuardService] }, 
           { path: 'products', component: ProductListComponent, canActivate: [LoggedGuardService] },
-          { path: 'communications', component: CommunicationListComponent, canActivate: [LoggedGuardService] }
+          { path: 'communications', component: CommunicationListComponent, canActivate: [LoggedGuardService] },
+          { path: 'orders', component: OrderListComponent, canActivate: [LoggedGuardService] },
+          { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
           // Altre rotte con barra laterale
         ]
       },
