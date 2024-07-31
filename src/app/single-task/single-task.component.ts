@@ -79,8 +79,9 @@ export class SingleTaskComponent implements OnInit{
 
       this.taskService.update(this.task.id!, this.taskACompletamento)
       .subscribe({
-        next: () => {
-          this.taskUpdated.emit({ ...this.task, ...this.taskACompletamento });
+        next: (data) => {
+
+          this.taskUpdated.emit(data);
           console.log(this.userRole);
           // this.updateTask.emit();
           // this.taskACompletamento={status:"", signature:""};

@@ -33,7 +33,7 @@
     <td class="p-2 text-left whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
         
         <div 
-        [ngClass]="{'hidden2': isRestrictedEditModeActiveUnits}"
+        [ngClass]="{'hidden': isRestrictedEditModeActiveUnits}"
         class="flex items-center justify-end h-full">
             <div class="relative flex items-center justify-center w-16">
                 <input 
@@ -45,7 +45,7 @@
                 />
             </div>
             <button 
-            (click)="employeeEditProductUnitsToggleDone()"
+            (click)="employeeEditProductUnitsToggle()"
             class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
             [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}"
             >
@@ -69,7 +69,7 @@
         </div>
         
         <div 
-        [ngClass]="{'hidden2': !isRestrictedEditModeActiveUnits}"
+        [ngClass]="{'hidden': !isRestrictedEditModeActiveUnits}"
         class="flex items-center justify-end space-x-2">
             <span>{{product.unitTypeQuantity}}</span>
             <!-- pulsante di modifica per dipendenti  -->
@@ -106,7 +106,7 @@
                 />
             </div>
             <button 
-            (click)="employeeEditProductPackageToggleDone()"
+            (click)="employeeEditProductPackageToggle()"
             class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
             [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}"
             >
@@ -131,7 +131,7 @@
 
 
         <div 
-        [ngClass]="{'hidden2': !isRestrictedEditModeActivePackage}"
+        [ngClass]="{'hidden': !isRestrictedEditModeActivePackage}"
         class="flex items-center space-x-2 justify-end"
         >
         <span>{{product.packagingTypeQuantity}}</span>

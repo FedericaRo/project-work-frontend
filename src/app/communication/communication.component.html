@@ -1,0 +1,46 @@
+<!-- Card Component -->
+<div class="relative flex flex-col items-start p-6 overflow-hidden rounded-xl border-2 border-blue-500 dark:border-blue-700 dark:bg-black bg-white w-full h-full">
+    <!-- Background Overlay -->
+    <span class="absolute inset-0 w-full h-full bg-white dark:bg-black dark:group-hover:bg-gray-900 group-hover:bg-gray-50 group-hover:bg-opacity-30"></span>
+    
+    <!-- Card Content -->
+    <div class="relative w-full flex flex-col h-full justify-between">
+        <!-- Delete Button -->
+        <button (click)="onDelete()" class="absolute top-3 right-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+            <mat-icon style="font-size: 1.7rem;" class="material-icons-outlined">delete</mat-icon>
+        </button>
+        
+        <!-- Title -->
+        <div class="mt-6 mb-4 w-full pr-12">
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white truncate">
+                {{communication.communicationName}}
+            </h3>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-grow">
+            <!-- From and To Information -->
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                <strong>Da:</strong> {{communication.fromPerson}} <br>
+                <strong>Per:</strong> {{communication.toPerson}}
+            </p>
+            <!-- Description -->
+            <p class="mt-2 text-gray-600 dark:text-gray-400">
+                {{communication.description}}
+            </p>
+            <!-- Date -->
+            <p class="mt-2 text-gray-600 dark:text-gray-400">
+                <strong>Data:</strong> {{communication.creationDate}}
+            </p>
+            <!-- Type and Importance Badges -->
+            <p class="mt-2 text-gray-600 dark:text-gray-400">
+                <span [ngClass]="typeLable(communication.type)" class="badge rounded-pill badge-settimanale font-size-11 type">
+                    {{communication.type}}
+                </span>
+            </p>
+            <span [ngClass]="importanceLable(communication.importance)" class="badge rounded-pill badge-settimanale font-size-11 importance">
+                {{communication.importance}}
+            </span>
+        </div>
+    </div>
+</div>
