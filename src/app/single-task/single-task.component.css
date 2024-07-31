@@ -42,6 +42,72 @@ body{
      justify-content: center;
      width: 100%;
  }
+ .checkbox-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+}
+
+.custom-checkbox {
+    width: 24px;
+    height: 24px;
+}
+
+.ml-5 {
+    margin-left: 3rem; /* Spazio a sinistra rispetto alla checkbox */
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 colonne di larghezza uguale */
+    gap: 1rem; /* Spazio tra le colonne */
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Media queries per dispositivi più piccoli */
+@media (max-width: 1200px) {
+    .details-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 colonne su schermi più piccoli */
+    }
+}
+
+@media (max-width: 992px) {
+    .details-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 colonne su schermi più piccoli */
+    }
+}
+
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne su schermi più piccoli */
+    }
+}
+
+@media (max-width: 576px) {
+    .details-grid {
+        grid-template-columns: 1fr; /* 1 colonna su schermi molto piccoli */
+    }
+
+    .ml-5 {
+        margin-left: 1rem; /* Spazio a sinistra ridotto su schermi molto piccoli */
+    }
+
+    .custom-checkbox {
+        width: 20px;
+        height: 20px; /* Ridotto su schermi molto piccoli */
+    }
+}
+
+
+
+
  
  .bg-soft-primary {
      background-color: rgba(3,142,220,.15)!important;
