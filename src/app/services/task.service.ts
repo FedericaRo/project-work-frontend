@@ -20,10 +20,10 @@ export class TaskService {
     return this.http.get<Task[]>("/api/tasks");
   }
 
-  update(id:number, ct:completionTask):Observable<completionTask>
+  update(id:number, ct:completionTask):Observable<Task>
   {
     console.log(ct);
-    return this.http.put<completionTask>(`${this.apiUrl}/${id}`, ct);
+    return this.http.put<Task>(`${this.apiUrl}/${id}`, ct);
   }
 
   
