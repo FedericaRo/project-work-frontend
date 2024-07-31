@@ -1,0 +1,67 @@
+<div class="bg-white border rounded-lg px-8 py-6 mx-auto my-8 max-w-2xl">
+    <h2 class="text-2xl font-medium mb-4">Aggiungi una nuova comunicazione</h2>
+    <form>
+        <div class="mb-4">
+            <label for="titolo" class="block text-gray-700 font-medium mb-2">Titolo</label>
+            <input type="text" id="titolo" name="titolo"
+                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+        </div>
+        <div class="mb-4">
+            <label for="age" class="block text-gray-700 font-medium mb-2">Da</label>
+            <input type="text" 
+                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+        </div>
+        <div class="mb-4">
+            <label for="age" class="block text-gray-700 font-medium mb-2">Per</label>
+            <input type="text" 
+                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+        </div>
+        <div class="mb-4">
+            <label for="age" class="block text-gray-700 font-medium mb-2">Data</label>
+            <input type="date" 
+                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+        </div>
+        <div class="mb-4">
+            <label for="tipologia" class="block text-gray-700 font-medium mb-2">Tipologia</label>
+            <select id="tipologia" name="tipologia"
+                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" required>
+                <option value="">Seleziona tipologia</option>
+                <option value="organizzativa">ORGANIZZATIVA</option>
+                <option value="amministrativa">AMMINISTRATIVA</option>
+                <option value="informativa">INFORMATIVA</option>
+                <option value="cambio turno">CAMBIO TURNO</option>
+
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-medium mb-2">Scegli grado di importanza</label>
+            <div class="flex flex-wrap -mx-2">
+                <div class="px-2 w-1/3">
+                    <label for="color-red" class="block text-gray-700 font-medium mb-2">
+                        <input type="radio" id="color-red" name="color" value="red" class="mr-2">ALTA
+                    </label>
+                </div>
+                <div class="px-2 w-1/3">
+                    <label for="color-blue" class="block text-gray-700 font-medium mb-2">
+                        <input type="radio" id="color-blue" name="color" value="blue" class="mr-2">MEDIA
+                    </label>
+                </div>
+                <div class="px-2 w-1/3">
+                    <label for="color-green" class="block text-gray-700 font-medium mb-2">
+                        <input type="radio" id="color-green" name="color" value="green" class="mr-2">BASSA
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mb-4">
+            <label for="message" class="block text-gray-700 font-medium mb-2">Descrizione</label>
+            <textarea id="message" name="message"
+                class="border border-gray-400 p-2 w-full rounded-lg focus:outline-none focus:border-blue-400" rows="5"></textarea>
+        </div>
+        <div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Aggiungi</button>
+        </div>
+
+    </form>
+</div>
