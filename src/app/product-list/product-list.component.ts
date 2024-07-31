@@ -39,7 +39,7 @@ export class ProductListComponent implements OnInit
         console.log(this.products)})
 
         this.productService.getAll().subscribe(data => {
-          this.productsBackup = data;});
+        this.productsBackup = data;});
       
     }
 
