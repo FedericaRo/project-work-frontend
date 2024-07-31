@@ -1,0 +1,34 @@
+/* Imposta dimensioni fisse per la card */
+.group {
+    width: 300px; /* Larghezza fissa per tutte le card */
+    height: 1100px; /* Altezza fissa per tutte le card */
+    position: relative;
+}
+
+/* Assicurati che il contenuto all'interno non trabocchi */
+.relative {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Gestisci l'overflow del testo per evitare il taglio */
+.text-lg, .text-sm {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Impedisce il ritorno a capo per il testo lungo */
+}
+
+.description {
+    overflow: hidden;
+    text-overflow: ellipsis; /* Aggiunge i puntini di sospensione */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
