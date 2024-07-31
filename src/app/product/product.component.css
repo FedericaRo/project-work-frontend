@@ -1,0 +1,79 @@
+/* Assicurati che il contenitore abbia una posizione relativa */
+td {
+    position: relative;
+}
+
+/* Stile per il testo che appare al passaggio del mouse */
+.hover-text {
+    visibility: hidden; /* Inizialmente nascosto */
+    width: 16rem; /* Modifica la larghezza secondo necessità */
+    background-color: #8281e7;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 100%; /* Posiziona il testo sopra la cella */
+    left: 50%;
+    transform: translateX(-50%); /* Centro il testo orizzontalmente */
+    opacity: 0; /* Inizialmente trasparente */
+    transition: opacity 0.3s, visibility 0.3s; /* Transizione dolce */
+}
+
+/* Mostra il testo al passaggio del mouse */
+td:hover .hover-text {
+    visibility: visible; /* Mostra il testo */
+    opacity: 1; /* Rendi il testo completamente opaco */
+}
+
+.statusDotRed{
+    background-color: rgb(255, 56, 56);
+    height: 0.7rem;
+    width: 0.7rem;
+    display: flex;
+    border-radius: 50rem;
+    position: absolute;
+    transform: translateY(0.3rem);
+    /* transform: translateX(0.5rem); */
+}
+.statusDotYellow{
+    background-color: rgb(238, 210, 49);
+    height: 0.7rem;
+    width: 0.7rem;
+    display: flex;
+    border-radius: 50rem;
+    position: absolute;
+    transform: translateY(0.3rem);
+    /* transform: translateX(0.5rem); */
+}
+.statusDotGreen{
+    background-color: rgb(115, 230, 87);
+    height: 0.7rem;
+    width: 0.7rem;
+    display: flex;
+    border-radius: 50rem;
+    position: absolute;
+    transform: translateY(0.3rem);
+    /* transform: translateX(0.5rem); */
+}
+
+.hidden{
+    display: none !important;
+}
+
+.hidden2{
+    display: none !important;
+}
+
+.btnBg{
+    background-color: transparent;
+    /* border-radius: 50rem; */
+}
+
+.btnBg:hover{
+    background-color: rgb(226, 226, 226);
+    /* border-radius: 50rem; */
+}
+
+

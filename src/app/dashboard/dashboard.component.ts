@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,23 +11,60 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements AfterViewInit {
 
   constructor(public authService:AuthService){}
 
+  @ViewChild('userMenu0') userMenu0!: ElementRef;
+  @ViewChild('userMenu') userMenu!: ElementRef;
 
-  isSidebarOpen = true; // State variable to track sidebar visibility
+  /**
+   * *Serve per usare i nativeElements con i ViewChild e può essere usato tutto ciò solo
+   * *se la classe è implementata da AfterViewInit
+   * @Santo
+   */
+  ngAfterViewInit(): void {}
+
+  isSidebarOpen = true; 
 
   toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen; // Toggle the sidebar visibility
+    this.isSidebarOpen = !this.isSidebarOpen; 
     console.log(this.isSidebarOpen);
   }
 
 
-  isUserMenuOpen = true; // State variable to track sidebar visibility
+  isUserMenuOpen = false; 
 
   toggleUserMenu() {
-    this.isUserMenuOpen = !this.isUserMenuOpen; // Toggle the sidebar visibility
+
+    this.isUserMenuOpen = !this.isUserMenuOpen; 
     console.log(this.isUserMenuOpen);
+  }
+
+
+  // @HostListener('document:click', ['$event'])
+  // onDocumentClick(event: MouseEvent): void {
+  //   const clickedInside = this.userMenu.nativeElement.contains(event.target);
+
+  //   if (!clickedInside) {
+  //     this.removeUserMenuClass();
+  //   }
+  // }
+
+  // removeUserMenuClass(): void {
+  //   // Rimuove una classe specifica dall'elemento `#userMenu`
+  //   this.userMenu.nativeElement.classList.remove('hidden');
+  // }
+
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedInside = this.userMenu0.nativeElement.contains(event.target);
+
+    if (!clickedInside && this.isUserMenuOpen) {
+      // Solo chiudi se il menu è aperto e il clic è avvenuto all'esterno
+      this.isUserMenuOpen = false;
+      this.userMenu.nativeElement.classList.add('hidden');
+    }
   }
 }

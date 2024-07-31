@@ -8,7 +8,13 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { StoredTaskListComponent } from './stored-task-list/stored-task-list.component';
 
+
+/**
+ * *Codice di esempio per come si fanno le routes base normalmente senza childs
+ * @Santo
+ */
 // export const routes: Routes = [
     // {path:"",component:HomepageComponent},
         // { path: '', redirectTo: 'auth/login', pathMatch: 'full', },
@@ -17,13 +23,17 @@ import { ProductListComponent } from './product-list/product-list.component';
         // { path: 'homepage', component: HomepageComponent, canActivate: [LoggedGuardService] },
 
         // { path: 'dashboard', component: SidebarComponent, canActivate: [LoggedGuardService] },
-
-        
 // ];
+
+// 
 export const routes: Routes = [
   { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
 
+  /**
+   * *Codice extra non necessario, lasciato in caso di necessità e per reference
+   * @Santo
+   */
   // Rotte con barra laterale
   // {
   //   path: '',
@@ -35,18 +45,31 @@ export const routes: Routes = [
         component: DashboardComponent,
         canActivate: [LoggedGuardService],
         children: [
-          { path: 'homepage', component: HomepageComponent },
-          { path: 'products', component: ProductListComponent },
+         /**
+          *  *Ho aggiunto il loggedGuard anche sotto sennò l'app startava nella homepage, 
+          *  *per sicurezza meglio metterlo ovunque lo si voglia.
+          *  @Santo
+          */
+          { path: 'homepage', component: HomepageComponent, canActivate: [LoggedGuardService] }, 
+          { path: 'products', component: ProductListComponent, canActivate: [LoggedGuardService] },
+          { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
           // Altre rotte con barra laterale
         ]
       },
   //   ]
   // },
 
-  // Redirige qualsiasi altra rotta a login
+  /**
+   * *Redirige qualsiasi altra rotta a login 
+   * @Santo
+   */
   { path: '**', redirectTo: 'auth/login' }
 ];
 
+/**
+ * *codice extra che mi aveva buttato fuori chatgpt ma apparentemente inutile, l'ho lasciato per indagare
+ * @Santo
+ */
 // @NgModule({
 //   imports: [RouterModule.forRoot(routes)],
 //   exports: [RouterModule]
