@@ -6,8 +6,8 @@ export interface Communication
     fromPerson : string,
     toPerson : string,
     type : string,
+    creationDate: string,
     description : string,
-    creationDate : Date,
     importance : string
 
 }

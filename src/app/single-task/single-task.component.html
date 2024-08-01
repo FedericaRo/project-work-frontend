@@ -1,96 +1,88 @@
-
-
-
-
 <!-- Inizio della riga principale -->
 <div class="row">
     <!-- Colonna principale che occupa tutta la larghezza disponibile -->
     <div class="col-xl-12">
         <!-- Box per la lista delle attività -->
-        <div class="task-list-box  bg-white rounded-lg" id="landing-task">
+        <div class="task-list-box bg-white rounded-lg" id="landing-task">
             <!-- Elemento della task list -->
-            <div id="task-item-1">
+            <div id="task-item-1" class="task-item">
                 <!-- Card per l'attività -->
                 <div class="card task-box rounded-lg shadow-lg">
-                    <div class="card-body">
-                        <!-- Riga per il contenuto dell'attività -->
-                        <div class="flex justify-between items-start gap-6">
-                            <!-- Colonna sinistra: Contiene il checkbox e il nome -->
-                            <div class="flex items-center gap-4">
-                                <!-- Checkbox per segnare l'attività -->
+                    <div class="card-body position-relative">
+                        <div class="d-flex align-items-start">
+                            <!-- Checkbox per segnare l'attività -->
+                            <div class="checkbox-container">
                                 <input 
                                 [checked]="completed"
                                 type="checkbox" 
-                                class="form-check-input h-5 w-5" 
+                                class="form-check-input custom-checkbox" 
                                 id="customCheck1" 
                                 (click)="updateTaskSon()">
-                                
-                                <!-- Etichetta per il nome dell'attività -->
-                                <div>
-                                    <div class="text-slate-400 text-xs mb-1">Task</div>
-                                    <div class="text-lg font-semibold text-gray-800">{{task.name}}</div>
-                                </div>
                             </div>
-                            
-                            <!-- Colonna destra: Contiene le informazioni dettagliate -->
-                            <div class="flex flex-wrap items-start gap-11 ml-auto text-gray-600">
-                                <!-- Frequenza -->
-                                <div class="flex flex-col items-center">
-                                    <div class="text-slate-400 text-xs mb-1">Frequenza</div>
-                                    <span 
-                                    [ngClass]="{'badge-settimanale': task.frequency==='SETTIMANALE','badge-bisettimanale': task.frequency==='BISETTIMANALE','badge-mensile': task.frequency==='MENSILE'}"
-                                    class="badge rounded-full badge-settimanale text-xs py-1 px-3"
-                                    >{{task.frequency}}</span>
+
+                            <!-- Contenitore per titolo e dettagli -->
+                            <div class="flex-grow-1 ml-5">
+                                <!-- Sezione superiore con il titolo -->
+                                <div class="d-flex align-items-center mb-3">
+                                    <div>
+                                        <div class="text-slate-400 text-xs mb-1">Task</div>
+                                        <div class="text-lg font-semibold text-gray-800">{{task.name}}</div>
+                                    </div>
                                 </div>
 
-                                <!-- Stato -->
-                                <div class="flex flex-col items-center">
-                                    <div class="text-slate-400 text-xs mb-1">Status</div>
-                                    <span 
-                                    [ngClass]="{'badge-soft-pending': task.status==='DAFARSI', 'badge-soft-completed': task.status==='COMPLETATO', 'badge-soft-nevercompleted': task.status==='INCOMPIUTO'}"
-                                    class="badge rounded-full badge-soft-mid text-xs py-1 px-3"
-                                    >{{task.status}}</span>
-                                </div>
-                                
-                                <!-- Data di Creazione -->
-                                <div class="flex flex-col items-center">
-                                    <div class="text-slate-400 text-xs mb-1">Creazione</div>
-                                    <div class="text-sm font-medium">{{task.creationDate}}</div>
-                                </div>
-                                
-                                <!-- Data di Completamento -->
-                                <div class="flex flex-col items-center">
-                                    <div class="text-slate-400 text-xs mb-1">Completamento</div>
-                                    <div class="text-sm font-medium">{{task.completionDate==null ? "gg/mm/yyyy" : task.completionDate}}</div>
-                                </div>
-                                
-                                <!-- Firma -->
-                                <div class="flex flex-col items-center">
-                                    <div class="text-slate-400 text-xs mb-1">Firma</div>
-                                    <div class="text-sm font-medium">{{task.signature==null || task.signature=='' ? "nessuna" : task.signature}}</div>
+                                <!-- Sezione inferiore con dettagli -->
+                                <div class="details-grid">
+                                    <!-- Frequenza -->
+                                    <div class="detail-item">
+                                        <div class="text-slate-400 text-xs mb-1">Frequenza</div>
+                                        <span 
+                                        [ngClass]="{'badge-settimanale': task.frequency==='SETTIMANALE','badge-bisettimanale': task.frequency==='BISETTIMANALE','badge-mensile': task.frequency==='MENSILE'}"
+                                        class="badge rounded-full badge-settimanale text-xs py-1 px-3"
+                                        >{{task.frequency}}</span>
+                                    </div>
+
+                                    <!-- Stato -->
+                                    <div class="detail-item">
+                                        <div class="text-slate-400 text-xs mb-1">Status</div>
+                                        <span 
+                                        [ngClass]="{'badge-soft-pending': task.status==='DAFARSI', 'badge-soft-completed': task.status==='COMPLETATO', 'badge-soft-nevercompleted': task.status==='INCOMPIUTO'}"
+                                        class="badge rounded-full badge-soft-mid text-xs py-1 px-3"
+                                        >{{task.status}}</span>
+                                    </div>
+                                    
+                                    <!-- Data di Creazione -->
+                                    <div class="detail-item">
+                                        <div class="text-slate-400 text-xs mb-1">Creazione</div>
+                                        <div class="text-sm font-medium">{{task.creationDate}}</div>
+                                    </div>
+                                    
+                                    <!-- Data di Completamento -->
+                                    <div class="detail-item">
+                                        <div class="text-slate-400 text-xs mb-1">Completamento</div>
+                                        <div class="text-sm font-medium">{{task.completionDate == null ? "gg/mm/yyyy" : task.completionDate}}</div>
+                                    </div>
+                                    
+                                    <!-- Firma -->
+                                    <div class="detail-item">
+                                        <div class="text-slate-400 text-xs mb-1">Firma</div>
+                                        <div class="text-sm font-medium">{{task.signature == null || task.signature == '' ? "nessuna" : task.signature}}</div>
+                                    </div>
                                 </div>
                             </div>
-                            
-                            <!-- Azioni (opzionale) -->
-                            <div class="flex-shrink-0 ml-4 flex items-center gap-2">
-                                <a href="#" class="text-gray-600 hover:text-blue-500" data-bs-toggle="modal" data-bs-target=".bs-example-new-task">
-                                    <i class="mdi mdi-pencil-outline text-lg"></i>
-                                </a>
-                                <a href="#" class="text-gray-600 hover:text-red-500" onclick="deleteProjects('task-item-1')">
-                                    <i class="mdi mdi-trash-can-outline text-lg"></i>
-                                </a>
-                            </div>
-                        </div><!-- end flex container -->
+                        </div>
+
+                        <!-- Azioni (opzionale) -->
+                        <div class="d-flex justify-content-end mt-3">
+                            <a href="#" class="text-gray-600 hover:text-blue-500 mr-2" data-bs-toggle="modal" data-bs-target=".bs-example-new-task">
+                                <i class="mdi mdi-pencil-outline text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-red-500" onclick="deleteProjects('task-item-1')">
+                                <i class="mdi mdi-trash-can-outline text-lg"></i>
+                            </a>
+                        </div>
                     </div><!-- end card-body -->
                 </div><!-- end card -->
             </div><!-- end task-item -->
         </div><!-- end task-list-box -->
     </div><!-- end col -->
 </div><!-- end row -->
-            
-
-
-
-
-
-     
