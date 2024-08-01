@@ -54,6 +54,11 @@ body{
     height: 24px;
 }
 
+.custom-checkbox:checked{
+    background-color: #936ff7;
+    border-color: #6b50b4;;
+}
+
 .ml-5 {
     margin-left: 3rem; /* Spazio a sinistra rispetto alla checkbox */
 }
@@ -71,22 +76,22 @@ body{
 }
 
 
-/* Media queries per dispositivi più piccoli */
+/* Media queries per dispositivi pi첫 piccoli */
 @media (max-width: 1200px) {
     .details-grid {
-        grid-template-columns: repeat(4, 1fr); /* 4 colonne su schermi più piccoli */
+        grid-template-columns: repeat(4, 1fr); /* 4 colonne su schermi pi첫 piccoli */
     }
 }
 
 @media (max-width: 992px) {
     .details-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 colonne su schermi più piccoli */
+        grid-template-columns: repeat(3, 1fr); /* 3 colonne su schermi pi첫 piccoli */
     }
 }
 
 @media (max-width: 768px) {
     .details-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colonne su schermi più piccoli */
+        grid-template-columns: repeat(2, 1fr); /* 2 colonne su schermi pi첫 piccoli */
     }
 }
 

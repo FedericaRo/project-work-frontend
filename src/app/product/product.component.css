@@ -3,6 +3,7 @@ td {
     position: relative;
 }
 
+
 /* Stile per il testo che appare al passaggio del mouse */
 .hover-text {
     visibility: hidden; /* Inizialmente nascosto */
@@ -19,6 +20,8 @@ td {
     transform: translateX(-50%); /* Centro il testo orizzontalmente */
     opacity: 0; /* Inizialmente trasparente */
     transition: opacity 0.3s, visibility 0.3s; /* Transizione dolce */
+    pointer-events: none;
+    overflow: visible;
 }
 
 /* Mostra il testo al passaggio del mouse */
