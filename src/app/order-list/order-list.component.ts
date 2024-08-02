@@ -64,11 +64,22 @@ export class OrderListComponent
     }
   }
 
-  private matchesCriteria(order: Order, criteria: string): boolean 
-  {
-    return Object.values(order).some(value =>
+  private matchesCriteria(order: Order, criteria: string): boolean {
+    const orderDate = this.formatDateToDDMMYYYY(new Date(order.orderDate)); // convert orderDate to 'dd-MM-yyyy' format
+    const deliverDate = this.formatDateToDDMMYYYY(new Date(order.deliverDate)); // convert deliverDate to 'dd-MM-yyyy' format
+
+    const values = [orderDate, deliverDate, ...Object.values(order).filter(v => v != null)];
+    return values.some(value =>
       value.toString().toLowerCase().includes(criteria)
     );
+  }
+
+  private formatDateToDDMMYYYY(date: Date): string {
+    const day = date.getDate().toString().padStart(2, '0'); // Ensure 2-digit day
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensure 2-digit month (Month is 0-indexed)
+    const year = date.getFullYear();
+  
+    return `${day}-${month}-${year}`;
   }
       
   deleteOrder(order:Order) 

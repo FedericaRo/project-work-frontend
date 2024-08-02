@@ -1,5 +1,5 @@
 
-<button (click)="orderService.addOrder()">pls</button>
+<!-- <button (click)="orderService.addOrder()">pls</button> -->
 <td class="px-6 py-4 whitespace-nowrap">
         <div class="flex items-center">
         <div class="ml-4">
@@ -27,7 +27,7 @@
     {{order.productName}}
 </td>
 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-    {{order.orderDate }}
+    {{order.orderDate | date: 'dd-MM-yyyy'}}
 </td>
 
 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
