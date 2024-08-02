@@ -15,6 +15,25 @@ import { FormsModule } from '@angular/forms';
 export class OrderListComponent 
 {
   constructor(private orderService:OrdersService){ }
+
+
+  togglePopover() {
+    this.showPopover = !this.showPopover;
+  }
+
+  
+  showPopover = false;
+
+  confirmCancellation() {
+    // Add logic for confirming cancellation
+    console.log('Cancellation confirmed');
+    this.showPopover = false;
+  }
+
+  cancelPopover() {
+    // Add logic for canceling the popover
+    this.showPopover = false;
+  }
   
   filterCriteria:string = '';
 
