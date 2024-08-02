@@ -38,27 +38,18 @@ export class OrdersService{
     return this.http.delete<Order>(`/api/orders/${id}`);
   }
 
-  addOrder():void
+  addOrder(productId:number, data:any):Observable<Order>
   {
-    const productId = 1;
-    const data = {
-      "packagingOrderedQuantity": 10,
-      "unitOrderedQuantity": 5
-    };
+    // const productId = 1;
+    // const data = {
+    //   "packagingOrderedQuantity": 10,
+    //   "unitOrderedQuantity": 5
+    // };
 
     console.log("Sending data:", data);
 
-    this.http.post<any>(`api/orders/1/addOrder`, data)
-    .subscribe(
-      {
-
-      next: data => {
-        console.log(data);
-      },
-      error: badResponse => {
-        console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
-
-      }})
+    return this.http.post<Order>(`api/orders/${productId}/addOrder`, data);
+    
   }
 
 }
