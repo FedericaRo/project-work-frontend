@@ -1,0 +1,14 @@
+[data-popover] {
+    display: none; /* Hidden by default */
+}
+
+[data-popover].visible {
+    display: block; /* Show when active */
+    opacity: 1; /* Fully visible */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+[data-popover].invisible {
+    opacity: 0; /* Transparent when hiding */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}

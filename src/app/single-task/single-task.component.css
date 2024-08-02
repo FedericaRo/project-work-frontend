@@ -54,10 +54,13 @@ body{
     height: 24px;
 }
 
+
 .custom-checkbox:checked{
     background-color: #936ff7;
     border-color: #6b50b4;;
 }
+
+
 
 .ml-5 {
     margin-left: 3rem; /* Spazio a sinistra rispetto alla checkbox */
