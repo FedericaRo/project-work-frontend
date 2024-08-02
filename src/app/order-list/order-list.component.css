@@ -1,4 +1,4 @@
-/* confirmation-popover.component.css */
+/* confirmation-popover.component.css
 .popover {
     position: absolute;
     z-index: 1050;
@@ -17,8 +17,8 @@
   }
   
   .popover-top .popover-arrow {
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+    top: 1%;
+    right: 1%;
+    transform: translateX(-2%);
+  } */
   
