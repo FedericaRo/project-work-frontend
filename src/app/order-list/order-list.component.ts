@@ -37,6 +37,11 @@ export class OrderListComponent
   
   filterCriteria:string = '';
 
+  // sort(sortColumn:string)
+  // {
+  //   this.orders = [...this.ordersBackup].sort((a,b) => this.sortByColumn(a, b, orderingType))
+  // }
+
   
   ngOnInit(): void 
   {
@@ -81,6 +86,8 @@ export class OrderListComponent
   
     return `${day}-${month}-${year}`;
   }
+
+
       
   deleteOrder(order:Order) 
   {
