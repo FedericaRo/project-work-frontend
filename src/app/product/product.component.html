@@ -1,11 +1,13 @@
 
     <!-- codice del fornitore -->
     <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
+        <!-- <span class="hover-text" >livello minimo di riordino: <br>{{product.reorderPoint}} unità</span> -->
         <div 
+        matTooltip="Livello minimo di riordino:  {{product.reorderPoint}}"
         [ngClass]="{'statusDotRed': refillLevel()===1, 'statusDotYellow': refillLevel()===2, 'statusDotGreen': refillLevel()===3}"
         >
         </div>
-        {{product.supplierCode}}
+        {{product.code}}
     </td>
 
     <!-- nome del fornitore -->
@@ -149,9 +151,11 @@
     </td>
 
     <!-- tipologia delle confezioni -->
-    <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> 
-        {{product.packagingType}}
-        <span class="hover-text" >Ogni confezione di questo prodotto <br> contiene {{product.unitsPerPackaging}} unità</span>
+    <td 
+    class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900" 
+    matTooltip="Ogni confezione di questo prodotto contiene {{product.unitsPerPackaging}} unità"  matTooltipClass="custom-tooltip">
+    {{product.packagingType}}
+        <!-- <span class="hover-text" >Ogni confezione di questo prodotto <br> contiene {{product.unitsPerPackaging}} unità</span> -->
     </td>
 
     <!-- quantità totali rimanenti espresse in unità singole -->

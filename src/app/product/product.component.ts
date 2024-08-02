@@ -3,11 +3,12 @@ import { Product } from '../model/Product';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'tr[app-product]',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTooltipModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -34,13 +35,13 @@ export class ProductComponent
    */
   refillLevel():number
   {
-    if(this.stockQuantity()<200)
+    if(this.stockQuantity()<=this.product.reorderPoint) // Quando sarebbe meglio riordinare che son poche
       return 1;
 
-    if(this.stockQuantity()>200 && this.stockQuantity()<500)
+    if(this.stockQuantity()>this.product.reorderPoint && this.stockQuantity()<this.product.reorderPoint*2) // quando sono abbastanza ma non così tante
       return 2;
 
-    return 3
+    return 3 // quando si sta una favola
   }
 
   employeeEditProductUnitsToggle()
