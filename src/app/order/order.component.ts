@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { Order } from '../model/Order';
 import { OrdersService } from '../services/orders.service';
 import { AuthService } from '../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'tr[app-order]',
@@ -19,7 +20,7 @@ export class OrderComponent implements OnInit {
   previousPackagingQuantity: number = 0; // Initialize the previous quantity
   previousUnitQuantity: number = 0; // Initialize the previous unit quantity
 
-  constructor(private orderService: OrdersService, public authService: AuthService) { }
+  constructor(public orderService: OrdersService, public authService: AuthService) { }
 
   ngOnInit(): void { // Use OnInit lifecycle hook
     // Set previous quantities here after inputs are assigned
@@ -108,14 +109,18 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  changeArrivedStatus() 
+  updateOrderArrival() 
   {
-    console.log("Changing arrived status from:", this.order.hasArrived);
-    this.orderService.changeArrivedStatus(this.order.id, this.order.hasArrived).subscribe({
+    // console.log("Changing arrived status from:", this.order.arrived);
+    console.log("ORDER TO SEND", this.order);
+    this.orderService.updateOrderArrivalDetails(this.order.id, this.order).subscribe({
 
       next: data => {
-        console.log("Arrived status updated successfully");
-        this.order.hasArrived = !this.order.hasArrived;
+        // console.log("Arrived status updated successfully");
+        // console.log(this.order.arrived)
+        this.order = data;
+        console.log("Arrived DATA", this.order)
+        // this.order.arrived = !this.order.arrived;
       },
       error: badResponse => {
         console.log("Error updating arrived status:", badResponse);
@@ -126,6 +131,7 @@ export class OrderComponent implements OnInit {
 
   deleteOrder()
   {
+    this.isPopoverVisible = false;
     this.orderService.delete(this.order.id).subscribe({
 
       next: data => {
@@ -142,29 +148,34 @@ export class OrderComponent implements OnInit {
   }
 
 
-  isModalOpen = false;
+  
 
-  openDeleteModal() {
-    this.isModalOpen = true;
+  isPopoverVisible: boolean = false; // Property to manage popover visibility
+
+  // Toggle the visibility of the popover
+  togglePopover() {
+    this.isPopoverVisible = !this.isPopoverVisible;
   }
 
-  closeDeleteModal() {
-    this.isModalOpen = false;
-  }
+  // Close the popover when clicking outside
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    const buttonElement = event.target as HTMLElement;
+    const popoverElement = document.querySelector('.popoverConfirm'); // Make sure this matches the popover class
 
-  confirmDelete() {
-    // Add your delete logic here
-    console.log('Item deleted!');
-    this.closeDeleteModal();
+    // Check if the click target is outside the popover and the button
+    if (popoverElement && !popoverElement.contains(buttonElement) && !buttonElement.closest('button')) {
+      this.isPopoverVisible = false; // Close the popover
+    }
   }
-
 
   /**
  * Checks if the given value is a positive integer.
  * @param value - The value to check.
  * @returns `true` if the value is a positive integer, `false` otherwise.
  */
-  isPositiveInteger(value: number): boolean {
-  return Number.isInteger(value) && value > 0;
-}
+  isPositiveInteger(value: number): boolean 
+  {
+    return Number.isInteger(value) && value >= 0;
+  }
 }
