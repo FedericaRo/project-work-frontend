@@ -6,11 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { CommunicationFormComponent } from "../communication-form/communication-form.component";
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-communication-list',
   standalone: true,
-  imports: [CommunicationComponent, CommonModule, FormsModule, MatIconModule, CommunicationFormComponent],
+  imports: [CommunicationComponent, CommonModule, FormsModule, MatIconModule, CommunicationFormComponent, MatButtonModule, MatTooltipModule],
   templateUrl: './communication-list.component.html',
   styleUrl: './communication-list.component.css'
 })
@@ -52,10 +54,10 @@ export class CommunicationListComponent implements OnInit
     });
   }
 
-  // addNewCommunication() 
-  // {
-  //   throw new Error('Method not implemented.');
-  // }
+  addNewCommunication(communication:Communication) 
+  {
+    this.communications.push(communication);
+  }
 
   filterByEverything(): void 
   {

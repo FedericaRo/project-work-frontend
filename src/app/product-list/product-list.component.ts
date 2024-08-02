@@ -147,8 +147,8 @@ export class ProductListComponent implements OnInit
       
       for(let product of this.products)
         {
-          if(product.supplierCode.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-            this.products = this.products.filter(p => p.supplierCode.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          if(product.code.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+            this.products = this.products.filter(p => p.code.toLowerCase().includes(this.filterCriteria.toLowerCase()));
           else if(product.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
             this.products = this.products.filter(p => p.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
           else if(product.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
