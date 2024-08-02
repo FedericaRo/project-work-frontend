@@ -15,4 +15,5 @@ export interface Product
   supplierName: string;
   supplierCode: string;
   reorderPoint: number;
+  code:string;
 }
