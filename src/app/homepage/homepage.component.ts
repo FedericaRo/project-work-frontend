@@ -4,17 +4,25 @@ import { SingleTaskComponent } from "../single-task/single-task.component";
 import { AuthService } from '../services/auth.service';
 import { TaskService } from '../services/task.service';
 import { Task } from '../model/Task';
+import { CommunicationListComponent } from "../communication-list/communication-list.component";
+import { CommunicationComponent } from "../communication/communication.component";
+import { Communication } from '../model/Communication';
+import { CommunicationsService } from '../services/communications.service';
+import { FilteredCommunicationCardComponent } from "../filtered-communication-card/filtered-communication-card.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [DashboardComponent, SingleTaskComponent],
+  imports: [DashboardComponent, SingleTaskComponent, CommunicationListComponent, CommunicationComponent, FilteredCommunicationCardComponent, CommonModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent implements OnInit{
 
-  constructor(public authService:AuthService, private taskService:TaskService){}
+  constructor(public authService:AuthService, private taskService:TaskService, private communicationService:CommunicationsService){}
+
+  filteredCommunications: Communication[] = [];
 
   tasks:Task[] = [];
   
@@ -27,6 +35,19 @@ export class HomepageComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadTasks();
+    this.loadFilteredCommunications();
+  }
+
+  loadFilteredCommunications(): void
+  {
+    this.communicationService.getAll().subscribe(data => {
+      this.filteredCommunications=data.filter(
+        c => c.importance.toUpperCase()=== 'ALTA' ||
+        c.type.toUpperCase()=== 'CAMBIOTURNO'
+      )
+    }
+
+    )
   }
 
   loadTasks(): void {
