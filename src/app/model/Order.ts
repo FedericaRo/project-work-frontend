@@ -1,6 +1,6 @@
 export interface Order {
     id: number;
-    supplierCode: string;
+    productCode: string;
     supplierName: string;
     productName: string;
     orderDate: string; // In TypeScript, dates are typically represented as strings in ISO format

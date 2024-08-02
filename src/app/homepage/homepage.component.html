@@ -13,7 +13,7 @@
 
         <!-- Contenuto principale nella colonna sinistra -->
         <div class="flex-1 p-4">
-            @for (task of tasks; track $index)
+            @for (task of unitedTask; track $index)
             {
                 <app-single-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-single-task>
             }
