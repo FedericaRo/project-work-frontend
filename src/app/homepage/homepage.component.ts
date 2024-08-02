@@ -33,6 +33,13 @@ export class HomepageComponent implements OnInit{
   unitedTask:Task[] = []; //Task listate nell'effettivo
   backupTasks:Task[] = [];
 
+  statux:string='';
+  freq:string='';
+
+
+  counter:number = 0;
+  counter2:number = 0;
+
   ngOnInit(): void {
     this.loadTasks();
     // this.backupTasks = this.unitedTask;
@@ -155,11 +162,90 @@ export class HomepageComponent implements OnInit{
           // else if(task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()))
           //   this.unitedTask = this.unitedTask.filter(p => p.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
         }
+  }
+
+  sortByStatus():Task[]
+  {
+
+    this.counter++;
+    let valore = this.counter % 2;
+
+    const statusOrder: { [key: string]: number } = {
+      'COMPLETATO': 1,
+      'DAFARSI': 2,
+      // '': 3
+    };
+
+      if (valore == 0)
+      {
+        this.statux = 'Completate';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return statusOrder[a.status] - statusOrder[b.status];
+        });
+      }
+      if (valore == 1)
+      {
+        this.statux = 'Da farsi';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return statusOrder[b.status] - statusOrder[a.status];
+        });
+      }
+      // if (valore == 2)
+      // {
+      //   return this.unitedTask = this.backupTasks;
+      // }
+    'Non ordinate'
+    return this.unitedTask;
+  }
+
+
+  sortByFrequency():Task[]
+  {
+
+    this.counter2++;
+    let valore = this.counter2 % 3;
+
+    const frequencyOrder: { [key: string]: number } = {
+      'SETTIMANALE': 1,
+      'BISETTIMANALE': 2,
+      'MENSILE': 3
+    };
+
+      if (valore == 0)
+      {
+        this.freq = 'Settimanale';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
+        });
+      }
+      if (valore == 1)
+      {
+        this.freq = 'Mensile';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return frequencyOrder[b.frequency] - frequencyOrder[a.frequency];
+        });
+      }
+      if (valore == 2)
+      {
+
+        frequencyOrder['BISETTIMANALE'] = 1;
+        frequencyOrder['SETTIMANALE'] = 2;
+        frequencyOrder['MENSILE'] = 3;
+
+        this.freq = 'Bisettimanale';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
+        });
+      }
       
+    'Non ordinate'
+    return this.unitedTask;
+  }
+
   }
 
   // updateTaskFather() 
   // {
   //   this.taskService.update();
   // }
-}
+

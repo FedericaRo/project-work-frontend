@@ -36,26 +36,29 @@
                 </div>
             
                 <!-- Bottone -->
+                <!-- <h1>Ordina per...</h1> -->
                 <div>
-                    <button type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                       <div class="block">Frequenza</div>
+                    <button (click)="sortByFrequency()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                       <div class="block">Frequenza:</div>
+                       <div class="block">{{freq}}</div>
                         <div  class="block">
-                            <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="fontIconName"></mat-icon>
+                            <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="fontIconName"></mat-icon> -->
                         </div>
                     </button>
                 </div>
                 <div class="ml-3">
-                    <button type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                       <div class="block">Status</div>
+                    <button (click)="sortByStatus()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                       <div class="block">Status:</div>
+                       <div class="block">{{statux}}</div>
                         <div  class="block">
-                            <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="fontIconName"></mat-icon>
+                            <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="fontIconName"></mat-icon> -->
                         </div>
                     </button>
                 </div>
                 
             </div>
             
-            @for (task of unitedTask; track $index)
+            @for (task of unitedTask; track task.id)
             {
                 <app-single-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-single-task>
             }
