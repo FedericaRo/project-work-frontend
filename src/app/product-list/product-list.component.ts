@@ -53,6 +53,12 @@ export class ProductListComponent implements OnInit
       this.isDialOpen = !this.isDialOpen;
     }
 
+    toggleDialDaFiglio(value:boolean):void
+    {
+      this.openCreateProductStepper = value;
+      console.log(value);
+    }
+
     toggleStepperCreate():void
     {
       this.openCreateProductStepper = !this.openCreateProductStepper;

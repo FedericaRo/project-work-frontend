@@ -135,14 +135,14 @@
         <app-new-product-stepper
         class="fixed inset-0 flex items-center justify-center z-50 p-6"
         style="background-color: rgba(0, 0, 0, 0.5);"
+        (toggleForm)="toggleDialDaFiglio($event)"
         [ngClass]="{'hidden': !openCreateProductStepper}"
         >
         <!-- Contenuto del tuo stepper qui -->
-        <div class="relative">
-           <div class="absolute bottom-40">
-               <mat-icon aria-label="Example home icon" fontIcon="close" class=" flex z-60 p-6">close</mat-icon>
-           </div>
-        </div>
         </app-new-product-stepper>
-
     </div>
+<!-- <div class="fixed z-50">
+    <div>
+        <mat-icon aria-label="Example home icon" fontIcon="close" class=" flex z-50 p-6  w-96">close</mat-icon>
+    </div>
+</div> -->
