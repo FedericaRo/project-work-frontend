@@ -18,7 +18,6 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class HomepageComponent implements OnInit{
 
-
   constructor(public authService:AuthService, private taskService:TaskService){}
 
   filterCriteria:string = '';
