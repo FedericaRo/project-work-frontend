@@ -4,11 +4,14 @@ import { Product } from '../model/Product';
 import { ProductComponent } from "../product/product.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NewProductStepperComponent } from "../new-product-stepper/new-product-stepper.component";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [ProductComponent, CommonModule, FormsModule],
+  imports: [ProductComponent, CommonModule, FormsModule, MatTooltipModule, NewProductStepperComponent, MatIconModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -20,7 +23,8 @@ export class ProductListComponent implements OnInit
     // this.productService.getAll().subscribe(data => {
     // this.products = data;
   }
-
+    openCreateProductStepper:boolean = false;
+    isDialOpen:boolean = false;
     categoryCounter:number = 0;
     supplierCounter:number = 0;
     codeCounter:number = 0;
@@ -42,6 +46,16 @@ export class ProductListComponent implements OnInit
 
         this.productsBackup = data;});
       
+    }
+
+    toggleDial():void
+    {
+      this.isDialOpen = !this.isDialOpen;
+    }
+
+    toggleStepperCreate():void
+    {
+      this.openCreateProductStepper = !this.openCreateProductStepper;
     }
 
     sortByCategory():void
