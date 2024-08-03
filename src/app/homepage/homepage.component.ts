@@ -4,11 +4,15 @@ import { SingleTaskComponent } from "../single-task/single-task.component";
 import { AuthService } from '../services/auth.service';
 import { TaskService } from '../services/task.service';
 import { Task } from '../model/Task';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [DashboardComponent, SingleTaskComponent],
+  imports: [DashboardComponent, SingleTaskComponent, CommonModule, FormsModule, MatIconModule, MatButtonModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
@@ -16,17 +20,28 @@ export class HomepageComponent implements OnInit{
 
   constructor(public authService:AuthService, private taskService:TaskService){}
 
+  filterCriteria:string = '';
+  fontIconName:string= 'arrow_drop_up';
+
   tasks:Task[] = [];
   
   weeklyTask:Task[] = [];
   biWeeklyTask:Task[] = [];
   monthlyTask: Task[] = []; // Modifica il tipo se necessario
   
-  unitedTask:Task[] = [];
-  
+  unitedTask:Task[] = []; //Task listate nell'effettivo
+  backupTasks:Task[] = [];
+
+  statux:string='';
+  freq:string='';
+
+
+  counter:number = 0;
+  counter2:number = 0;
 
   ngOnInit(): void {
     this.loadTasks();
+    // this.backupTasks = this.unitedTask;
   }
 
   loadTasks(): void {
@@ -45,6 +60,9 @@ export class HomepageComponent implements OnInit{
     // Unisce gli array solo dopo che tutti i dati sono stati caricati
     this.unitedTask = this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask);
     console.log('United Task:', this.unitedTask); // Debug
+
+    this.backupTasks =this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask);
+    console.log('United Task:', this.unitedTask);
   }
 
   onTaskUpdated(updatedTask: any): void {
@@ -52,6 +70,11 @@ export class HomepageComponent implements OnInit{
     const index = this.unitedTask.findIndex(task => task.id === updatedTask.id);
     if (index > -1) {
       this.unitedTask[index] = updatedTask;
+    }
+
+    const index2 = this.backupTasks.findIndex(task => task.id === updatedTask.id);
+    if (index > -1) {
+      this.backupTasks[index2] = updatedTask;
     }
   }
 
@@ -121,8 +144,107 @@ export class HomepageComponent implements OnInit{
     });
   }
 
+
+  filterTaskByProperties():void
+  {
+    
+      this.unitedTask = this.backupTasks;
+      
+      for(let task of this.unitedTask)
+        {
+          if(task.name.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+            this.unitedTask = this.unitedTask.filter(p => p.name.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          // else if(task.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+          //   this.unitedTask = this.unitedTask.filter(p => p.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          // else if(task.status.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+          //   this.unitedTask = this.unitedTask.filter(p => p.status.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+          // else if(task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+          //   this.unitedTask = this.unitedTask.filter(p => p.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+        }
+  }
+
+  sortByStatus():Task[]
+  {
+
+    this.counter++;
+    let valore = this.counter % 2;
+
+    const statusOrder: { [key: string]: number } = {
+      'COMPLETATO': 1,
+      'DAFARSI': 2,
+      // '': 3
+    };
+
+      if (valore == 0)
+      {
+        this.statux = 'Completate';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return statusOrder[a.status] - statusOrder[b.status];
+        });
+      }
+      if (valore == 1)
+      {
+        this.statux = 'Da farsi';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return statusOrder[b.status] - statusOrder[a.status];
+        });
+      }
+      // if (valore == 2)
+      // {
+      //   return this.unitedTask = this.backupTasks;
+      // }
+    'Non ordinate'
+    return this.unitedTask;
+  }
+
+
+  sortByFrequency():Task[]
+  {
+
+    this.counter2++;
+    let valore = this.counter2 % 3;
+
+    const frequencyOrder: { [key: string]: number } = {
+      'SETTIMANALE': 1,
+      'BISETTIMANALE': 2,
+      'MENSILE': 3
+    };
+
+      if (valore == 0)
+      {
+        this.freq = 'Settimanale';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
+        });
+      }
+      if (valore == 1)
+      {
+        this.freq = 'Mensile';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return frequencyOrder[b.frequency] - frequencyOrder[a.frequency];
+        });
+      }
+      if (valore == 2)
+      {
+
+        frequencyOrder['BISETTIMANALE'] = 1;
+        frequencyOrder['SETTIMANALE'] = 2;
+        frequencyOrder['MENSILE'] = 3;
+
+        this.freq = 'Bisettimanale';
+        return this.unitedTask = [...this.backupTasks].sort((a, b) => {
+          return frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
+        });
+      }
+      
+    'Non ordinate'
+    return this.unitedTask;
+  }
+
+  }
+
   // updateTaskFather() 
   // {
   //   this.taskService.update();
   // }
-}
+

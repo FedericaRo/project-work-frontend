@@ -16,6 +16,10 @@ export class OrderListComponent
 {
   constructor(private orderService:OrdersService){ }
 
+  sortColumn: string = 'id'; // Default sorting column
+  orderingType: 'asc' | 'desc' | 'default' = 'default'; // Default sorting order
+
+
 
   togglePopover() {
     this.showPopover = !this.showPopover;
@@ -37,10 +41,53 @@ export class OrderListComponent
   
   filterCriteria:string = '';
 
-  // sort(sortColumn:string)
-  // {
-  //   this.orders = [...this.ordersBackup].sort((a,b) => this.sortByColumn(a, b, orderingType))
-  // }
+  sort(column: string) 
+  {
+    // Verifica se la colonna attualmente ordinata è la stessa della colonna cliccata
+    if (this.sortColumn === column) {
+      // Toggle dell'ordine di ordinamento tra 'asc', 'desc' e 'default'
+      if (this.orderingType === 'default') {
+        this.orderingType = 'asc'; 
+      } else if (this.orderingType === 'asc') {
+        this.orderingType = 'desc'; 
+      } else {
+        this.orderingType = 'default'; 
+      }
+    } else {
+      // Se la colonna selezionata è diversa, imposta la nuova colonna e ordina ascendente
+      this.sortColumn = column; 
+      this.orderingType = 'asc'; 
+    }
+    this.sortData(); // Chiama il metodo per ordinare i dati
+  }
+
+  private sortData() 
+  {
+    if (this.orderingType === 'default') {
+      this.orders = [...this.ordersBackup];
+    } else {
+      this.orders = [...this.ordersBackup].sort((a, b) =>
+        this.sortByColumn(a, b, this.sortColumn, this.orderingType)
+      );
+    }
+  }
+
+  private sortByColumn(a: Order, b: Order, sortColumn: string, orderingType: 'asc' | 'desc' | 'default'): number 
+  {  
+    // Prende i valori della proprietà dell'oggetto order
+    const valueA = a[sortColumn as keyof Order];
+    const valueB = b[sortColumn as keyof Order];
+
+    // Confronta stringhe usando localeCompare per ordine ascendente o discendente
+    if (typeof valueA === 'string' && typeof valueB === 'string') 
+      return orderingType === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+    // Confronta numeri per ordine ascendente o discendente
+    else if (typeof valueA === 'number' && typeof valueB === 'number')
+      return orderingType === 'asc' ? valueA - valueB : valueB - valueA;
+    else 
+      throw new Error('Unsupported data type for sorting');
+    
+  }
 
   
   ngOnInit(): void 

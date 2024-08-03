@@ -53,13 +53,13 @@
                                     <!-- Data di Creazione -->
                                     <div class="detail-item">
                                         <div class="text-slate-400 text-xs mb-1">Creazione</div>
-                                        <div class="text-sm font-medium">{{task.creationDate}}</div>
+                                        <div class="text-sm font-medium">{{task.creationDate  | date: 'dd/MM/yyyy'}}</div>
                                     </div>
                                     
                                     <!-- Data di Completamento -->
                                     <div class="detail-item">
                                         <div class="text-slate-400 text-xs mb-1">Completamento</div>
-                                        <div class="text-sm font-medium">{{task.completionDate == null ? "gg/mm/yyyy" : task.completionDate}}</div>
+                                        <div class="text-sm font-medium">{{task.completionDate == null ? "gg/mm/yyyy" : task.completionDate | date: 'dd/MM/yyyy'}}</div>
                                     </div>
                                     
                                     <!-- Firma -->

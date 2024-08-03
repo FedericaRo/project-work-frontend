@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Task } from '../model/Task';
 import { AuthService } from '../services/auth.service';
 import { completionTask } from '../model/completionTask';
@@ -15,7 +15,7 @@ import { LoadingService } from '../services/loading.service';
   templateUrl: './single-task.component.html',
   styleUrl: './single-task.component.css'
 })
-export class SingleTaskComponent implements OnInit{
+export class SingleTaskComponent implements OnInit, OnChanges{
 
   
   constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient, private loadingService: LoadingService,){}
@@ -27,6 +27,10 @@ export class SingleTaskComponent implements OnInit{
     this.completed=this.task.status==='COMPLETATO' ? true : false;
     // this.userRole=this.authService.getUserRole()!;
     // this.isChecked=this.completed;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      
   }
   
   completed:boolean=false;
@@ -95,7 +99,7 @@ export class SingleTaskComponent implements OnInit{
         complete: () => {
           setTimeout(() => {
             this.loadingService.hide();
-          }, 2000);
+          }, 100);
         }
     });
   }
