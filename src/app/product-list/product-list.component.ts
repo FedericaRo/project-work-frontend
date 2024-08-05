@@ -97,7 +97,6 @@ export class ProductListComponent implements OnInit
       if (valore == 0)
       {
         this.products = this.productsBackup;
-        
       }
       if (valore == 1)
       {
@@ -111,6 +110,11 @@ export class ProductListComponent implements OnInit
       // this.products = this.products.sort((a, b) => a.supplierName.localeCompare(b.supplierName));
     }
 
+
+    /**
+     * *Questo metodo è diventato inutile dato che sortare per un eloemento univoco non ha senso
+     * *Lo lascio comunque per ricordo :)
+     */
     sortByCode():void
     {
 
@@ -124,11 +128,11 @@ export class ProductListComponent implements OnInit
       }
       if (valore == 1)
       {
-        this.products = [...this.productsBackup].sort((a, b) => a.supplierCode.localeCompare(b.supplierCode));
+        this.products = [...this.productsBackup].sort((a, b) => a.code.localeCompare(b.code));
       }
       if (valore == 2)
       {
-        this.products = [...this.productsBackup].sort((a, b) => b.supplierCode.localeCompare(a.supplierCode));
+        this.products = [...this.productsBackup].sort((a, b) => b.code.localeCompare(a.code));
       }
 
       // this.products = this.products.sort((a, b) => a.supplierCode.localeCompare(b.supplierCode));
@@ -177,8 +181,35 @@ export class ProductListComponent implements OnInit
             this.products = this.products.filter(p => p.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
         }
       }
+
+      flashId:number | null = null;
       
-      
+      saveNewProduct(product:Product)
+      {
+        this.productService.newProduct(product)
+        .subscribe
+        (
+          {
+            next: data =>
+            {
+              console.log(data);
+              this.products.unshift(data);
+              this.flashId = data.id;
+              this.toggleStepperCreate();
+
+              setTimeout(() => {
+                this.flashId = null;
+              }, 500);
+
+            },
+            error: badResponse=>
+            {
+              console.error("Errore nell'aggiunta di un nuovo prodotto", badResponse)
+            },
+          }
+        )
+      }
+
     }
     /**
      * ?prima versione del filtro solo per categoria
