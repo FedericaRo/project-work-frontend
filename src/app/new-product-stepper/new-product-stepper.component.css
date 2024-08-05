@@ -1,0 +1,25 @@
+.mat-stepper-vertical {
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 1rem;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 19%; 
+    right: 31%; 
+    color: rgb(255, 255, 255);
+    background: rgb(34, 66, 204)
+  }
+
+  .close-button mat-icon {
+    font-size: 1.5rem;
+  }
+
+  .close-button:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(83, 83, 83, 0.5);
+  }

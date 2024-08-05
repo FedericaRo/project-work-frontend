@@ -8,8 +8,53 @@
         <!-- Riga superiore nella colonna sinistra -->
 
         <!-- Contenuto principale nella colonna sinistra -->
-        <div class="flex-1 p-4">   
-            @for (task of unitedTask; track $index)
+        
+        <div class="flex-1 p-4">
+            <div class="relative text-gray-500 focus-within:text-gray-900 mb-4 flex items-center">
+                <!-- Barra di ricerca -->
+                <div class="flex-1">
+                    <input 
+                        [(ngModel)]="filterCriteria" 
+                        type="text" id="default-search" 
+                        class="flex w-1/2 h-11 pr-5 pl-12 py-2.5 text-base font-normal items-center shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" 
+                        placeholder="cerca per titolo della task"
+                        (input)="filterTaskByProperties()"
+                    >
+                </div>
+            
+                <!-- Icona della lente di ingrandimento -->
+                <div class="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" />
+                        <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
+                        <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
+                    </svg>
+                </div>
+            
+                <!-- Bottone -->
+                <!-- <h1>Ordina per...</h1> -->
+                <div>
+                    <button (click)="sortByFrequency()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                       <div class="block">Frequenza:</div>
+                       <div class="block">{{freq}}</div>
+                        <div  class="block">
+                            <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="fontIconName"></mat-icon> -->
+                        </div>
+                    </button>
+                </div>
+                <div class="ml-3">
+                    <button (click)="sortByStatus()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                       <div class="block">Status:</div>
+                       <div class="block">{{statux}}</div>
+                        <div  class="block">
+                            <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" [fontIcon]="fontIconName"></mat-icon> -->
+                        </div>
+                    </button>
+                </div>
+                
+            </div>
+            
+            @for (task of unitedTask; track task.id)
             {
                 <app-single-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-single-task>
             }
@@ -25,4 +70,6 @@
             </app-filtered-communication-card>
         </div>
 </div>
+
+
     
