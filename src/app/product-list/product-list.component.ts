@@ -60,19 +60,19 @@ export class ProductListComponent implements OnInit
     toggleDialDaFiglio(value:boolean):void
     {
       this.openCreateProductStepper = value;
-      console.log(value);
+      // console.log(value);
     }
 
     toggleCategoryDialDaFiglio(value:boolean):void
     {
       this.openCreateCategory = value;
-      console.log(value);
+      // console.log(value);
     }
 
     toggleSupplierDialDaFiglio(value:boolean):void
     {
       this.openCreateSupplier = value;
-      console.log(value);
+      // console.log(value);
     }
 
     toggleStepperCreate():void

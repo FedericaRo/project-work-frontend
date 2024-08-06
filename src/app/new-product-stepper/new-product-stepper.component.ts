@@ -76,6 +76,7 @@ export class NewProductStepperComponent implements OnInit{
     this.createProductForm.reset();
   }
 
+ 
 
 
   // firstFormGroup = this._formBuilder.group({

@@ -9,11 +9,11 @@
         <input
           placeholder="Inserire il nome della categoria"
           type="text"
-          id="categoryName"
-          formControlName="categoryName"
+          id="name"
+          formControlName="name"
           matInput
         />
-        <mat-error *ngIf="categoryForm.get('categoryName')?.invalid && categoryForm.get('categoryName')?.touched">
+        <mat-error *ngIf="categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched">
           Il nome della categoria è obbligatorio
         </mat-error>
       </mat-form-field>
