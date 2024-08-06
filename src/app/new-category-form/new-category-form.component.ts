@@ -1,0 +1,61 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+
+@Component({
+  selector: 'app-new-category-form',
+  standalone: true,
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIcon, FormsModule, MatError],
+  templateUrl: './new-category-form.component.html',
+  styleUrl: './new-category-form.component.css'
+})
+export class NewCategoryFormComponent {
+  
+  @Output() toggleForm = new EventEmitter<boolean>();
+  
+  formState:boolean = false;
+
+  categoryForm:FormGroup = new FormGroup
+  ({
+    categoryName: new FormControl('', Validators.required),
+  });
+  
+  
+  toggleFormNewCategory():void
+  {
+    this.categoryForm.reset();
+
+    // this.categoryForm.markAsUntouched();
+    // this.categoryForm.markAsPristine();
+    this.toggleForm.emit(this.formState);
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: MouseEvent) {
+    const clickedElement = event.target as HTMLElement;
+    const modalElement = document.querySelector('.category-form'); // Make sure this matches the popover class
+
+    // Check if the click target is outside the popover and the button
+    if (modalElement && !modalElement.contains(clickedElement) && !clickedElement.closest('button')) {
+      this.toggleForm.emit(false);
+      this.categoryForm.reset();
+    }
+  }
+
+  
+
+
+  
+  createNewCategory() 
+  {
+    this.toggleForm.emit(false);
+    this.categoryForm.reset();
+    // this.categoryForm.markAsUntouched();
+    // this.categoryForm.markAsPristine();
+    console.log("here");
+    throw new Error('Method not implemented.');
+  }
+}
