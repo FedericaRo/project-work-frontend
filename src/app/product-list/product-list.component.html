@@ -99,7 +99,7 @@
               <table class=" min-w-full rounded-xl">
                   <thead>
                       <tr class="bg-gray-50 " >
-                          <th scope="col" class="sortbtn rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCode()"> Identificativo {{ codeCounter % 3 == 0 ? "" : codeCounter % 3 == 2 ? "↓" : "↑"}}</th>
+                          <th scope="col" class="rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Identificativo {{ codeCounter % 3 == 0 ? "" : codeCounter % 3 == 2 ? "↓" : "↑"}}</th>
                           <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortBySupplier()"> Fornitore {{ supplierCounter % 3 == 0 ? "-" : supplierCounter % 3 == 2 ? "↓" : "↑"}} </th>
                           <th scope="col" class="sortbtn  p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCategory()"> Categoria {{ categoryCounter % 3 == 0 ? "-" : categoryCounter % 3 == 2 ? "↓" : "↑"}} </th>
                           <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" > Nome Prodotto </th>
@@ -118,11 +118,10 @@
                             <tr 
                             app-product 
                             class="bg-white transition-all duration-500 hover:bg-gray-50" 
-                            [ngClass]="{'bg-white': $index % 2 === 0, 'bg-violet-50': $index % 2 !== 0}" 
+                            [ngClass]="{'bg-white': $index % 2 === 0, 'bg-violet-50': $index % 2 !== 0, 'flash': flashId === product.id}" 
                             [product]="product">
                             </tr>
                        }
-                    
                   </tbody>
               </table>
           </div>
@@ -133,19 +132,16 @@
 
     <div style="background-color: rgba(0, 255, 0, 0.5);">
         <app-new-product-stepper
-            class="fixed inset-0 flex items-center justify-center z-50 p-6"
-            style="background-color: rgba(0, 0, 0, 0.5);"
-            [ngClass]="{'hidden': !openCreateProductStepper}"
+        class="fixed inset-0 flex items-center justify-center z-50 p-6"
+        style="background-color: rgba(0, 0, 0, 0.5);"
+        (toggleForm)="toggleDialDaFiglio($event)"
+        (createProduct)="saveNewProduct($event)"
+        [ngClass]="{'hidden': !openCreateProductStepper}"
         >
-            <!-- Contenuto del tuo stepper qui -->
-            <div class="relative w-full h-full" style="background-color: rgba(255, 0, 0, 0.5);">
-                <!-- Icona di test -->
-                <div 
-                    class="absolute top-0 right-0 m-4 z-[1000] text-5xl cursor-pointer"
-                    style="background-color: blue; color: white; padding: 10px;"
-                >
-                    X
-                </div>
-            </div>
         </app-new-product-stepper>
     </div>
+<!-- <div class="fixed z-50">
+    <div>
+        <mat-icon aria-label="Example home icon" fontIcon="close" class=" flex z-50 p-6  w-96">close</mat-icon>
+    </div>
+</div> -->
