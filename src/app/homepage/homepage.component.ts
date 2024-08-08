@@ -271,3 +271,4 @@ export class HomepageComponent implements OnInit{
   //   this.taskService.update();
   // }
 
+  // si devono vedere le task degli ultimi due mesi senza le task che stanno nella homepage, quando scadono vanno in quella
