@@ -1,0 +1,43 @@
+  .mat-stepper-vertical {
+    margin-top: 0.5rem;
+    border-radius: 1rem;
+    height: 90vh;
+    overflow: auto; /* Abilita lo scroll */
+    box-sizing: border-box; /* Include padding e bordo nella dimensione totale */
+    position: relative; /* Per gestire posizionamento della scrollbar */
+  }
+
+  /* Per WebKit-based browsers */
+  .mat-stepper-vertical::-webkit-scrollbar {
+    width: 0.75rem; /* Larghezza della scrollbar verticale */
+  }
+
+  .mat-stepper-vertical::-webkit-scrollbar-thumb {
+    background-color: rgb(56, 58, 212); /* Colore del "pollice" della scrollbar */
+    border-radius: 1rem; /* Angoli arrotondati */
+  }
+
+  .mat-stepper-vertical::-webkit-scrollbar-track {
+    background: transparent; /* Colore dello sfondo del track */
+  }
+
+  .mat-mdc-form-field {
+    margin-top: 1rem;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 19%; 
+    right: 31%; 
+    color: rgb(255, 255, 255);
+    background: rgb(34, 66, 204);
+  }
+
+  .close-button mat-icon {
+    font-size: 1.5rem;
+  }
+
+  .close-button:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgb(83, 83, 83, 0.5);
+  }

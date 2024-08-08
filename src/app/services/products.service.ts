@@ -17,6 +17,11 @@ export class ProductsService {
 
   filterProducts(products:Product[], criteria:string):Product[] | any
   {
-    products.filter(p => p.categoryName == criteria)
+    products.filter(p => p.categoryName == criteria);
+  }
+
+  newProduct(product:Product):Observable<Product>
+  {
+    return this.http.post<Product>(`/api/products/newProduct`, product);
   }
 }

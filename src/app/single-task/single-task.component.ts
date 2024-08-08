@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Task } from '../model/Task';
 import { AuthService } from '../services/auth.service';
 import { completionTask } from '../model/completionTask';
@@ -15,7 +15,7 @@ import { LoadingService } from '../services/loading.service';
   templateUrl: './single-task.component.html',
   styleUrl: './single-task.component.css'
 })
-export class SingleTaskComponent implements OnInit{
+export class SingleTaskComponent implements OnInit, OnChanges{
 
   
   constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient, private loadingService: LoadingService,){}
@@ -28,34 +28,16 @@ export class SingleTaskComponent implements OnInit{
     // this.userRole=this.authService.getUserRole()!;
     // this.isChecked=this.completed;
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      
+  }
   
   completed:boolean=false;
   
   @Input() task!:Task;
   @Output() taskUpdated = new EventEmitter<Task>();
-  
-  // isChecked:boolean=false;
 
-  // toggleCheckbox() {
-  //   this.isChecked = !this.isChecked;
-  // }
-
-  // switchStatus0():void {
-  //   if(this.isChecked = true)
-  //   {
-  //     this.taskACompletamento.status='COMPLETATO';
-  //     this.taskACompletamento.signature=this.userRole;
-  //     console.log(this.userRole);
-  //     console.log(this.taskACompletamento.signature);
-  //   }
-  //   else if(this.isChecked = false)
-  //   {
-  //     this.taskACompletamento.status='DAFARSI';
-  //     this.taskACompletamento.signature!="";
-  //     console.log(this.userRole);
-  //     console.log(this.taskACompletamento.signature);
-  //   }
-  // }
 
   switchStatus():void {
     if(this.task.status==="COMPLETATO")
@@ -95,7 +77,7 @@ export class SingleTaskComponent implements OnInit{
         complete: () => {
           setTimeout(() => {
             this.loadingService.hide();
-          }, 2000);
+          }, 100);
         }
     });
   }
