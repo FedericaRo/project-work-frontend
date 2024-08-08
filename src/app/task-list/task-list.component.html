@@ -1,0 +1,24 @@
+<input 
+    [(ngModel)]="filterCriteria" 
+    type="text" id="default-search" 
+    class="search-bar w-full h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" 
+    placeholder="Cerca task"
+    (input)="filterTask()">
+
+<div class="flex p-4 space-x-4">
+    <!-- Barra di ricerca -->
+<div class="search-bar-container mb-4">
+   
+</div>
+    <div class="flex-1 bg-white shadow-lg rounded-lg flex flex-col">
+        <div class="flex-1 p-4">
+            <div *ngIf="filteredTasks && filteredTasks.length > 0">
+                <div *ngFor="let task of filteredTasks">
+                  <app-single-task-two [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-single-task-two>
+                </div>
+            </div>
+            <div *ngIf="filteredTasks && filteredTasks.length === 0">
+                <p>No tasks found</p>
+            </div>
+    </div>
+</div>

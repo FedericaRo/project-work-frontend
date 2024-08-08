@@ -37,29 +37,7 @@ export class SingleTaskComponent implements OnInit, OnChanges{
   
   @Input() task!:Task;
   @Output() taskUpdated = new EventEmitter<Task>();
-  
-  // isChecked:boolean=false;
 
-  // toggleCheckbox() {
-  //   this.isChecked = !this.isChecked;
-  // }
-
-  // switchStatus0():void {
-  //   if(this.isChecked = true)
-  //   {
-  //     this.taskACompletamento.status='COMPLETATO';
-  //     this.taskACompletamento.signature=this.userRole;
-  //     console.log(this.userRole);
-  //     console.log(this.taskACompletamento.signature);
-  //   }
-  //   else if(this.isChecked = false)
-  //   {
-  //     this.taskACompletamento.status='DAFARSI';
-  //     this.taskACompletamento.signature!="";
-  //     console.log(this.userRole);
-  //     console.log(this.taskACompletamento.signature);
-  //   }
-  // }
 
   switchStatus():void {
     if(this.task.status==="COMPLETATO")

@@ -8,20 +8,29 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
+import { FilteredCommunicationCardComponent } from "../filtered-communication-card/filtered-communication-card.component";
+import { Communication } from '../model/Communication';
+import { CommunicationsService } from '../services/communications.service';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [DashboardComponent, SingleTaskComponent, CommonModule, FormsModule, MatIconModule, MatButtonModule],
+  imports: [DashboardComponent, SingleTaskComponent, CommonModule, FormsModule, MatIconModule, MatButtonModule, FilteredCommunicationCardComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent implements OnInit{
 
-  constructor(public authService:AuthService, private taskService:TaskService){}
+
+  constructor(public authService:AuthService, private taskService:TaskService,
+               private communicationService:CommunicationsService){}
+
+  communications:Communication[] =  [];
+  filteredCommunications:Communication[]=[]; 
 
   filterCriteria:string = '';
   fontIconName:string= 'arrow_drop_up';
+  
 
   tasks:Task[] = [];
   
@@ -41,7 +50,21 @@ export class HomepageComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadTasks();
+    this.loadCommunications();
     // this.backupTasks = this.unitedTask;
+  }
+
+  loadCommunications(): void {
+    this.communicationService.getAll().subscribe(data => {
+      this.communications = data;
+      this.filterCommunications();
+    });
+  }
+
+  filterCommunications(): void {
+    this.filteredCommunications = this.communications.filter(c => 
+      c.type === 'CAMBIO TURNO' || c.importance === 'ALTA'
+    );
   }
 
   loadTasks(): void {
@@ -248,3 +271,4 @@ export class HomepageComponent implements OnInit{
   //   this.taskService.update();
   // }
 
+  // si devono vedere le task degli ultimi due mesi senza le task che stanno nella homepage, quando scadono vanno in quella

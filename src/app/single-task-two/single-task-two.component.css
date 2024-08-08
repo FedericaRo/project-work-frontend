@@ -1,0 +1,53 @@
+.detail-item {
+    flex: 1;
+    min-width: 120px; /* Imposta la larghezza minima per evitare il ridimensionamento */
+    text-align: center; /* Opzionale: per centrare il testo */
+    white-space: nowrap; /* Impedisce il wrapping del testo */
+}
+
+.title-item {
+    flex: 2; /* Puoi aumentare il flex se il titolo richiede più spazio */
+}
+
+.task-box {
+    margin-bottom: 10px; /* Spazio tra i task */
+}
+.frequency-item {
+    margin-left: 20px; /* Imposta un margine a sinistra per spostare un po' a destra */
+}
+.badge-settimanale {
+    color: #a34ef3;
+    background-color: rgba(177, 78, 243, 0.1);
+}
+.badge-bisettimanale {
+    color: #f7cc53;
+    background-color: rgba(247, 204, 83, 0.1);
+}
+.badge-mensile {
+    color: #4e82f3;
+    background-color: rgba(89, 78, 243, 0.1);
+}
+
+.badge-soft-nevercompleted {
+    color: #b4b4b4;
+    background-color: rgba(233, 233, 233, 0.1);
+}
+.badge-soft-pending {
+     color: #f34e4e;
+     background-color: rgba(243,78,78,.1);
+ }
+.badge-soft-completed {
+     color: #6cd468;
+     background-color: rgba(81,210,140,.1);
+ }
+
+.badge-soft-good {
+    color: #6cd468;
+    background-color: rgba(247,204,83,.1);
+}
+ 
+ .badge-soft-success {
+     color: #51d28c;
+     background-color: rgba(81,210,140,.1);
+ }
+ 

@@ -24,7 +24,7 @@ export class CommunicationFormComponent
     creationDate: new FormControl(''),
     importance: new FormControl('', Validators.required)
   });
-f: any;
+
 
   constructor(private communicationService:CommunicationsService){};
 
