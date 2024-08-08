@@ -17,7 +17,7 @@ export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   tasksbackup:Task[]=[];
   filteredTasks: Task[] = [];
-  filterCriteria:string = ' ';
+  filterCriteria:string = '';
 
   constructor(private taskService: TaskService) {}
 

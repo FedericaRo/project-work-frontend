@@ -9,6 +9,8 @@ import { NewProductStepperComponent } from "../new-product-stepper/new-product-s
 import { MatIconModule } from '@angular/material/icon';
 import { NewCategoryFormComponent } from "../new-category-form/new-category-form.component";
 import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form.component";
+import { OrdersService } from '../services/orders.service';
+import { Order } from '../model/Order';
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -37,6 +39,8 @@ export class ProductListComponent implements OnInit
     products:Product[] = []; 
 
     productsBackup:Product[] = [];
+
+    orders: Order[] = [];
     
     filterCriteria:string = '';
     
@@ -49,7 +53,6 @@ export class ProductListComponent implements OnInit
         this.productService.getAll().subscribe(data => {
 
         this.productsBackup = data.reverse();});
-      
     }
 
     toggleDial():void

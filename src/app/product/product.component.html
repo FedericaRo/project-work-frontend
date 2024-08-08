@@ -17,7 +17,34 @@
     <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.categoryName}}</td>
 
     <!-- nome/descrizione del prodotto -->
-    <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {{product.productName}}</td>
+    <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+        <div class="general-svg-container">
+            <div 
+                [ngClass]="{'hide': isProductAlreadyOrdered === false}"
+                class="svg-container" matTooltip="Hai già ordinato questo prodotto">
+                <!-- SVG codice -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 547.17 550" class="svg-odioso">
+                  <defs>
+                    <style>
+                      .cls-1 {
+                        fill: #58508d;
+                        stroke-width: 0px;
+                      }
+                    </style>
+                  </defs>
+                  <g id="Livello_1-2" data-name="Livello 1">
+                    <g>
+                      <path class="cls-1" d="M54.73,273.52c.09,108.19,77.93,200.27,183.22,218.25,119.23,20.35,233.63-60.69,253.59-179.54,2.14-12.75,2.86-25.58,3.44-38.45.93-20.61,20.65-32.44,39.14-23.36,8.13,3.99,13.1,10.52,13.05,19.84-.48,87.34-33.11,160.26-100.28,216.23-62.76,52.3-135.76,71.93-216.5,60.26-109.7-15.85-199.26-100.32-223.65-209.57C-24.51,197.21,55.56,56.99,192.19,12.93c47.67-15.37,96.08-16.77,144.88-5.63,4.55,1.04,9.12,1.73,13.3,4.33,12.67,7.9,16.88,18.98,11.64,31.76-5.67,13.82-18.91,20.79-32.48,17.92-54.38-11.5-107.64-8.82-157.01,18.46-62.26,34.4-101.19,86.81-114.37,157.42-2.33,12.5-2.92,25.14-3.41,36.33Z"/>
+                      <path class="cls-1" d="M274.73,384.82c-7.16.34-13.16-2.18-18.1-7.11-28.12-28.08-56.34-56.06-84.23-84.37-10.52-10.68-10-26.46.33-37.1,10.64-10.96,26.35-11.91,37.55-1.47,19.95,18.6,39.63,37.5,59.14,56.56,4.1,4.01,6.17,4.34,10.16-.26,54.51-62.75,109.47-125.11,163.68-188.11,10.66-12.39,27.14-13.9,40.93-2.43,10.46,8.7,10.82,26.4.44,38.33-28.74,33.07-57.63,66.01-86.48,98.98-33.94,38.79-67.92,77.56-101.82,116.38-5.79,6.63-12.47,11.14-21.59,10.59Z"/>
+                    </g>
+                  </g>
+                </svg>
+            </div>
+            <div>
+                {{product.productName}}
+            </div>
+        </div>
+    </td>
 
     <!-- prezzo unitario del prodotto in euro -->
     <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">&euro; {{product.unitPrice}} </td>

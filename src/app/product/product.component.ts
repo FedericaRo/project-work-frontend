@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Product } from '../model/Product';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
@@ -9,6 +9,8 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { OrdersService } from '../services/orders.service';
+import { Order } from '../model/Order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tr[app-product]',
@@ -17,22 +19,50 @@ import { OrdersService } from '../services/orders.service';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
-export class ProductComponent 
+export class ProductComponent implements OnInit
 {
 
   constructor(public authService:AuthService, public orderService:OrdersService){}
 
   @Input() product!:Product;
 
+  orders:Order[] = [];
+
   isRestrictedEditModeActiveUnits:boolean = true;
   isRestrictedEditModeActivePackage:boolean = true;
   isFullEditModeActive:boolean = false;
+  isProductAlreadyOrdered!:boolean;
+
+  isProductOrderedLogic():void {
+    
+    if(this.orders.length>0)
+      this.isProductAlreadyOrdered = true;
+    else
+      this.isProductAlreadyOrdered = false;
+
+    console.log(this.product.productName);
+    console.log('orders:', this.orders);
+    console.log('isProductAlreadyOrdered:', this.isProductAlreadyOrdered);
+
+  }
+
+  ngOnInit(): void {
+    this.orderService.getAll().subscribe(data => {
+      this.orders = data.filter(o => o.productName === this.product.productName && o.arrived === false)
+      this.isProductOrderedLogic();
+      console.log(this.orders);
+    })
+
+  }
+
 
   orderForm:FormGroup = new FormGroup
   ({
     unitOrderedQuantity: new FormControl('', Validators.required), // ! Da cambiare con il vero validatore
     packagingOrderedQuantity: new FormControl(''),
   });
+
+
 
 
   stockQuantity():number
@@ -42,6 +72,7 @@ export class ProductComponent
 
   /**
    * !Bisogna aggiungere nuova proprietà alla modellizzazione altrimenti non può essere davvero utile
+   * * ^ fatto
    * @Santo
    */
   refillLevel():number
@@ -91,16 +122,24 @@ export class ProductComponent
     this.orderService.addOrder(this.product.id!, this.orderForm.value)
     .subscribe(
     {
-
     next: data => {
       console.log(data);
+
+      /**
+       * * Il reload serve per mostrare in tempo reale la modifica in tempo reale della spunta che
+       * * mostra il prodotto come già ordinato
+       * ! Essendo un reload intero di pagina non è il top a livello di prestazioni quindi più avanti magari
+       * ! Possiamo capire se con un BehaviourSubject o un EventEmitter è possibile ottenere un risultato più leggero.
+       * @Santo
+       */
+      window.location.reload(); 
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
-
     }})
-
   }
+
+  
 
   
   // employeeEditProductUnitsToggle()
