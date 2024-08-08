@@ -39,12 +39,12 @@ export class ProductListComponent implements OnInit
     ngOnInit(): void 
     {
         this.productService.getAll().subscribe(data => {
-        this.products = data;
+        this.products = data.reverse();
         console.log(this.products)})
 
         this.productService.getAll().subscribe(data => {
 
-        this.productsBackup = data;});
+        this.productsBackup = data.reverse();});
       
     }
 
@@ -200,7 +200,6 @@ export class ProductListComponent implements OnInit
               setTimeout(() => {
                 this.flashId = null;
               }, 500);
-
             },
             error: badResponse=>
             {
@@ -209,7 +208,6 @@ export class ProductListComponent implements OnInit
           }
         )
       }
-
     }
     /**
      * ?prima versione del filtro solo per categoria
