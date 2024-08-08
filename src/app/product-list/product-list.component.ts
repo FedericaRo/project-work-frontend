@@ -7,11 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NewProductStepperComponent } from "../new-product-stepper/new-product-stepper.component";
 import { MatIconModule } from '@angular/material/icon';
-
+import { NewCategoryFormComponent } from "../new-category-form/new-category-form.component";
+import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form.component";
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [ProductComponent, CommonModule, FormsModule, MatTooltipModule, NewProductStepperComponent, MatIconModule],
+  imports: [ProductComponent, CommonModule, FormsModule, MatTooltipModule, NewProductStepperComponent, MatIconModule, NewCategoryFormComponent, NewSupplierFormComponent],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -24,6 +25,9 @@ export class ProductListComponent implements OnInit
     // this.products = data;
   }
     openCreateProductStepper:boolean = false;
+    openCreateCategory:boolean = false;
+    openCreateSupplier:boolean = false;
+
     isDialOpen:boolean = false;
     categoryCounter:number = 0;
     supplierCounter:number = 0;
@@ -59,9 +63,31 @@ export class ProductListComponent implements OnInit
       console.log(value);
     }
 
+    toggleCategoryDialDaFiglio(value:boolean):void
+    {
+      this.openCreateCategory = value;
+      console.log(value);
+    }
+
+    toggleSupplierDialDaFiglio(value:boolean):void
+    {
+      this.openCreateSupplier = value;
+      console.log(value);
+    }
+
     toggleStepperCreate():void
     {
       this.openCreateProductStepper = !this.openCreateProductStepper;
+    }
+
+    toggleCategoryCreate():void
+    {
+      this.openCreateCategory = !this.openCreateCategory;
+    }
+
+    toggleSupplierCreate():void
+    {
+      this.openCreateSupplier = !this.openCreateSupplier;
     }
 
     sortByCategory():void
@@ -73,7 +99,6 @@ export class ProductListComponent implements OnInit
       if (valore == 0)
       {
         this.products = this.productsBackup;
-        
       }
       if (valore == 1)
       {

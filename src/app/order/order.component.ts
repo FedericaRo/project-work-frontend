@@ -120,6 +120,7 @@ export class OrderComponent implements OnInit {
         // console.log(this.order.arrived)
         this.order = data;
         console.log("Arrived DATA", this.order)
+        console.log(this.order.arrived)
         // this.order.arrived = !this.order.arrived;
       },
       error: badResponse => {
