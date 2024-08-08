@@ -4,6 +4,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-new-product-stepper',
@@ -15,6 +16,7 @@ import {MatButtonModule} from '@angular/material/button';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule
   ],
   templateUrl: './new-product-stepper.component.html',
   styleUrl: './new-product-stepper.component.css'
@@ -30,4 +32,6 @@ export class NewProductStepperComponent {
   isLinear = false;
 
   constructor(private _formBuilder: FormBuilder) {}
+
+  
 }

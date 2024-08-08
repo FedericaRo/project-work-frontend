@@ -6,3 +6,19 @@
   .mat-mdc-form-field {
     margin-top: 1rem;
   }
+  .close-button {
+    position: absolute;
+    top: 1rem; /* Regola la posizione a seconda delle tue esigenze */
+    right: 1rem;
+    color: #f00; /* Rosso per visibilità */
+    background: transparent;
+  }
+  
+  .close-button mat-icon {
+    font-size: 1.5rem;
+  }
+  
+  .close-button:hover {
+    color: #d00;
+  }
+  

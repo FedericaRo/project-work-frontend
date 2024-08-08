@@ -131,18 +131,21 @@
     </div>
 
 
-    <div>
+    <div style="background-color: rgba(0, 255, 0, 0.5);">
         <app-new-product-stepper
-        class="fixed inset-0 flex items-center justify-center z-50 p-6"
-        style="background-color: rgba(0, 0, 0, 0.5);"
-        [ngClass]="{'hidden': !openCreateProductStepper}"
+            class="fixed inset-0 flex items-center justify-center z-50 p-6"
+            style="background-color: rgba(0, 0, 0, 0.5);"
+            [ngClass]="{'hidden': !openCreateProductStepper}"
         >
-        <!-- Contenuto del tuo stepper qui -->
-        <div class="relative">
-           <div class="absolute bottom-40">
-               <mat-icon aria-label="Example home icon" fontIcon="close" class=" flex z-60 p-6">close</mat-icon>
-           </div>
-        </div>
+            <!-- Contenuto del tuo stepper qui -->
+            <div class="relative w-full h-full" style="background-color: rgba(255, 0, 0, 0.5);">
+                <!-- Icona di test -->
+                <div 
+                    class="absolute top-0 right-0 m-4 z-[1000] text-5xl cursor-pointer"
+                    style="background-color: blue; color: white; padding: 10px;"
+                >
+                    X
+                </div>
+            </div>
         </app-new-product-stepper>
-
     </div>
