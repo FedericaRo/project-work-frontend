@@ -10,13 +10,14 @@ import { CommunicationListComponent } from "./communication-list/communication-l
 import { CommunicationFormComponent } from "./communication-form/communication-form.component";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingService } from './services/loading.service';
+import { ProvaSocketComponent } from "./prova-socket/prova-socket.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent, FormRegisterComponent, LoginPageComponent,
-    RegisterPageComponent, DashboardComponent, CommunicationListComponent, CommunicationFormComponent, MatProgressSpinnerModule],
+    RegisterPageComponent, DashboardComponent, CommunicationListComponent, CommunicationFormComponent, MatProgressSpinnerModule, ProvaSocketComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
