@@ -30,7 +30,7 @@ export class ProductComponent
 
   orderForm:FormGroup = new FormGroup
   ({
-    unitOrderedQuantity: new FormControl(''),
+    unitOrderedQuantity: new FormControl('', Validators.required), // ! Da cambiare con il vero validatore
     packagingOrderedQuantity: new FormControl(''),
   });
 
@@ -86,6 +86,7 @@ export class ProductComponent
 
   sendOrder()
   {
+    this.isPopoverVisible = false;
     console.log("SEND ORDER MOCK")
     this.orderService.addOrder(this.product.id!, this.orderForm.value)
     .subscribe(

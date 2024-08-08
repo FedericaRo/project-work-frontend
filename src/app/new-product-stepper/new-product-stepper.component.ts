@@ -75,14 +75,5 @@ export class NewProductStepperComponent implements OnInit{
     console.log(this.createProductForm.value);
     this.createProductForm.reset();
   }
-
-
-
-  // firstFormGroup = this._formBuilder.group({
-  //   firstCtrl: ['', Validators.required],
-  // });
-  // secondFormGroup = this._formBuilder.group({
-  //   secondCtrl: ['', Validators.required],
-  // });
-
+  
 }

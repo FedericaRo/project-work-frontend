@@ -1,0 +1,69 @@
+
+
+<!-- Inizio della riga principale -->
+<div class="row">
+    <!-- Colonna principale che occupa tutta la larghezza disponibile -->
+    <div class="col-xl-12">
+        <!-- Box per la lista delle attività -->
+        <div class="task-list-box bg-white rounded-lg" id="landing-task">
+            <!-- Elemento della task list -->
+            <div id="task-item-1" class="task-item mb-3">
+                <!-- Card per l'attività -->
+                <div class="card task-box rounded-lg shadow-lg">
+                    <div class="card-body position-relative">
+                        <div class="d-flex align-items-center">
+                            <!-- Contenitore per titolo e dettagli -->
+                            <div class="d-flex flex-grow-1 justify-content-between align-items-center">
+                                <!-- Titolo -->
+                                <div class="detail-item title-item">
+                                    <div class="text-slate-400 text-xs mb-1">Task</div>
+                                    <div class="text-lg font-semibold text-gray-800">{{task.name}}</div>
+                                </div>
+
+                                <!-- Frequenza -->
+                                <div class="detail-item frequency-item">
+                                    <div class="text-slate-400 text-xs mb-1">Frequenza</div>
+                                    <span 
+                                    [ngClass]="{'badge-settimanale': task.frequency==='SETTIMANALE',
+                                                'badge-bisettimanale': task.frequency==='BISETTIMANALE',
+                                                'badge-mensile': task.frequency==='MENSILE'}"
+                                    class="badge rounded-full text-xs py-1 px-3"
+                                    >{{task.frequency}}</span>
+                                </div>
+
+                                <!-- Stato -->
+                                <div class="detail-item">
+                                    <div class="text-slate-400 text-xs mb-1">Status</div>
+                                    <span 
+                                    [ngClass]="{'badge-soft-pending': task.status==='DAFARSI',
+                                                'badge-soft-completed': task.status==='COMPLETATO',
+                                                'badge-soft-nevercompleted': task.status==='INCOMPIUTO'}"
+                                    class="badge rounded-full text-xs py-1 px-3"
+                                    >{{task.status}}</span>
+                                </div>
+                                
+                                <!-- Data di Creazione -->
+                                <div class="detail-item">
+                                    <div class="text-slate-400 text-xs mb-1">Creazione</div>
+                                    <div class="text-sm font-medium">{{task.creationDate  | date: 'dd/MM/yyyy'}}</div>
+                                </div>
+                                
+                                <!-- Data di Completamento -->
+                                <div class="detail-item">
+                                    <div class="text-slate-400 text-xs mb-1">Completamento</div>
+                                    <div class="text-sm font-medium">{{task.completionDate == null ? "gg/mm/yyyy" : task.completionDate | date: 'dd/MM/yyyy'}}</div>
+                                </div>
+                                
+                                <!-- Firma -->
+                                <div class="detail-item">
+                                    <div class="text-slate-400 text-xs mb-1">Firma</div>
+                                    <div class="text-sm font-medium">{{task.signature == null || task.signature == '' ? "nessuna" : task.signature}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end card-body -->
+                </div><!-- end card -->
+            </div><!-- end task-item -->
+        </div><!-- end task-list-box -->
+    </div><!-- end col -->
+</div><!-- end row -->

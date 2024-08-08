@@ -11,6 +11,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { CommunicationListComponent } from './communication-list/communication-list.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { StoredTaskListComponent } from './stored-task-list/stored-task-list.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 
 
@@ -58,6 +59,7 @@ export const routes: Routes = [
           { path: 'communications', component: CommunicationListComponent, canActivate: [LoggedGuardService] },
           { path: 'orders', component: OrderListComponent, canActivate: [LoggedGuardService] },
           { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
+          { path: 'tasks', component: TaskListComponent, canActivate: [LoggedGuardService] },
           // Altre rotte con barra laterale
         ]
       },

@@ -27,10 +27,11 @@
 
   .close-button {
     position: absolute;
-    top: 19%; 
+    top: 5%; 
     right: 31%; 
     color: rgb(255, 255, 255);
     background: rgb(34, 66, 204);
+    z-index: 900;
   }
 
   .close-button mat-icon {

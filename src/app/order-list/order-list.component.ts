@@ -84,7 +84,12 @@ export class OrderListComponent
     // Confronta numeri per ordine ascendente o discendente
     else if (typeof valueA === 'number' && typeof valueB === 'number')
       return orderingType === 'asc' ? valueA - valueB : valueB - valueA;
-    else 
+    // Confronta il valore booleano "arrived", ritorna true in ordine ascendente
+    else if (typeof valueA === 'boolean' && typeof valueB === 'boolean') {
+      return orderingType === 'asc'
+        ? (valueA === valueB ? 0 : valueA ? 1 : -1) // se sono uguali ritorna 0, altrimenti se valueA è true ritorna 1, altrimenti false 
+        : (valueA === valueB ? 0 : valueA ? -1 : 1); 
+    } else 
       throw new Error('Unsupported data type for sorting');
     
   }

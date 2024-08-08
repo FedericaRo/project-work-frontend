@@ -33,7 +33,8 @@ export class CommunicationListComponent implements OnInit
     this.showForm = !this.showForm;
   }
 
-  
+
+
 
   ngOnInit(): void 
   {
@@ -57,6 +58,7 @@ export class CommunicationListComponent implements OnInit
   addNewCommunication(communication:Communication) 
   {
     this.communications.push(communication);
+    this.toggleForm();
   }
 
   filterByEverything(): void 
