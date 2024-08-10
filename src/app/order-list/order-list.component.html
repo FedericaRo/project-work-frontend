@@ -59,11 +59,19 @@
                         (click)="sort('productCode')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Identificativo
+                         <span *ngIf="sortColumn === 'productCode'">
+                            <span *ngIf="orderingMap['productCode'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['productCode'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <th scope="col"
                         (click)="sort('supplierName')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Fornitore
+                        Fornitore 
+                        <span *ngIf="sortColumn === 'supplierName'">
+                            <span *ngIf="orderingMap['supplierName'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['supplierName'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Categoria
@@ -71,12 +79,20 @@
                     <th scope="col"
                         (click)="sort('productName')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Nome Prodotto
+                        Nome Prodotto 
+                        <span *ngIf="sortColumn === 'productName'">
+                            <span *ngIf="orderingMap['productName'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['productName'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <th scope="col"
                         (click)="sort('orderDate')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Data Ordine
+                        <span *ngIf="sortColumn === 'orderDate'">
+                            <span *ngIf="orderingMap['orderDate'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['orderDate'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Data Arrivo
@@ -88,11 +104,19 @@
                         (click)="sort('unitOrderedQuantity')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Unità Ordinate
+                        <span *ngIf="sortColumn === 'unitOrderedQuantity'">
+                            <span *ngIf="orderingMap['unitOrderedQuantity'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['unitOrderedQuantity'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <th scope="col"
                         (click)="sort('unitType')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         U.M.1
+                        <span *ngIf="sortColumn === 'unitType'">
+                            <span *ngIf="orderingMap['unitType'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['unitType'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Unità Arrivate
@@ -104,11 +128,20 @@
                         (click)="sort('packagingOrderedQuantity')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Confezioni Ordinate
+                        <span *ngIf="sortColumn === 'packagingOrderedQuantity'">
+                            <span *ngIf="orderingMap['packagingOrderedQuantity'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['packagingOrderedQuantity'] === 'desc'">↓</span>
+                        </span>
+                    
                     </th>
                     <th scope="col"
-                        (click)="sort('packagingTypeQuantity')"
+                        (click)="sort('packagingType')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        U.M.2
+                        U.M.2 
+                        <span *ngIf="sortColumn === 'packagingType'">
+                            <span *ngIf="orderingMap['packagingType'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['packagingType'] === 'desc'">↓</span>
+                        </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Confezioni Arrivate
@@ -123,6 +156,12 @@
                         (click)="sort('arrived')"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Arrivato
+                        <span *ngIf="sortColumn === 'arrived'">
+                             <span *ngIf="orderingMap['arrived'] === 'default'">↑↓</span>
+                            <span *ngIf="orderingMap['arrived'] === 'asc'">↑</span>
+                            <span *ngIf="orderingMap['arrived'] === 'desc'">↓</span>
+                        </span>
+                        <!-- {{ orderingMap['arrived'] == 'default' ? "" : orderingMap['arrived'] == 'desc' ? "↓" : "↑"}} -->
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

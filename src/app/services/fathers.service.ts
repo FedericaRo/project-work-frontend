@@ -21,4 +21,14 @@ export class FathersService {
   {
     return this.http.get<Category[]>("/api/categories");
   }
+
+  addSupplier(supplier:Supplier):Observable<Supplier>
+  {
+    return this.http.post<Supplier>(`/api/suppliers/addSupplier`, supplier);
+  }
+
+  addCategory(category:Category):Observable<Category>
+  {
+    return this.http.post<Category>(`/api/categories/addCategory`, category);
+  }
 }
