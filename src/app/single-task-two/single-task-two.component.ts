@@ -7,11 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../services/loading.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-single-task-two',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatTooltipModule],
   templateUrl: './single-task-two.component.html',
   styleUrl: './single-task-two.component.css'
 })
@@ -39,28 +41,7 @@ export class SingleTaskTwoComponent implements OnInit, OnChanges{
   @Input() task!:Task;
   @Output() taskUpdated = new EventEmitter<Task>();
   
-  filterTask() : void {
-    this.tasks = this.tasksbackup;
   
-    for (let task of this.tasks) 
-      {
-        if (task.name.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.name.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.status.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.status.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.completionDate.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.completionDate.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        }
-    }
-  }  
 
 }
     
