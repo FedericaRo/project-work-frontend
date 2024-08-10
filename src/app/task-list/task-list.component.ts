@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskListComponent implements OnInit {
   tasksbackup:Task[]=[];
+
   filterCriteria:string = ' ';
 
   constructor(private taskService: TaskService) {}

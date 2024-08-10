@@ -37,8 +37,8 @@
 }
 
 .badge-soft-nevercompleted {
-    color: #b4b4b4;
-    background-color: rgba(233, 233, 233, 0.1);
+    color: #a7a7a7;
+    background-color: rgba(233, 233, 233, 0.5);
 }
 .badge-soft-pending {
      color: #f34e4e;

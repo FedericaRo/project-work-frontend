@@ -1,3 +1,10 @@
+.myLoadGif{
+  filter: saturate(0.5) hue-rotate(15deg) brightness(1.2);
+}
+
+
+
+
 /* confirmation-popover.component.css
 .popover {
     position: absolute;

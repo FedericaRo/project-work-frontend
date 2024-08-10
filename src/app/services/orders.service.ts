@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Order } from '../model/Order';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Order } from '../model/Order';
 export class OrdersService{
   
   constructor(private http:HttpClient) { }
+
   
   getAll():Observable<Order[]>
   {
@@ -50,6 +51,16 @@ export class OrdersService{
 
     return this.http.post<Order>(`api/orders/${productId}/addOrder`, data);
     
+  }
+
+  deleteLastOrder(productName:string):Observable<any>
+  {
+    return this.http.delete<any>(`/api/orders/deleteLast/${productName}`);
+  }
+
+  sendOrders()
+  {
+    return this.http.get<Order[]>("/api/orders/sendOrders");
   }
 
 }
