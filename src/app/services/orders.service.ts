@@ -53,4 +53,14 @@ export class OrdersService{
     
   }
 
+  deleteLastOrder(productName:string):Observable<any>
+  {
+    return this.http.delete<any>(`/api/orders/deleteLast/${productName}`);
+  }
+
+  sendOrders()
+  {
+    return this.http.get<Order[]>("/api/orders/sendOrders");
+  }
+
 }

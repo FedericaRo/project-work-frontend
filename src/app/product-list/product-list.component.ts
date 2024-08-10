@@ -111,8 +111,6 @@ export class ProductListComponent implements OnInit
       {
         this.products = [...this.productsBackup].sort((a, b) => b.categoryName.localeCompare(a.categoryName));
       }
-
-      
     }
 
     sortBySupplier():void
@@ -236,6 +234,19 @@ export class ProductListComponent implements OnInit
           }
         )
       }
+
+    //   onOrdersUpdate(product: Product): void {
+    //     let index = this.products.indexOf(product);
+    
+    //     // Verifica che l'elemento sia stato trovato
+    //     if (index !== -1) {
+    //         // Rimuovi l'elemento
+    //         let element = this.products.splice(index, 1)[0];
+    
+    //         // Reinserisci l'elemento nella stessa posizione
+    //         this.products.splice(index, 0, element);
+    //     }
+    // }
     }
     /**
      * ?prima versione del filtro solo per categoria

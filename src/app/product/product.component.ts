@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, output } from '@angular/core';
 import { Product } from '../model/Product';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
@@ -26,31 +26,24 @@ export class ProductComponent implements OnInit
 
   @Input() product!:Product;
 
+  // @Output() updateProduct = new EventEmitter<Product>();
+
   orders:Order[] = [];
 
   isRestrictedEditModeActiveUnits:boolean = true;
   isRestrictedEditModeActivePackage:boolean = true;
   isFullEditModeActive:boolean = false;
   isProductAlreadyOrdered!:boolean;
+  ordersNumber:number = 0;
 
-  isProductOrderedLogic():void {
-    
-    if(this.orders.length>0)
-      this.isProductAlreadyOrdered = true;
-    else
-      this.isProductAlreadyOrdered = false;
-
-    console.log(this.product.productName);
-    console.log('orders:', this.orders);
-    console.log('isProductAlreadyOrdered:', this.isProductAlreadyOrdered);
-
-  }
 
   ngOnInit(): void {
     this.orderService.getAll().subscribe(data => {
       this.orders = data.filter(o => o.productName === this.product.productName && o.arrived === false)
-      this.isProductOrderedLogic();
+      // this.isProductOrderedLogic();
       console.log(this.orders);
+
+      this.ordersNumber = this.orders.length;
     })
 
   }
@@ -124,19 +117,37 @@ export class ProductComponent implements OnInit
     {
     next: data => {
       console.log(data);
-
+      // this.updateProduct.emit(this.product);
+      this.orders.push(data);
       /**
-       * * Il reload serve per mostrare in tempo reale la modifica in tempo reale della spunta che
+       * * Il reload serve per mostrare in tempo reale la modifica della spunta che
        * * mostra il prodotto come già ordinato
        * ! Essendo un reload intero di pagina non è il top a livello di prestazioni quindi più avanti magari
        * ! Possiamo capire se con un BehaviourSubject o un EventEmitter è possibile ottenere un risultato più leggero.
        * @Santo
        */
-      window.location.reload(); 
+      // window.location.reload(); 
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
     }})
+  }
+
+  deleteLatestOrderDone()
+  {
+    this.orderService.deleteLastOrder(this.product.productName)
+    .subscribe(
+      {
+        next: data => {
+          console.log(data);
+          this.orders.splice(this.orders.length-1,1)
+          // window.location.reload();
+        },
+        error: err => {
+          console.log("woops", err);
+        }
+      }
+    )
   }
 
   

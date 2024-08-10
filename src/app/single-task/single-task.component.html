@@ -23,11 +23,16 @@
                             <!-- Contenitore per titolo e dettagli -->
                             <div class="flex-grow-1 ml-5">
                                 <!-- Sezione superiore con il titolo -->
-                                <div class="d-flex align-items-center mb-3">
+                                <div class="flex align-items-center mb-3">
                                     <div>
                                         <div class="text-slate-400 text-xs mb-1">Task</div>
                                         <div class="text-lg font-semibold text-gray-800">{{task.name}}</div>
                                     </div>
+                                        <mat-icon 
+                                            class="material-icons-outlined ml-3 relative top-2.5 text-gray-500"
+                                            matTooltip="{{task.description}}"
+                                        > info
+                                        </mat-icon>
                                 </div>
 
                                 <!-- Sezione inferiore con dettagli -->
