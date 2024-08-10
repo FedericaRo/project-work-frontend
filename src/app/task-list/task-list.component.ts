@@ -14,9 +14,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './task-list.component.css'
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
   tasksbackup:Task[]=[];
-  filteredTasks: Task[] = [];
   filterCriteria:string = ' ';
 
   constructor(private taskService: TaskService) {}
@@ -27,9 +25,7 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(): void {
     this.taskService.getAll().subscribe(data => {
-      this.tasks = data;
-      this.filteredTasks = this.filterTasks(this.tasks);
-      console.log('Filtered Tasks:', this.filteredTasks);
+      this.tasksbackup = this.filterTasks(data);
     });
   }
 
@@ -63,34 +59,34 @@ export class TaskListComponent implements OnInit {
     return monthsDifference > months;
   }
 
-  onTaskUpdated(updatedTask: Task): void {
-    const index = this.filteredTasks.findIndex(task => task.id === updatedTask.id);
-    if (index !== -1) {
-      this.filteredTasks[index] = updatedTask;
-    }
-  }
 
-  filterTask() : void {
-    this.tasks = this.tasksbackup;
-  
-    for (let task of this.tasks) 
-      {
-        if (task.name.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.name.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.status.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.status.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.completionDate.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.completionDate.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.tasks = this.tasks.filter(t => t.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        }
-    }
+
+  filterSearchTask() : Task[] {
+
+    // if (task.name.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+    //   this.filteredTasks = this.tasksbackup.filter(t => t.name.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+    // } else if (task.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+    //   this.filteredTasks = this.tasksbackup.filter(t => t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+    // } else if (task.status.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+    //   this.filteredTasks = this.tasksbackup.filter(t => t.status.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+    // } else if (task.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+    //   this.filteredTasks = this.tasksbackup.filter(t => t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+    // } else if (task.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+    //   this.filteredTasks = this.tasksbackup.filter(t => t.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+    // } else if (task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+    //   this.filteredTasks = this.tasksbackup .filter(t => t.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+    // }
+    
+    return this.tasksbackup.filter(
+      t => 
+        t.name.toLowerCase().includes(this.filterCriteria.toLowerCase())          ||
+        t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())     ||
+        t.status.toLowerCase().includes(this.filterCriteria.toLowerCase())        ||
+        t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())  ||
+        t.description.toLowerCase().includes(this.filterCriteria.toLowerCase())   ||
+        t.signature.toLowerCase().includes(this.filterCriteria.toLowerCase())
+
+    );
   }  
 
 }
