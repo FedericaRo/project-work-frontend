@@ -144,12 +144,7 @@ export class OrderComponent implements OnInit {
 
       }
     });
-
-
   }
-
-
-  
 
   isPopoverVisible: boolean = false; // Property to manage popover visibility
 

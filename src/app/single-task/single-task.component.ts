@@ -7,18 +7,20 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../services/loading.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-single-task',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule, MatTooltip],
   templateUrl: './single-task.component.html',
   styleUrl: './single-task.component.css'
 })
 export class SingleTaskComponent implements OnInit, OnChanges{
 
   
-  constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient, private loadingService: LoadingService,){}
+  constructor(public authService:AuthService, private taskService:TaskService, private http:HttpClient, private loadingService: LoadingService){}
 
   taskACompletamento:completionTask={status:"", signature:""}
   userRole:string=this.authService.getUserRole()!;
@@ -77,7 +79,7 @@ export class SingleTaskComponent implements OnInit, OnChanges{
         complete: () => {
           setTimeout(() => {
             this.loadingService.hide();
-          }, 100);
+          }, 0);
         }
     });
   }

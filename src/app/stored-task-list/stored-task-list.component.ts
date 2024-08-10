@@ -16,38 +16,6 @@ import { FormsModule } from '@angular/forms';
 export class StoredTaskListComponent {
 
 
-    
-  constructor(public authService:AuthService, private taskService:TaskService){}
-
-
-  filterCriteria:string = '';
-  tasks:Task[] = [];
-  oldTasks: Task[] = [];
-  backupOldTasks: Task[]=[];
-
-  ngOnInit(): void 
-  {
-  this.loadOldTasks()
-  }
-
-  loadOldTasks() {
-    const twoMonthsAgo = new Date();
-
-    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-    twoMonthsAgo.setHours(0,0,0);
-
-    this.taskService.getAll().subscribe(data => {
-      this.oldTasks = data.filter(task => {
-        const creationDate = new Date(task.creationDate);
-        
-        return task.frequency !== 'SETTIMANALE' || 'BISETTIMANALE' && creationDate < twoMonthsAgo;
-      });
-      this.backupOldTasks = [...this.oldTasks];
-    });
-
-
-  }
-
   
   
 }

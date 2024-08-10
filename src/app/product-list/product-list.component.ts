@@ -9,6 +9,8 @@ import { NewProductStepperComponent } from "../new-product-stepper/new-product-s
 import { MatIconModule } from '@angular/material/icon';
 import { NewCategoryFormComponent } from "../new-category-form/new-category-form.component";
 import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form.component";
+import { OrdersService } from '../services/orders.service';
+import { Order } from '../model/Order';
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -37,6 +39,8 @@ export class ProductListComponent implements OnInit
     products:Product[] = []; 
 
     productsBackup:Product[] = [];
+
+    orders: Order[] = [];
     
     filterCriteria:string = '';
     
@@ -49,7 +53,6 @@ export class ProductListComponent implements OnInit
         this.productService.getAll().subscribe(data => {
 
         this.productsBackup = data.reverse();});
-      
     }
 
     toggleDial():void
@@ -108,8 +111,6 @@ export class ProductListComponent implements OnInit
       {
         this.products = [...this.productsBackup].sort((a, b) => b.categoryName.localeCompare(a.categoryName));
       }
-
-      
     }
 
     sortBySupplier():void
@@ -233,6 +234,19 @@ export class ProductListComponent implements OnInit
           }
         )
       }
+
+    //   onOrdersUpdate(product: Product): void {
+    //     let index = this.products.indexOf(product);
+    
+    //     // Verifica che l'elemento sia stato trovato
+    //     if (index !== -1) {
+    //         // Rimuovi l'elemento
+    //         let element = this.products.splice(index, 1)[0];
+    
+    //         // Reinserisci l'elemento nella stessa posizione
+    //         this.products.splice(index, 0, element);
+    //     }
+    // }
     }
     /**
      * ?prima versione del filtro solo per categoria

@@ -4,6 +4,7 @@ import { Order } from '../model/Order';
 import { CommonModule } from '@angular/common';
 import { OrderComponent } from '../order/order.component';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-order-list',
@@ -14,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class OrderListComponent 
 {
-  constructor(private orderService:OrdersService){ }
+  constructor(private orderService:OrdersService, private loadingService:LoadingService){}
 
   sortColumn: string = 'id'; // Default sorting column
   orderingMap: { [key: string]: 'default' | 'asc' | 'desc' } = {}; // Map to store ordering type for each column
@@ -25,8 +26,13 @@ export class OrderListComponent
     this.showPopover = !this.showPopover;
   }
 
-  
+  showDoneAnimation = false;
   showPopover = false;
+
+  toggleDoneAnimation()
+  {
+    this.showDoneAnimation = !this.showDoneAnimation;
+  }
 
   confirmCancellation() {
     // Add logic for confirming cancellation
@@ -140,7 +146,7 @@ export class OrderListComponent
     return `${day}-${month}-${year}`;
   }
 
-      
+
   deleteOrder(order:Order) 
   {
     let index = this.orders.findIndex((o: Order) => o.id === order.id);
@@ -149,6 +155,32 @@ export class OrderListComponent
       this.orders.splice(index, 1);
     }
   }
-      
-  
+
+  /**
+   * * Metodo fierissimo che mostra una spunta di operazione completata compresa di audio.
+   * @Santo
+   * @param audioElement 
+   */
+  mailOrders(audioElement: HTMLAudioElement)
+  {
+    this.loadingService.show();
+    this.orderService.sendOrders()
+    .subscribe(
+      {next: data => {
+        console.log(data);
+        this.loadingService.hide();
+        setTimeout(() => this.playSound(audioElement), 1000);
+        this.toggleDoneAnimation();
+        setTimeout(() => this.toggleDoneAnimation(), 2000);
+      }, 
+      error: err => {
+        console.log("ahi, ahi", err);
+      }
+    });
+  }
+
+  playSound(audioElement: HTMLAudioElement):void
+  {
+    audioElement.play();
+  }
 }
