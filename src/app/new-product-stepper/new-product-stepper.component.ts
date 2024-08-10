@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup, FormControl} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
+import {MatStepper, MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FathersService } from '../services/fathers.service';
@@ -74,6 +74,15 @@ export class NewProductStepperComponent implements OnInit{
     this.createProduct.emit(this.createProductForm.value);
     console.log(this.createProductForm.value);
     this.createProductForm.reset();
+  }
+
+  onKeyDown(event: KeyboardEvent, stepper: MatStepper) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Previene il comportamento di default
+      if (this.createProductForm.valid) {
+        stepper.next(); // Passa allo step successivo
+      }
+    }
   }
   
 }
