@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, output } from '@angular/core';
 import { Product } from '../model/Product';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../services/auth.service';
@@ -9,6 +9,9 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { OrdersService } from '../services/orders.service';
+import { integerValidator } from '../validators/integerCheck';
+import { Order } from '../model/Order';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tr[app-product]',
@@ -17,22 +20,43 @@ import { OrdersService } from '../services/orders.service';
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
-export class ProductComponent 
+export class ProductComponent implements OnInit
 {
 
   constructor(public authService:AuthService, public orderService:OrdersService){}
 
   @Input() product!:Product;
 
+  // @Output() updateProduct = new EventEmitter<Product>();
+
+  orders:Order[] = [];
+
   isRestrictedEditModeActiveUnits:boolean = true;
   isRestrictedEditModeActivePackage:boolean = true;
   isFullEditModeActive:boolean = false;
+  isProductAlreadyOrdered!:boolean;
+  ordersNumber:number = 0;
+
+
+  ngOnInit(): void {
+    this.orderService.getAll().subscribe(data => {
+      this.orders = data.filter(o => o.productName === this.product.productName && o.arrived === false)
+      // this.isProductOrderedLogic();
+      console.log(this.orders);
+
+      this.ordersNumber = this.orders.length;
+    })
+
+  }
+
 
   orderForm:FormGroup = new FormGroup
   ({
-    unitOrderedQuantity: new FormControl('', Validators.required), // ! Da cambiare con il vero validatore
-    packagingOrderedQuantity: new FormControl(''),
+    unitOrderedQuantity: new FormControl('', [Validators.required, Validators.min(0), integerValidator]), // ! Aggiugnere validatore per mettere almeno una quantità
+    packagingOrderedQuantity: new FormControl('', [Validators.required, Validators.min(0), integerValidator])
   });
+
+
 
 
   stockQuantity():number
@@ -42,6 +66,7 @@ export class ProductComponent
 
   /**
    * !Bisogna aggiungere nuova proprietà alla modellizzazione altrimenti non può essere davvero utile
+   * * ^ fatto
    * @Santo
    */
   refillLevel():number
@@ -70,6 +95,8 @@ export class ProductComponent
   // Toggle the visibility of the popover
   togglePopover() {
     this.isPopoverVisible = !this.isPopoverVisible;
+    if (!this.isPopoverVisible)
+      this.orderForm.reset();
   }
 
   // Close the popover when clicking outside
@@ -81,6 +108,7 @@ export class ProductComponent
     // Check if the click target is outside the popover and the button
     if (popoverElement && !popoverElement.contains(buttonElement) && !buttonElement.closest('button')) {
       this.isPopoverVisible = false; // Close the popover
+      this.orderForm.reset();
     }
   }
 
@@ -91,16 +119,50 @@ export class ProductComponent
     this.orderService.addOrder(this.product.id!, this.orderForm.value)
     .subscribe(
     {
-
     next: data => {
       console.log(data);
+      this.orderForm.reset();
+    },
+    error: badResponse => {
+      console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
+      this.orders.push(data);
+      this.orderForm.reset();
+
+
+      // this.updateProduct.emit(this.product);
+      /**
+       * * Il reload serve per mostrare in tempo reale la modifica della spunta che
+       * * mostra il prodotto come già ordinato
+       * ! Essendo un reload intero di pagina non è il top a livello di prestazioni quindi più avanti magari
+       * ! Possiamo capire se con un BehaviourSubject o un EventEmitter è possibile ottenere un risultato più leggero.
+       * @Santo
+       */
+      // window.location.reload(); 
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
 
     }})
-
   }
+
+  deleteLatestOrderDone()
+  {
+    this.orderService.deleteLastOrder(this.product.productName)
+    .subscribe(
+      {
+        next: data => {
+          console.log(data);
+          this.orders.splice(this.orders.length-1,1)
+          // window.location.reload();
+        },
+        error: err => {
+          console.log("woops", err);
+        }
+      }
+    )
+  }
+
+  
 
   
   // employeeEditProductUnitsToggle()

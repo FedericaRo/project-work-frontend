@@ -85,6 +85,35 @@ td:hover .hover-text {
     /* transform: translateX(0.5rem); */
 }
 
+.general-svg-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svg-container{
+    display: flex;
+    height: 0.5rem;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    justify-content: center;
+}
+
+.hide{
+    display: none !important;
+}
+
+.svg-odioso{
+    display: flex;
+    position: relative;
+    height: 1rem;
+    padding-right: 0.4rem;
+    
+    /* align-items: center; */
+    /* justify-content: flex-end; */
+}
+
 /* .hidden{
     display: none !important;
 }

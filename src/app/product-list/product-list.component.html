@@ -119,9 +119,11 @@
                             app-product 
                             class="bg-white transition-all duration-500 hover:bg-gray-50" 
                             [ngClass]="{'bg-white': $index % 2 === 0, 'bg-violet-50': $index % 2 !== 0, 'flash': flashId === product.id}" 
-                            [product]="product">
-                            </tr>
-                       }
+                            [product]="product"
+                            >
+                        </tr>
+                    }
+                    <!-- (updateProduct)="onOrdersUpdate($event)" -->
                   </tbody>
               </table>
           </div>
