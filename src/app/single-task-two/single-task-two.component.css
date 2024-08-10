@@ -1,3 +1,13 @@
+::ng-deep .custom-tooltip .mat-tooltip{
+    background-color: #ff5722 !important; /* Colore di sfondo arancione */
+  color: #fff; /* Colore del testo bianco */
+  font-size: 14px; /* Dimensione del testo */
+  padding: 8px; /* Spaziatura interna */
+}
+
+
+
+
 .detail-item {
     flex: 1;
     min-width: 120px; /* Imposta la larghezza minima per evitare il ridimensionamento */
@@ -5,13 +15,11 @@
     white-space: nowrap; /* Impedisce il wrapping del testo */
 }
 
+
 .title-item {
     flex: 2; /* Puoi aumentare il flex se il titolo richiede più spazio */
 }
 
-.task-box {
-    margin-bottom: 10px; /* Spazio tra i task */
-}
 .frequency-item {
     margin-left: 20px; /* Imposta un margine a sinistra per spostare un po' a destra */
 }
