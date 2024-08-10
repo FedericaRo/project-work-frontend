@@ -217,7 +217,7 @@
                 <form [formGroup]="orderForm" class="example-form" (ngSubmit)="sendOrder()"> 
                     <mat-form-field class="example-full-width">
                       <mat-label>Unità da ordinare</mat-label>
-                      <input type="text" min=0 matInput placeholder="Inserisci quantità"  formControlName="unitOrderedQuantity" >
+                      <input type="number" min=0 matInput placeholder="Inserisci quantità"  formControlName="unitOrderedQuantity" >
                     </mat-form-field>
                     <!-- <mat-error *ngIf="orderForm.get('unitOrderedQuantity')?.invalid && orderForm.get('unitOrderedQuantity')?.touched">
                         Il numero di unità da ordinare non è valido
