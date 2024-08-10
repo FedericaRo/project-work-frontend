@@ -175,6 +175,7 @@ export class OrderListComponent
       }, 
       error: err => {
         console.log("ahi, ahi", err);
+        this.loadingService.hide();
       }
     });
   }
