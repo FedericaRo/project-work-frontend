@@ -10,6 +10,7 @@ import { Category } from '../model/Category';
 import { Supplier } from '../model/Supplier';
 import { MatOptionModule } from '@angular/material/core';
 import { Product } from '../model/Product';
+import { ProductsiblingsService } from '../services/productsiblings.service';
 
 @Component({
   selector: 'app-new-product-stepper',
@@ -32,12 +33,29 @@ export class NewProductStepperComponent implements OnInit{
   categories:Category[] = [];
   suppliers:Supplier[] = [];
 
-  constructor(private fatherService:FathersService) {}
+  // constructor(private fatherService:FathersService) {}
 
-  ngOnInit(): void 
-  {
-    this.fatherService.getAllCategories().subscribe(data=>{this.categories=data; console.log(this.categories)});
-    this.fatherService.getAllSuppliers().subscribe(data=>{this.suppliers=data; console.log(this.suppliers)});
+  // ngOnInit(): void 
+  // {
+  //   this.fatherService.getAllCategories().subscribe(data=>{this.categories=data; console.log(this.categories)});
+  //   this.fatherService.getAllSuppliers().subscribe(data=>{this.suppliers=data; console.log(this.suppliers)});
+  // }
+
+
+  constructor(private productsSibling:ProductsiblingsService){}
+
+  ngOnInit(): void {
+    // Subscribe to categories$
+    this.productsSibling.categories$.subscribe(categories => {
+      this.categories = categories;
+      console.log('Categories received:', this.categories);
+    });
+
+    // Subscribe to suppliers$
+    this.productsSibling.suppliers$.subscribe(suppliers => {
+      this.suppliers = suppliers;
+      console.log('Suppliers received:', this.suppliers);
+    });
   }
 
   // category!:Category;
@@ -75,6 +93,8 @@ export class NewProductStepperComponent implements OnInit{
     console.log(this.createProductForm.value);
     this.createProductForm.reset();
   }
+
+
 
  
 

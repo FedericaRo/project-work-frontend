@@ -98,8 +98,8 @@ export class OrderListComponent
   ngOnInit(): void 
   {
     this.orderService.getAll().subscribe(data => {
-    this.orders = data;
-    this.ordersBackup = data;
+    this.orders = data.reverse();
+    this.ordersBackup = this.orders;
     console.log(this.orders)})
   }
       

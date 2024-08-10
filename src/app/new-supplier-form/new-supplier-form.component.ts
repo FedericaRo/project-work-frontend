@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ProductsService } from '../services/products.service';
 import { FathersService } from '../services/fathers.service';
 import { Supplier } from '../model/Supplier';
+import { ProductsiblingsService } from '../services/productsiblings.service';
 
 @Component({
   selector: 'app-new-supplier-form',
@@ -17,7 +18,7 @@ import { Supplier } from '../model/Supplier';
 })
 export class NewSupplierFormComponent 
 {
-  constructor(private fatherService:FathersService){}
+  constructor(private fatherService:FathersService, private productsSibling:ProductsiblingsService){}
 
   @Output() toggleForm = new EventEmitter<boolean>();
   @Output() newSupplierEvent:EventEmitter<Supplier> = new EventEmitter<Supplier>();
@@ -64,6 +65,7 @@ export class NewSupplierFormComponent
         next: data => {
           console.log(data);
           this.newSupplierEvent.emit(data); // ! NON VIENE CATCHATA
+          this.productsSibling.addSupplier(data);
         },
         error: badResponse => {
           console.log("Error:", badResponse);

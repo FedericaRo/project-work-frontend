@@ -5,6 +5,7 @@ import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { FathersService } from '../services/fathers.service';
+import { ProductsiblingsService } from '../services/productsiblings.service';
 
 @Component({
   selector: 'app-new-category-form',
@@ -15,7 +16,7 @@ import { FathersService } from '../services/fathers.service';
 })
 export class NewCategoryFormComponent {
   
-  constructor(private fatherService:FathersService){}
+  constructor(private fatherService:FathersService, private productsSibling:ProductsiblingsService){}
 
   @Output() toggleForm = new EventEmitter<boolean>();
   
@@ -60,6 +61,8 @@ export class NewCategoryFormComponent {
       {
         next: data => {
           console.log(data);
+          this.productsSibling.addCategory(data);
+
         },
         error: badResponse => {
           console.log("Error:", badResponse);

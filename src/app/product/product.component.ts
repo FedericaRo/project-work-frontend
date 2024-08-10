@@ -9,6 +9,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { OrdersService } from '../services/orders.service';
+import { integerValidator } from '../validators/integerCheck';
 
 @Component({
   selector: 'tr[app-product]',
@@ -30,8 +31,8 @@ export class ProductComponent
 
   orderForm:FormGroup = new FormGroup
   ({
-    unitOrderedQuantity: new FormControl('', Validators.required), // ! Da cambiare con il vero validatore
-    packagingOrderedQuantity: new FormControl(''),
+    unitOrderedQuantity: new FormControl('', [Validators.required, Validators.min(0), integerValidator]), // ! Aggiugnere validatore per mettere almeno una quantità
+    packagingOrderedQuantity: new FormControl('', [Validators.required, Validators.min(0), integerValidator])
   });
 
 
@@ -70,6 +71,8 @@ export class ProductComponent
   // Toggle the visibility of the popover
   togglePopover() {
     this.isPopoverVisible = !this.isPopoverVisible;
+    if (!this.isPopoverVisible)
+      this.orderForm.reset();
   }
 
   // Close the popover when clicking outside
@@ -81,6 +84,7 @@ export class ProductComponent
     // Check if the click target is outside the popover and the button
     if (popoverElement && !popoverElement.contains(buttonElement) && !buttonElement.closest('button')) {
       this.isPopoverVisible = false; // Close the popover
+      this.orderForm.reset();
     }
   }
 
@@ -94,9 +98,11 @@ export class ProductComponent
 
     next: data => {
       console.log(data);
+      this.orderForm.reset();
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
+      this.orderForm.reset();
 
     }})
 
