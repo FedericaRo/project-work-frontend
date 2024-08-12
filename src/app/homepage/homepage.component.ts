@@ -25,6 +25,41 @@ import {MatDividerModule} from '@angular/material/divider';
 export class HomepageComponent implements OnInit{
 
 
+  ruiSciiArt:string = `                                                                                                           
+                    
+                               000000                     000000000000000000000000000                      
+                            00000  00000                 00000000000000000000000000000000                  
+                           000         0                 00                           00000                
+                   00      00          00     00         00                              0000              
+                 00   000   0          0   000  000      00                                000             
+               00        00 000   00  00 00      0000    00         000000000000000          00            
+              00    00    0  00      00  0          00   00        000000000000000000         00           
+           000 0  0   0 0 00 0  0  0    00          0 00000        00              000         00          
+          0000 0           0000 0  000000           0 00000        00                00        00          
+         00   0  00  0   0               0        00 0             00                00        00          
+         0     0    0000 00               0 0000    0              00                00        00          
+        00       00   00   0           000  00    0                00                00        00          
+        00        00  00                    0   00                 00               00         00          
+         0         00  0        0 0         0   00                 000000000000000000         00           
+         00         0000                    00000                   000000000000000          00            
+        00 00    0000                                   0                                   00             
+        0 000000 000000000                000000000  000000                              0000              
+        0 0   00 0   000         0          0000  0 000  00                             000                
+        00 00000 0 00 000       0 0  0     000 00 0 000000          0000000000          0                  
+         00  000 000  0  000    0 0   0      0  000 000  0         000000000000         00                 
+                         0 0 0  0000000 0 0  0 0         00        00         00         000               
+          000            0 0    000         0 0         0 0        00          00         000              
+          00        00      000 0000 000         0 0    0 0        00           00          00             
+          00       0000     0 0 000000 0      00        0 0        00            000         00            
+           000     00 0000000 00000 00 0000 00 00      0000        00             000         00           
+            0000    0   00000 000 0 0  00000  0   000000 00        00              000         00          
+               00  00        00 0 0  0        00        000        00                00         00         
+                       00000   00  0   0000000            00000000000                 000000000000         
+                            000     00          00000000000000000000                   00000000000         
+                       0000            00000000                                                            
+
+                                                                                                           `;
+
   constructor(public authService:AuthService, 
               private taskService:TaskService,
               private communicationService:CommunicationsService, 
@@ -63,6 +98,8 @@ export class HomepageComponent implements OnInit{
     this.orderService.getAll().subscribe(data => {
       this.notArrivedOrders = data.filter(o => o.arrived === false);
     })
+
+    console.log(this.ruiSciiArt);
     // this.backupTasks = this.unitedTask;
   }
 
@@ -78,7 +115,7 @@ export class HomepageComponent implements OnInit{
 
   filterCommunications(): void {
     this.filteredCommunications = this.communications.reverse().filter(c => 
-      c.type === 'CAMBIO TURNO' || c.importance === 'ALTA'
+      c.type === 'CAMBIOTURNO' || c.importance === 'ALTA'
     );
   }
 
@@ -95,9 +132,9 @@ export class HomepageComponent implements OnInit{
       return diffInMs <= 86400000;
     });
 
-    console.log(this.newCommunications)
-    console.log(this.communications[0].communicationName, this.communications[0].creationDate)
-    console.log(this.communications)
+    // console.log(this.newCommunications)
+    // console.log(this.communications[0].communicationName, this.communications[0].creationDate)
+    // console.log(this.communications)
     
   }
 
@@ -123,7 +160,7 @@ export class HomepageComponent implements OnInit{
     this.notCompletedTask = this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask)
     .filter(t => t.status === "DAFARSI");
     this.backupTasks =this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask);
-    console.log('United Task:', this.unitedTask);
+    // console.log('United Task:', this.unitedTask);
   }
 
   onTaskUpdated(updatedTask: any): void {

@@ -13,7 +13,7 @@ export class LoggedGuardService {
   {
     if(this.authService.isLogged())
     {
-      // this.router.navigate(["dashboard"]);
+      // this.router.navigate(["homepage"]);
       return true;
     }
 

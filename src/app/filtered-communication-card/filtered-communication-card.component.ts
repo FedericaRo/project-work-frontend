@@ -21,8 +21,8 @@ export class FilteredCommunicationCardComponent {
   {
     let now = new Date();
     let creation = new Date(this.communication.creationDate);
-    console.log("Creation Date:", this.communication.creationDate);
-console.log("Type of Creation Date:", typeof this.communication.creationDate);
+    // console.log("Creation Date:", this.communication.creationDate);
+    // console.log("Type of Creation Date:", typeof this.communication.creationDate);
 
     let diffInMs = now.getTime() - creation.getTime();
     let diffInHrs = diffInMs / (1000 * 60 * 60);
