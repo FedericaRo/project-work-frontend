@@ -11,35 +11,44 @@ import {MatButtonModule} from '@angular/material/button';
 import { FilteredCommunicationCardComponent } from "../filtered-communication-card/filtered-communication-card.component";
 import { Communication } from '../model/Communication';
 import { CommunicationsService } from '../services/communications.service';
+import { OrdersService } from '../services/orders.service';
+import { Order } from '../model/Order';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [DashboardComponent, SingleTaskComponent, CommonModule, FormsModule, MatIconModule, MatButtonModule, FilteredCommunicationCardComponent],
+  imports: [DashboardComponent, MatDividerModule ,SingleTaskComponent, CommonModule, FormsModule, MatIconModule, MatButtonModule, FilteredCommunicationCardComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent implements OnInit{
 
 
-  constructor(public authService:AuthService, private taskService:TaskService,
-               private communicationService:CommunicationsService){}
+  constructor(public authService:AuthService, 
+              private taskService:TaskService,
+              private communicationService:CommunicationsService, 
+              private orderService:OrdersService){}
 
   communications:Communication[] =  [];
-  filteredCommunications:Communication[]=[]; 
+  filteredCommunications:Communication[] = []; 
 
   filterCriteria:string = '';
   fontIconName:string= 'arrow_drop_up';
-  
 
-  tasks:Task[] = [];
+  tasks: Task[] = [];
   
-  weeklyTask:Task[] = [];
-  biWeeklyTask:Task[] = [];
+  weeklyTask: Task[] = [];
+  biWeeklyTask: Task[] = [];
   monthlyTask: Task[] = []; // Modifica il tipo se necessario
   
-  unitedTask:Task[] = []; //Task listate nell'effettivo
-  backupTasks:Task[] = [];
+  unitedTask: Task[] = []; //Task listate nell'effettivo
+  backupTasks: Task[] = [];
+
+  completedTask: Task[] = [];
+  notCompletedTask: Task[] = [];
+  notArrivedOrders: Order[] = [];
+  newCommunications: Communication[] = [];
 
   statux:string='';
   freq:string='';
@@ -51,6 +60,9 @@ export class HomepageComponent implements OnInit{
   ngOnInit(): void {
     this.loadTasks();
     this.loadCommunications();
+    this.orderService.getAll().subscribe(data => {
+      this.notArrivedOrders = data.filter(o => o.arrived === false);
+    })
     // this.backupTasks = this.unitedTask;
   }
 
@@ -58,13 +70,35 @@ export class HomepageComponent implements OnInit{
     this.communicationService.getAll().subscribe(data => {
       this.communications = data;
       this.filterCommunications();
+      this.newCom();
     });
+        
+
   }
 
   filterCommunications(): void {
-    this.filteredCommunications = this.communications.filter(c => 
+    this.filteredCommunications = this.communications.reverse().filter(c => 
       c.type === 'CAMBIO TURNO' || c.importance === 'ALTA'
     );
+  }
+
+
+  newCom(): void{
+    let dataDiOggi = new Date();
+    this.newCommunications = this.communications.filter(c => {
+      const creationDate = this.parseDate(c.creationDate);
+
+      // Calcolare la differenza in millisecondi
+      const diffInMs = dataDiOggi.getTime() - creationDate.getTime();
+
+      // Se la differenza è minore o uguale a 86.400.000 ms (24 ore), considerare la comunicazione valida
+      return diffInMs <= 86400000;
+    });
+
+    console.log(this.newCommunications)
+    console.log(this.communications[0].communicationName, this.communications[0].creationDate)
+    console.log(this.communications)
+    
   }
 
   loadTasks(): void {
@@ -75,6 +109,7 @@ export class HomepageComponent implements OnInit{
     this.loadBiweeklyTask();
     this.loadMonthlyTask();
     this.loadWeeklyTask();
+    
     // this.unitedTask = this.weeklyTask.concat(this.biWeeklyTask,this.monthlyTask);
     
   }
@@ -83,7 +118,10 @@ export class HomepageComponent implements OnInit{
     // Unisce gli array solo dopo che tutti i dati sono stati caricati
     this.unitedTask = this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask);
     console.log('United Task:', this.unitedTask); // Debug
-
+    this.completedTask = this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask)
+    .filter(t => t.status === "COMPLETATO");
+    this.notCompletedTask = this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask)
+    .filter(t => t.status === "DAFARSI");
     this.backupTasks =this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask);
     console.log('United Task:', this.unitedTask);
   }
@@ -99,6 +137,9 @@ export class HomepageComponent implements OnInit{
     if (index > -1) {
       this.backupTasks[index2] = updatedTask;
     }
+
+    this.completedTask = this.unitedTask.filter(t => t.status === "COMPLETATO");
+    this.notCompletedTask = this.unitedTask.filter(t => t.status === "DAFARSI");
   }
 
 

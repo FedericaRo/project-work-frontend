@@ -1,18 +1,32 @@
-<!-- Card Component -->
-<div class="relative flex flex-col items-start p-6 overflow-hidden rounded-xl border-2 border-blue-500 dark:border-blue-700 dark:bg-black bg-white w-full h-full">
+<!-- Post-It Card Component -->
+<div
+    [ngClass]="{
+                'colore-amministrativa': communication.type==='AMMINISTRATIVA',
+                'colore-cambioturno': communication.type==='CAMBIOTURNO',
+                'colore-informativa': communication.type==='INFORMATIVA',
+                'colore-organizzativa': communication.type==='ORGANIZZATIVA',
+                'group': communication.type==='AMMINISTRATIVA',
+                'group2': communication.type==='CAMBIOTURNO',
+                'group3': communication.type==='INFORMATIVA',
+                'group4': communication.type==='ORGANIZZATIVA',
+                }"
+    
+    class="relative flex flex-col items-start p-4 overflow-hidden w-80 h-80"
+    >
+
     <!-- Background Overlay -->
-    <span class="absolute inset-0 w-full h-full bg-white dark:bg-black dark:group-hover:bg-gray-900 group-hover:bg-gray-50 group-hover:bg-opacity-30"></span>
+    <span class="absolute inset-0 w-full h-full bg-white opacity-60"></span>
     
     <!-- Card Content -->
     <div class="relative w-full flex flex-col h-full justify-between">
         <!-- Delete Button -->
-        <button (click)="onDelete()" class="absolute top-3 right-3 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-            <mat-icon style="font-size: 1.7rem;" class="material-icons-outlined">delete</mat-icon>
+        <button (click)="onDelete()" class="absolute top-2 right-2 text-gray-800 rounded-lg hover:bg-gray-200">
+            <mat-icon style="font-size: 1.5rem;" class="material-icons-outlined">delete</mat-icon>
         </button>
         
         <!-- Title -->
-        <div class="mt-6 mb-4 w-full pr-12">
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white truncate">
+        <div class="mt-4 mb-2 w-full pr-6">
+            <h3 class="text-base font-bold text-gray-800 truncate">
                 {{communication.communicationName}}
             </h3>
         </div>
@@ -20,27 +34,27 @@
         <!-- Main Content -->
         <div class="flex-grow">
             <!-- From and To Information -->
-            <p class="text-sm text-gray-600 dark:text-gray-400">
+            <p class="text-xs text-gray-700">
                 <strong>Da:</strong> {{communication.fromPerson}} <br>
                 <strong>Per:</strong> {{communication.toPerson}}
             </p>
             <!-- Description -->
-            <p class="mt-2 text-gray-600 dark:text-gray-400">
+            <p class="mt-1 text-gray-700 description">
                 {{communication.description}}
             </p>
             <!-- Date -->
-            <p class="mt-2 text-gray-600 dark:text-gray-400">
-                <strong>Data:</strong> {{communication.creationDate}}
+            <p class="mt-1 text-gray-700">
+                <strong>Data:</strong> {{communication.creationDate | date:'dd/MM/yyyy'}}
             </p>
             <!-- Type and Importance Badges -->
-            <p class="mt-2 text-gray-600 dark:text-gray-400">
-                <span [ngClass]="typeLable(communication.type)" class="badge rounded-pill badge-settimanale font-size-11 type">
+            <div class="mt-1 flex flex-wrap gap-1">
+                <span [ngClass]="typeLable(communication.type)" class="badge rounded-full text-xs font-semibold px-2 py-1">
                     {{communication.type}} 
                 </span>
-            </p>
-            <span [ngClass]="importanceLable(communication.importance)" class="badge rounded-pill badge-settimanale font-size-11 importance">
-                {{communication.importance}}
-            </span>
+                <span [ngClass]="importanceLable(communication.importance)" class="badge rounded-full text-xs font-semibold px-2 py-1">
+                    {{communication.importance}}
+                </span>
+            </div>
         </div>
     </div>
 </div>
