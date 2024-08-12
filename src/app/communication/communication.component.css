@@ -1,13 +1,155 @@
-/* Post-It card styling */
+
 .group {
-    width: 320px; /* Larghezza fissa per la card quadrata */
-    height: 320px; /* Altezza fissa per la card quadrata */
+    width: 20rem;
+    height: 20rem; 
+    position: relative;
+    
+}
+
+.group2 {
+    width: 20rem;
+    height: 20rem; 
     position: relative;
 }
 
-/* Post-It background and shadow */
-.bg-yellow-100 {
-    background-color: #fefcbf; /* Colore giallo post-it */
+.group3 {
+    width: 20rem;
+    height: 20rem; 
+    position: relative;
+}
+
+.group4 {
+    width: 20rem;
+    height: 20rem; 
+    position: relative;
+}
+
+.colore-amministrativa {
+    background-color:crimson;
+}
+
+.colore-cambioturno {
+    background-color:rgb(0, 85, 255);
+}
+
+.colore-informativa {
+    background-color: chartreuse;
+}
+
+.colore-organizzativa {
+    background-color: #ffef3a;
+}
+
+.group::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Dimensioni dell'angolo piegato */
+    height: 70px;
+    background-color: rgba(198, 61, 77, 0.523); /* Colore della parte inferiore del piegato */
+    transform: rotate(180deg);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%); /* Effetto piega triangolare */
+    z-index: 2; /* Sovrapposizione corretta */
+    box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.group2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Dimensioni dell'angolo piegato */
+    height: 70px;
+    background-color: rgb(96, 150, 212); /* Colore della parte inferiore del piegato */
+    transform: rotate(180deg);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%); /* Effetto piega triangolare */
+    z-index: 2; /* Sovrapposizione corretta */
+}
+
+.group3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Dimensioni dell'angolo piegato */
+    height: 70px;
+    background-color: rgb(142, 218, 121); /* Colore della parte inferiore del piegato */
+    transform: rotate(180deg);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%); /* Effetto piega triangolare */
+    z-index: 2; /* Sovrapposizione corretta */
+}
+
+.group4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Dimensioni dell'angolo piegato */
+    height: 70px;
+    background-color: #fde872; /* Colore della parte inferiore del piegato */
+    transform: rotate(180deg);
+    clip-path: polygon(100% 0, 0 100%, 100% 100%); /* Effetto piega triangolare */
+    z-index: 2; /* Sovrapposizione corretta */
+    box-shadow: none;
+}
+/* Ombra sotto l'angolo piegato */
+.group::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Stessa dimensione del triangolo */
+    height: 70px;
+    background-color: #f9fafb ; /* Colore del Post-It */
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    z-index: 1; /* Per posizionare l'ombra dietro la piega */
+    box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per l'angolo piegato */
+    /* transform: translate(-5px, 5px);  */
+}
+
+.group2::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Stessa dimensione del triangolo */
+    height: 70px;
+    background-color: #f9fafb; /* Colore del Post-It */
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    z-index: 1; /* Per posizionare l'ombra dietro la piega */
+    box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per l'angolo piegato */
+    /* transform: translate(-5px, 5px); Leggera traslazione per creare l'effetto 3D */
+}
+
+.group3::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Stessa dimensione del triangolo */
+    height: 70px;
+    background-color:#f9fafb; /* Colore del Post-It */
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    z-index: 1; /* Per posizionare l'ombra dietro la piega */
+    box-shadow: -4px 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per l'angolo piegato */
+    /* transform: translate(-5px, 5px); Leggera traslazione per creare l'effetto 3D */
+}
+
+
+.group4::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70px; /* Stessa dimensione del triangolo */
+    height: 70px;
+    background-color: #f9fafb; /* Colore del Post-It */
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    z-index: 1; /* Per posizionare l'ombra dietro la piega */
+    box-shadow: none; /* Ombra per l'angolo piegato */
+    /* transform: translate(-5px, 5px); Leggera traslazione per creare l'effetto 3D */
 }
 
 /* Text overflow handling */
@@ -26,8 +168,8 @@
 }
 
 /* Badge styling */
-.badge {
+/* .badge {
     background-color: #fefcbf; /* Colore giallo chiaro per badge */
-    border: 1px solid #f8e0a6; /* Bordo leggero per badge */
-    color: #666; /* Colore del testo del badge */
-}
+    /* border: 1px solid #f8e0a6;  Bordo leggero per badge */ 
+    /* color: #666;  Colore del testo del badge */
+/* } */

@@ -9,6 +9,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { OrdersService } from '../services/orders.service';
+import { integerValidator } from '../validators/integerCheck';
 import { Order } from '../model/Order';
 import { Router } from '@angular/router';
 
@@ -51,8 +52,8 @@ export class ProductComponent implements OnInit
 
   orderForm:FormGroup = new FormGroup
   ({
-    unitOrderedQuantity: new FormControl('', Validators.required), // ! Da cambiare con il vero validatore
-    packagingOrderedQuantity: new FormControl(''),
+    unitOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator]), // ! Aggiugnere validatore per mettere almeno una quantità
+    packagingOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator])
   });
 
 
@@ -94,6 +95,8 @@ export class ProductComponent implements OnInit
   // Toggle the visibility of the popover
   togglePopover() {
     this.isPopoverVisible = !this.isPopoverVisible;
+    if (!this.isPopoverVisible)
+      this.orderForm.reset();
   }
 
   // Close the popover when clicking outside
@@ -105,6 +108,7 @@ export class ProductComponent implements OnInit
     // Check if the click target is outside the popover and the button
     if (popoverElement && !popoverElement.contains(buttonElement) && !buttonElement.closest('button')) {
       this.isPopoverVisible = false; // Close the popover
+      this.orderForm.reset();
     }
   }
 
@@ -117,8 +121,15 @@ export class ProductComponent implements OnInit
     {
     next: data => {
       console.log(data);
-      // this.updateProduct.emit(this.product);
+      this.orderForm.reset();
       this.orders.push(data);
+    },
+    error: badResponse => {
+      console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
+      this.orderForm.reset();
+
+
+      // this.updateProduct.emit(this.product);
       /**
        * * Il reload serve per mostrare in tempo reale la modifica della spunta che
        * * mostra il prodotto come già ordinato
@@ -127,9 +138,7 @@ export class ProductComponent implements OnInit
        * @Santo
        */
       // window.location.reload(); 
-    },
-    error: badResponse => {
-      console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
+
     }})
   }
 

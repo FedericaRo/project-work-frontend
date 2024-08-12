@@ -1,0 +1,251 @@
+.amministrativa-card {
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 440px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  .informativa-card {
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 440px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  .organizzativa-card {
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 440px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  .cambio-turno-card {
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 440px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+  
+  .amministrativa-card::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background-color: #f1a1b12d;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translateX(-30px) translateY(-30px);
+    transition: transform 0.5s ease;
+  }
+  .informativa-card::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background-color: #ccff992e;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translateX(-30px) translateY(-30px);
+    transition: transform 0.5s ease;
+  }
+  .organizzativa-card::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background-color: #fff8b038;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translateX(-30px) translateY(-30px);
+    transition: transform 0.5s ease;
+  }
+  .cambio-turno-card::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 70px;
+    height: 70px;
+    background-color: #99bbff2e;
+    border-radius: 50%;
+    z-index: 0;
+    transform: translateX(-30px) translateY(-30px);
+    transition: transform 0.5s ease;
+  }
+  
+  .amministrativa-card:hover::before {
+    transform: translateX(0) translateY(0);
+  }
+  .informativa-card:hover::before {
+    transform: translateX(0) translateY(0);
+  }
+  .organizzativa-card:hover::before {
+    transform: translateX(0) translateY(0);
+  }
+  .cambio-turno-card:hover::before {
+    transform: translateX(0) translateY(0);
+  }
+  
+  .amministrativa-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background-color: #F1A1B1;
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    z-index: 0;
+  }
+  .informativa-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background-color: #CCFF99;
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    z-index: 0;
+  }
+  .organizzativa-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background-color: #FFF9B0;
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    z-index: 0;
+  }
+  .cambio-turno-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    background-color: #99BBFF;
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+    z-index: 0;
+  }
+
+  
+  .amministrativa-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  .informativa-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  .organizzativa-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  .cambio-turno-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2F4B7C;
+    margin-bottom: 15px;
+    z-index: 1;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .details p {
+    font-size: 1rem;
+    color: #000000;
+    margin: 10px 0;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .details .date {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #f95d6a;
+  }
+  
+  .details .description {
+    margin-top: 15px;
+    color: #718096;
+    font-style: italic;
+  }
+  
+  .tags {
+    margin-top: 20px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  .tags span {
+    display: inline-block;
+    margin-right: 12px;
+    margin-top: 8px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .amministrativa-label {
+    background-color: #F1A1B1;
+    color: #ffffff;
+  }
+  .informativa-label {
+    background-color: #CCFF99;
+    color: #6a9440;
+  }
+  .organizzativa-label {
+    background-color: #FFF9B0;
+    color: #d0b711;
+  }
+  .cambio-turno-label {
+    background-color: #99BBFF;
+    color: #ffffff;
+  }
+  
+  /* .importance-label {
+    background-color: #c53030;
+    color: #ffffff;
+  } */
+  
+  /* .tags span:hover {
+    transform: scale(1.05);
+    background-color: #ffffff;
+    color: #2b6cb0;
+    cursor: pointer;
+  } */
+  
+  .tags span.importance-label:hover {
+    color: #c53030;
+  }
+  

@@ -3,6 +3,30 @@ td {
     position: relative;
 }
 
+.general-svg-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svg-container{
+    display: flex;
+    height: 0.5rem;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    justify-content: center;
+}
+
+.svg-odioso{
+    display: flex;
+    position: relative;
+    height: 1rem;
+    padding-right: 0.4rem;
+    
+    /* align-items: center; */
+    /* justify-content: flex-end; */
+}
 
 /* Stile per il testo che appare al passaggio del mouse */
 .hover-text {

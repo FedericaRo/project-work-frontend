@@ -9,11 +9,11 @@
           <input
             placeholder="Inserire il nome del fornitore"
             type="text"
-            id="supplierName"
-            formControlName="supplierName"
+            id="name"
+            formControlName="name"
             matInput
           />
-          <mat-error *ngIf="supplierForm.get('supplierName')?.invalid && supplierForm.get('supplierName')?.touched">
+          <mat-error *ngIf="supplierForm.get('name')?.invalid && supplierForm.get('name')?.touched">
             Il nome del fornitore è obbligatorio
           </mat-error>
         </mat-form-field>

@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Communication } from '../model/Communication';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-communication',
   standalone: true,
-  imports: [CommonModule,MatIconModule],
+  imports: [CommonModule,MatIconModule, DatePipe],
   templateUrl: './communication.component.html',
   styleUrl: './communication.component.css'
 })
@@ -60,4 +60,11 @@ export class CommunicationComponent
       console.error("ID della comunicazione è null o undefined");
     }
   }
+
+  // getRandomRotation(): string {
+  //   const min = -3;
+  //   const max = 3;
+  //   const randomDegree = Math.random() * (max - min) + min;
+  //   return `rotate(${randomDegree}deg)`;
+  // }
 }

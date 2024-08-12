@@ -4,6 +4,10 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators } 
 import { MatFormFieldModule, MatError } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ProductsService } from '../services/products.service';
+import { FathersService } from '../services/fathers.service';
+import { Supplier } from '../model/Supplier';
+import { ProductsiblingsService } from '../services/productsiblings.service';
 
 @Component({
   selector: 'app-new-supplier-form',
@@ -14,14 +18,17 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class NewSupplierFormComponent 
 {
+  constructor(private fatherService:FathersService, private productsSibling:ProductsiblingsService){}
 
   @Output() toggleForm = new EventEmitter<boolean>();
+  @Output() newSupplierEvent:EventEmitter<Supplier> = new EventEmitter<Supplier>();
+
   
   formState:boolean = false;
 
   supplierForm:FormGroup = new FormGroup
   ({
-    supplierName: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
   });
   
   toggleFormNewSupplier():void
@@ -41,6 +48,7 @@ export class NewSupplierFormComponent
     // Check if the click target is outside the popover and the button
     if (modalElement && !modalElement.contains(clickedElement) && !clickedElement.closest('button')) {
       this.toggleForm.emit(false);
+
       this.supplierForm.reset();
     }
   }
@@ -48,11 +56,23 @@ export class NewSupplierFormComponent
   createNewSupplier() 
   {
     this.toggleForm.emit(false);
-    this.supplierForm.reset();
     // this.supplierForm.markAsUntouched();
     // this.supplierForm.markAsPristine();
-    console.log("here");
-    throw new Error('Method not implemented.');
+    console.log(this.supplierForm.value);
+    this.fatherService.addSupplier(this.supplierForm.value)
+    .subscribe(
+      {
+        next: data => {
+          console.log(data);
+          this.newSupplierEvent.emit(data); // ! NON VIENE CATCHATA
+          this.productsSibling.addSupplier(data);
+        },
+        error: badResponse => {
+          console.log("Error:", badResponse);
+        }
+      }
+    )
+    this.supplierForm.reset();
   }
 
 }

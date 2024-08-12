@@ -1,7 +1,21 @@
 <!-- Post-It Card Component -->
-<div class="relative flex flex-col items-start p-4 overflow-hidden bg-yellow-100 w-80 h-80 group">
+<div
+    [ngClass]="{
+                'colore-amministrativa': communication.type==='AMMINISTRATIVA',
+                'colore-cambioturno': communication.type==='CAMBIOTURNO',
+                'colore-informativa': communication.type==='INFORMATIVA',
+                'colore-organizzativa': communication.type==='ORGANIZZATIVA',
+                'group': communication.type==='AMMINISTRATIVA',
+                'group2': communication.type==='CAMBIOTURNO',
+                'group3': communication.type==='INFORMATIVA',
+                'group4': communication.type==='ORGANIZZATIVA',
+                }"
+    
+    class="relative flex flex-col items-start p-4 overflow-hidden w-80 h-80"
+    >
+
     <!-- Background Overlay -->
-    <span class="absolute inset-0 w-full h-full bg-yellow-100 opacity-80"></span>
+    <span class="absolute inset-0 w-full h-full bg-white opacity-60"></span>
     
     <!-- Card Content -->
     <div class="relative w-full flex flex-col h-full justify-between">
@@ -30,7 +44,7 @@
             </p>
             <!-- Date -->
             <p class="mt-1 text-gray-700">
-                <strong>Data:</strong> {{communication.creationDate}}
+                <strong>Data:</strong> {{communication.creationDate | date:'dd/MM/yyyy'}}
             </p>
             <!-- Type and Importance Badges -->
             <div class="mt-1 flex flex-wrap gap-1">

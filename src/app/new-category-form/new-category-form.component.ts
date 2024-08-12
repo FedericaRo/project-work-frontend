@@ -4,6 +4,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { FathersService } from '../services/fathers.service';
+import { ProductsiblingsService } from '../services/productsiblings.service';
 
 @Component({
   selector: 'app-new-category-form',
@@ -14,13 +16,15 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class NewCategoryFormComponent {
   
+  constructor(private fatherService:FathersService, private productsSibling:ProductsiblingsService){}
+
   @Output() toggleForm = new EventEmitter<boolean>();
   
   formState:boolean = false;
 
   categoryForm:FormGroup = new FormGroup
   ({
-    categoryName: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
   });
   
   
@@ -45,17 +49,26 @@ export class NewCategoryFormComponent {
     }
   }
 
-  
 
-
-  
   createNewCategory() 
   {
     this.toggleForm.emit(false);
-    this.categoryForm.reset();
     // this.categoryForm.markAsUntouched();
     // this.categoryForm.markAsPristine();
-    console.log("here");
-    throw new Error('Method not implemented.');
+    console.log(this.categoryForm.value);
+    this.fatherService.addCategory(this.categoryForm.value)
+    .subscribe(
+      {
+        next: data => {
+          console.log(data);
+          this.productsSibling.addCategory(data);
+
+        },
+        error: badResponse => {
+          console.log("Error:", badResponse);
+        }
+      }
+    )
+    this.categoryForm.reset();
   }
 }

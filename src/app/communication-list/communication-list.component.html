@@ -32,7 +32,7 @@
     <div class="bg-white dark:bg-gray-800 min-h-screen flex items-start justify-center">
         <!-- Griglia di Card -->
         <div class="w-full px-5">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-5">
                 <app-communication class="pb-10" *ngFor="let communication of communications" [communication]="communication"
                     (delete)="deleteCommunication($event)">
                 </app-communication>
@@ -42,5 +42,4 @@
 </div>
 <div class="fixed inset-0 bg-black bg-opacity-50 z-50" [ngClass]="{'hidden': !showForm}" (click)="toggleForm()"></div>
 <app-communication-form [ngClass]="{'hidden': !showForm}" class="comform"
-    (add)="addNewCommunication($event)"></app-communication-form> <!--imposta visibilità-->
-
+    (add)="addNewCommunication($event)"></app-communication-form> <!--imposta visibilitÃ-->
