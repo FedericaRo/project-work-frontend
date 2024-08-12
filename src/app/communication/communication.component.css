@@ -1,17 +1,16 @@
-/* Imposta dimensioni fisse per la card */
+/* Post-It card styling */
 .group {
-    width: 300px; /* Larghezza fissa per tutte le card */
-    height: 1100px; /* Altezza fissa per tutte le card */
+    width: 320px; /* Larghezza fissa per la card quadrata */
+    height: 320px; /* Altezza fissa per la card quadrata */
     position: relative;
 }
 
-/* Assicurati che il contenuto all'interno non trabocchi */
-.relative {
-    height: 100%;
-    overflow: hidden;
+/* Post-It background and shadow */
+.bg-yellow-100 {
+    background-color: #fefcbf; /* Colore giallo post-it */
 }
 
-/* Gestisci l'overflow del testo per evitare il taglio */
+/* Text overflow handling */
 .text-lg, .text-sm {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -23,12 +22,12 @@
     text-overflow: ellipsis; /* Aggiunge i puntini di sospensione */
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; /* Limita a 3 righe di testo */
 }
 
-.truncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+/* Badge styling */
+.badge {
+    background-color: #fefcbf; /* Colore giallo chiaro per badge */
+    border: 1px solid #f8e0a6; /* Bordo leggero per badge */
+    color: #666; /* Colore del testo del badge */
 }
-
-

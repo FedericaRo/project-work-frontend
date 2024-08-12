@@ -172,6 +172,7 @@ export class OrderListComponent
         setTimeout(() => this.toggleDoneAnimation(), 2000);
       }, 
       error: err => {
+        this.loadingService.hide();
         console.log("ahi, ahi", err);
       }
     });
