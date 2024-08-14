@@ -33,9 +33,6 @@ export class CommunicationListComponent implements OnInit
     this.showForm = !this.showForm;
   }
 
-
-
-
   ngOnInit(): void 
   {
       this.communicationService.getAll().subscribe(data => {
