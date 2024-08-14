@@ -1,8 +1,20 @@
-/* Pulsante flottante accanto alla barra di ricerca */
 button[mat-fab] {
-  position: relative;
-  margin-right: 840px;
-  box-shadow: none;
+  background-color: #FFA600; /* Colore blu scuro per il pulsante */
+  color: white; /* Colore del testo e dell'icona bianco */
+  width: 48px; /* Larghezza del pulsante */
+  height: 48px; /* Altezza del pulsante */
+  border-radius: 50%; /* Forma circolare */
+  position: relative; /* Usa 'absolute' per posizionare il pulsante */
+  margin-right: 80px; /* Posiziona il pulsante a destra */
+  
+  
+}
+
+
+.icon {
+  width: 48px; /* Larghezza dell'icona aumentata */
+  height: 48px; /* Altezza dell'icona aumentata */
+  stroke-width: 2; /* Spessore delle linee dell'icona aumentato per arrotondarle */
   
 }
 
@@ -12,15 +24,6 @@ button[mat-fab] {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-
-
-/* Stile per l'icona */
-mat-icon {
-  color: #41af60; /* Colore dell'icona */
-  font-size: 24px; /* Dimensione dell'icona */
-  font-weight: bolder;
 }
 
 /* Stile per la modale */
