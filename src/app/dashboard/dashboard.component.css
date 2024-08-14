@@ -1,7 +1,39 @@
-.active-link
-{
-    color:red;
+.menu-item a {
+    transition: transform 0.4s ease;
+    background-color: transparent; /* Evita lo sfondo grigio al passaggio del mouse */
 }
+
+.menu-item a:hover {
+    transform: translateX(20px);
+    background-color: #9cc4dc3a; /* Mantiene lo sfondo trasparente al passaggio del mouse */
+    border-top-left-radius: 50rem;
+    border-bottom-left-radius: 50rem;
+}
+
+.menu-item .active-link {
+    font-weight: bold;
+    color:#2f4b7c;
+    transform: translateX(20px) !important;  /* Ferma il movimento per l'elemento attivo */
+    transition: none !important;          /* Disabilita qualsiasi transizione */
+    cursor: default !important;
+    background-color: #9cc4dc3a;          /* Cambia il cursore in freccia */
+    border-top-left-radius: 50rem;
+    border-bottom-left-radius: 50rem;
+}
+
+.menu-item .active-link:hover {
+    transform: translateX(20px) !important;           /* Nessuna trasformazione */
+    transition: none !important;          /* Nessuna transizione */
+    background-color: #9cc4dc3a;
+}
+
+
+
+
+
+
+
+
 .hidden
 {
     display: none;
@@ -46,3 +78,4 @@
         
     }
 }
+

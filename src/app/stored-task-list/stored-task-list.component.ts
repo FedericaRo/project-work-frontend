@@ -1,15 +1,13 @@
-import { Component } from '@angular/core';
-import { SingleTaskComponent } from "../single-task/single-task.component";
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { TaskService } from '../services/task.service';
-import { Task } from '../model/StoredTask';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { StoredtaskService } from '../services/storedtask.service';
+import { StoredTask } from '../model/StoredTask';
+import { StoredTaskComponent } from '../stored-task/stored-task.component';
 
 @Component({
   selector: 'app-stored-task-list',
   standalone: true,
-  imports: [SingleTaskComponent, CommonModule, FormsModule],
+  imports: [StoredTaskComponent],
   templateUrl: './stored-task-list.component.html',
   styleUrl: './stored-task-list.component.css'
 })

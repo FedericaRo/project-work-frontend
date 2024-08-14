@@ -41,6 +41,8 @@ export class DashboardComponent implements AfterViewInit {
     console.log(this.isUserMenuOpen);
   }
 
+  
+
 
   // @HostListener('document:click', ['$event'])
   // onDocumentClick(event: MouseEvent): void {

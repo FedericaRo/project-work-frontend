@@ -13,7 +13,7 @@ export class CommunicationsService {
 
   getAll(): Observable<Communication[]>
   {
-    return this.http.get<Communication[]>("/api/communications");
+    return this.http.get<Communication[]>(`/api/communications`);
   }
 
   delete(id:number): Observable<void>

@@ -15,15 +15,43 @@ export class FilteredCommunicationCardComponent {
 
   constructor(private colorService:ColorService) {};
 
-  getTypeLable() : string
+  // timeByDate : string = "";
+
+  getTimeFromDate() : string
   {
-    return this.colorService.typeLable(this.communication.type);
+    let now = new Date();
+    let creation = new Date(this.communication.creationDate);
+    // console.log("Creation Date:", this.communication.creationDate);
+    // console.log("Type of Creation Date:", typeof this.communication.creationDate);
+
+    let diffInMs = now.getTime() - creation.getTime();
+    let diffInHrs = diffInMs / (1000 * 60 * 60);
+    let diffInMin = diffInMs / (1000 * 60)
+
+    if (diffInHrs > 24) 
+    {
+      let res = `${(Math.floor(diffInHrs / 24))}g e ${Math.trunc(diffInHrs % 24)}ore fa`
+      return res;
+    }
+    else if (diffInMin < 60)
+    {
+      return `${Math.trunc(diffInMin)} minuti fa`
+    }
+
+    return Math.trunc(diffInHrs).toString()+" ore fa";
   }
 
-  getImportanceLable() : string
-  {
-    return this.colorService.importanceLable(this.communication.importance);
-  }
+  
+
+  // getTypeLable() : string
+  // {
+  //   return this.colorService.typeLable(this.communication.type);
+  // }
+
+  // getImportanceLable() : string
+  // {
+  //   return this.colorService.importanceLable(this.communication.importance);
+  // }
 
   
   

@@ -33,17 +33,14 @@ export class CommunicationListComponent implements OnInit
     this.showForm = !this.showForm;
   }
 
-
-
-
   ngOnInit(): void 
   {
       this.communicationService.getAll().subscribe(data => {
-      this.communications = data;
+      this.communications = data.reverse();
       console.log(this.communications)})
 
       this.communicationService.getAll().subscribe(data => {
-        this.communicationsBackup = data;});  
+        this.communicationsBackup = data.reverse();});  
   }
 
   deleteCommunication(id: number): void 

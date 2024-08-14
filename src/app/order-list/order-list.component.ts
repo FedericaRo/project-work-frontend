@@ -156,6 +156,8 @@ export class OrderListComponent
     }
   }
 
+  mailError:string = '';
+
   /**
    * * Metodo fierissimo che mostra una spunta di operazione completata compresa di audio.
    * @Santo
@@ -174,9 +176,27 @@ export class OrderListComponent
         setTimeout(() => this.toggleDoneAnimation(), 2000);
       }, 
       error: err => {
-        console.log("ahi, ahi", err);
+        this.loadingService.hide();
+        this.mailError = err.error;
+        console.log("Errore nell'invio: ", err.error);
+        this.loadingService.hide();
+        if(this.mailError != "")
+          this.animateError();
       }
     });
+  }
+
+  animateError() {
+    const alertElement = document.getElementById('alert');
+    if (alertElement) {
+      alertElement.classList.add('show');
+      setTimeout(() => {
+        alertElement.classList.add('hide');
+        setTimeout(() => {
+          alertElement.classList.remove('show', 'hide');
+        }, 500); // Durata dell'animazione di uscita
+      }, 5000); // Durata della visualizzazione
+    }
   }
 
   playSound(audioElement: HTMLAudioElement):void

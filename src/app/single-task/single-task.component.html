@@ -1,94 +1,66 @@
-<!-- Inizio della riga principale -->
 <div class="row">
-    <!-- Colonna principale che occupa tutta la larghezza disponibile -->
     <div class="col-xl-12">
-        <!-- Box per la lista delle attività -->
-        <div class="task-list-box bg-white rounded-lg" id="landing-task">
-            <!-- Elemento della task list -->
+        <div class="task-list-box bg-white rounded-lg shadow-sm p-3" id="landing-task">
             <div id="task-item-1" class="task-item">
-                <!-- Card per l'attività -->
-                <div class="card task-box rounded-lg shadow-lg">
-                    <div class="card-body position-relative">
-                        <div class="d-flex align-items-start">
-                            <!-- Checkbox per segnare l'attività -->
-                            <div class="checkbox-container">
-                                <input 
+                <div class="card task-box rounded-lg border-0">
+                    <div class="card-body d-flex align-items-center p-3">
+                        <div class="checkbox-container">
+                            <input 
                                 [checked]="completed"
                                 type="checkbox" 
                                 class="form-check-input custom-checkbox" 
                                 id="customCheck1" 
                                 (click)="updateTaskSon()">
-                            </div>
-
-                            <!-- Contenitore per titolo e dettagli -->
-                            <div class="flex-grow-1 ml-5">
-                                <!-- Sezione superiore con il titolo -->
-                                <div class="flex align-items-center mb-3">
-                                    <div>
-                                        <div class="text-slate-400 text-xs mb-1">Task</div>
-                                        <div class="text-lg font-semibold text-gray-800">{{task.name}}</div>
-                                    </div>
-                                        <mat-icon 
-                                            class="material-icons-outlined ml-3 relative top-2.5 text-gray-500"
-                                            matTooltip="{{task.description}}"
-                                        > info
-                                        </mat-icon>
-                                </div>
-
-                                <!-- Sezione inferiore con dettagli -->
-                                <div class="details-grid">
-                                    <!-- Frequenza -->
-                                    <div class="detail-item">
-                                        <div class="text-slate-400 text-xs mb-1">Frequenza</div>
+                        </div>
+                        <div class="flex-grow-1 ml-4 d-flex justify-content-between align-items-center">
+                            <div class="task-info">
+                                <h5 class="text-dark mb-1"><b>{{task.name}}</b></h5>
+                                
+                                <div class="details-grid d-flex">
+                                    <div class="detail-item mr-4">
+                                        <div class="text-muted small">Frequenza</div>
                                         <span 
                                         [ngClass]="{'badge-settimanale': task.frequency==='SETTIMANALE','badge-bisettimanale': task.frequency==='BISETTIMANALE','badge-mensile': task.frequency==='MENSILE'}"
-                                        class="badge rounded-full badge-settimanale text-xs py-1 px-3"
-                                        >{{task.frequency}}</span>
+                                        class="badge rounded-pill text-xs py-1 px-3">
+                                            {{task.frequency}}
+                                        </span>
                                     </div>
-
-                                    <!-- Stato -->
-                                    <div class="detail-item">
-                                        <div class="text-slate-400 text-xs mb-1">Status</div>
+                                    <div class="detail-item mr-4">
+                                        <div class="text-muted small">Status</div>
                                         <span 
                                         [ngClass]="{'badge-soft-pending': task.status==='DAFARSI', 'badge-soft-completed': task.status==='COMPLETATO', 'badge-soft-nevercompleted': task.status==='INCOMPIUTO'}"
-                                        class="badge rounded-full badge-soft-mid text-xs py-1 px-3"
-                                        >{{task.status}}</span>
+                                        class="badge rounded-pill text-xs py-1 px-3">
+                                            {{task.status}}
+                                        </span>
                                     </div>
-                                    
-                                    <!-- Data di Creazione -->
-                                    <div class="detail-item">
-                                        <div class="text-slate-400 text-xs mb-1">Creazione</div>
-                                        <div class="text-sm font-medium">{{task.creationDate  | date: 'dd/MM/yyyy'}}</div>
+                                    <div class="detail-item mr-4">
+                                        <div class="text-muted small">Creazione</div>
+                                        <div class="text-sm font-medium">{{task.creationDate | date: 'dd/MM/yyyy'}}</div>
                                     </div>
-                                    
-                                    <!-- Data di Completamento -->
                                     <div class="detail-item">
-                                        <div class="text-slate-400 text-xs mb-1">Completamento</div>
+                                        <div class="text-muted small">Completamento</div>
                                         <div class="text-sm font-medium">{{task.completionDate == null ? "gg/mm/yyyy" : task.completionDate | date: 'dd/MM/yyyy'}}</div>
-                                    </div>
-                                    
-                                    <!-- Firma -->
-                                    <div class="detail-item">
-                                        <div class="text-slate-400 text-xs mb-1">Firma</div>
-                                        <div class="text-sm font-medium">{{task.signature == null || task.signature == '' ? "nessuna" : task.signature}}</div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary icon-info" viewBox="0 0 24 24" fill="none" stroke="#2F4B7C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" matTooltip="{{task.description}}">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                                <a href="#" class="text-muted hover-primary ml-4" data-bs-toggle="modal" data-bs-target=".bs-example-new-task">
+                                    <i class="mdi mdi-pencil-outline text-xl"></i>
+                                </a>
+                                <a href="#" class="text-muted hover-danger ml-3" onclick="deleteProjects('task-item-1')">
+                                    <i class="mdi mdi-trash-can-outline text-xl"></i>
+                                </a>
+                            </div>
+                            
                         </div>
-
-                        <!-- Azioni (opzionale) -->
-                        <div class="d-flex justify-content-end mt-3">
-                            <a href="#" class="text-gray-600 hover:text-blue-500 mr-2" data-bs-toggle="modal" data-bs-target=".bs-example-new-task">
-                                <i class="mdi mdi-pencil-outline text-lg"></i>
-                            </a>
-                            <a href="#" class="text-gray-600 hover:text-red-500" onclick="deleteProjects('task-item-1')">
-                                <i class="mdi mdi-trash-can-outline text-lg"></i>
-                            </a>
-                        </div>
-                    </div><!-- end card-body -->
-                </div><!-- end card -->
-            </div><!-- end task-item -->
-        </div><!-- end task-list-box -->
-    </div><!-- end col -->
-</div><!-- end row -->
-
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

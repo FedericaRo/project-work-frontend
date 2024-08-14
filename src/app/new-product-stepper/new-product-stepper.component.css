@@ -13,7 +13,7 @@
   }
 
   .mat-stepper-vertical::-webkit-scrollbar-thumb {
-    background-color: rgb(56, 58, 212); /* Colore del "pollice" della scrollbar */
+    background-color:#003f5c; /* Colore del "pollice" della scrollbar */
     border-radius: 1rem; /* Angoli arrotondati */
   }
 
@@ -30,7 +30,7 @@
     top: 5%; 
     right: 31%; 
     color: rgb(255, 255, 255);
-    background: rgb(34, 66, 204);
+    background: #003f5c;
     z-index: 900;
   }
 

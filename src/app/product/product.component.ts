@@ -52,8 +52,8 @@ export class ProductComponent implements OnInit
 
   orderForm:FormGroup = new FormGroup
   ({
-    unitOrderedQuantity: new FormControl('', [Validators.required, Validators.min(0), integerValidator]), // ! Aggiugnere validatore per mettere almeno una quantità
-    packagingOrderedQuantity: new FormControl('', [Validators.required, Validators.min(0), integerValidator])
+    unitOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator]), // ! Aggiugnere validatore per mettere almeno una quantità
+    packagingOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator])
   });
 
 
@@ -122,10 +122,10 @@ export class ProductComponent implements OnInit
     next: data => {
       console.log(data);
       this.orderForm.reset();
+      this.orders.push(data);
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
-      this.orders.push(data);
       this.orderForm.reset();
 
 
@@ -138,9 +138,6 @@ export class ProductComponent implements OnInit
        * @Santo
        */
       // window.location.reload(); 
-    },
-    error: badResponse => {
-      console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
 
     }})
   }
