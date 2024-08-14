@@ -42,7 +42,7 @@ export class ProductComponent implements OnInit
     this.orderService.getAll().subscribe(data => {
       this.orders = data.filter(o => o.productName === this.product.productName && o.arrived === false)
       // this.isProductOrderedLogic();
-      console.log(this.orders);
+      // console.log(this.orders);
 
       this.ordersNumber = this.orders.length;
     })

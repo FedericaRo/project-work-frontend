@@ -19,6 +19,104 @@ export class OrderListComponent
 
   sortColumn: string = 'id'; // Default sorting column
   orderingMap: { [key: string]: 'default' | 'asc' | 'desc' } = {}; // Map to store ordering type for each column
+  displayRecentOrders:boolean = true;
+        
+  orders: any[] = []; // Currently displayed orders
+  ordersLastThreeMonths: any[] = [];
+  ordersLastThreeMonthsBackup: any[] = []; // Original list of orders
+  ordersLastDayAndNotArrived: any[] = [];
+  ordersLastDayAndNotArrivedBackup: any[] = [];
+
+
+
+  /**
+   * mi serve 
+   * order nell'ultimi 3 mesi
+   * orders negli ultimi 3 mesi e non arrivati
+   * order 1 back up 
+   * order 2 back up
+   */
+  ngOnInit(): void 
+  {
+    this.orderService.getOrdersInLast3Months().subscribe(data => 
+    {
+      console.log("Data received from service:", data);
+  
+      this.ordersLastThreeMonthsBackup = data.reverse();
+      console.log("ordersLastThreeMonthsBackup initialized:", this.ordersLastThreeMonthsBackup);
+  
+      this.ordersLastThreeMonths = [...this.ordersLastThreeMonthsBackup];
+      console.log("ordersLastThreeMonths initialized:", this. ordersLastThreeMonths);
+  
+      this.ordersLastDayAndNotArrived = this.showOnlyRecentOrders();
+      console.log("ordersLastDayAndNotArrived initialized:", this.ordersLastDayAndNotArrived);
+
+      this.ordersLastDayAndNotArrivedBackup = this.ordersLastDayAndNotArrived ;
+      console.log("ordersLastDayAndNotArrived initialized:", this.ordersLastDayAndNotArrivedBackup);
+  
+      this.orders = this.ordersLastDayAndNotArrived;
+      console.log("ORDERS initialized:", this.orders);
+      console.log("end ORDERS");
+    })
+  }
+
+  showOnlyRecentOrders():Order[]
+  {
+    console.log("Filtering recent orders...");
+    return this.ordersLastThreeMonthsBackup
+      .filter(o => {
+        if (o.arrived == false) { // Check if arrived is null first
+          console.log(`ARRIVED NULL Order ID: ${o.id}`)
+          return true; // Include the order if arrived is null
+        }
+        
+        
+        console.log(`TIME DIFFERENCE Order ID: ${o.id}`)
+        const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
+        console.log(`Order ID: ${o.id}, Deliver Date: ${o.deliverDate}, Time Difference: ${timeDiff} hours`);
+        return timeDiff <= 24; 
+      });
+    console.log("Filtered recent orders:", this.orders);
+  }
+
+  toggleBetweenRecentandOlderOrders() {
+    console.log("TOGGLE METHOD START *******************");
+    console.log("Display recent orders: ", this.displayRecentOrders);
+    console.log("Current orders before toggle: ", this.orders);
+
+    if (!this.displayRecentOrders) {
+      console.log("Switching to show recent orders");
+      this.orders = this.showOnlyRecentOrders();
+      this.displayRecentOrders = true; // Explicitly set to true
+    } else {
+      console.log("Switching to show all orders");
+      this.orders = [...this.ordersLastThreeMonthsBackup]; // Restore the full list
+      this.displayRecentOrders = false; // Explicitly set to false
+      
+    }
+    this.filterCriteria = "";
+    this.resetSorting();
+
+    console.log("Updated displayRecentOrders: ", this.displayRecentOrders);
+    console.log("Updated orders after toggle: ", this.orders);
+    console.log("TOGGLE METHOD END *******************");
+
+  }
+  
+
+  private getTimeDifferenceBetweenDates(deliverDateString: string): number {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    let deliverDate = new Date(deliverDateString);
+    deliverDate.setHours(0, 0, 0, 0);
+
+
+    let diffInMs = Math.abs(now.getTime() - deliverDate.getTime());
+    let diffInHrs = diffInMs / (1000 * 60 * 60);
+    console.log(`Deliver Date: ${deliverDate.toISOString()}, Current Time: ${now}, Difference in Hours: ${diffInHrs}`);
+    return diffInHrs;
+  }
+
 
 
 
@@ -70,16 +168,32 @@ export class OrderListComponent
   }
   
 
+  // private sortData() {
+  //   const orderingType = this.orderingMap[this.sortColumn] || 'default';
+  
+  //   if (orderingType === 'default') {
+  //     this.orders = [...this.ordersBackup];
+  //   } else {
+  //     this.orders = [...this.ordersBackup].sort((a, b) =>
+  //       this.sortByColumn(a, b, this.sortColumn, orderingType)
+  //     );
+  //   }
+  // }
+
   private sortData() {
     const orderingType = this.orderingMap[this.sortColumn] || 'default';
+    if (this.displayRecentOrders)
+      this.orders = [...this.ordersLastDayAndNotArrivedBackup];
+    else
+      this.orders = [...this.ordersLastThreeMonthsBackup]
   
-    if (orderingType === 'default') {
-      this.orders = [...this.ordersBackup];
-    } else {
-      this.orders = [...this.ordersBackup].sort((a, b) =>
+    if (orderingType !== 'default') {
+      {
+      this.orders = [...this.orders].sort((a, b) =>
         this.sortByColumn(a, b, this.sortColumn, orderingType)
       );
     }
+  }
   }
   
   
@@ -87,6 +201,15 @@ export class OrderListComponent
   private sortByColumn(a: Order, b: Order, sortColumn: string, orderingType: 'asc' | 'desc' | 'default'): number {
     const valueA = a[sortColumn as keyof Order];
     const valueB = b[sortColumn as keyof Order];
+
+    // Handle null values directly
+  if (valueA == null && valueB == null) {
+    return 0; // Both null, consider them equal
+  } else if (valueA == null) { 
+    return orderingType === 'asc' ? -1 : 1;
+  } else if (valueB == null) {
+    return orderingType === 'asc' ? 1 : -1;
+  }
   
     if (typeof valueA === 'string' && typeof valueB === 'string')
       return orderingType === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
@@ -96,47 +219,59 @@ export class OrderListComponent
       return orderingType === 'asc'
         ? (valueA === valueB ? 0 : valueA ? 1 : -1)
         : (valueA === valueB ? 0 : valueA ? -1 : 1);
-    } else
-      throw new Error('Unsupported data type for sorting');
+    } 
+   
+    else
+      throw new Error('Unsupported data type for sorting' + valueA);
+  }
+
+  resetSorting() {
+    this.sortColumn = 'id'; // Or set to default column if applicable
+    this.orderingMap = {}; // Clear sorting states
   }
   
 
-  
-  ngOnInit(): void 
-  {
-    this.orderService.getAll().subscribe(data => {
-    this.orders = data.reverse();
-    this.ordersBackup = this.orders;
-    console.log(this.orders)})
-  }
-      
-  orders:Order[] = []; 
-  ordersBackup:Order[] = [];
 
   filter(): void 
   {
+    console.log('Filter criteria:', this.filterCriteria);
+
+    if (this.displayRecentOrders)
+      this.orders = [...this.ordersLastDayAndNotArrivedBackup];
+    else
+      this.orders = [...this.ordersLastThreeMonthsBackup];
+
+    console.log('Orders before filtering:', this.orders);
+
     if (this.filterCriteria) 
-      {
+    {
       const criteria = this.filterCriteria.toLowerCase();
-      this.orders = this.ordersBackup.filter(order =>
+      this.orders = this.orders.filter(order =>
         this.matchesCriteria(order, criteria)
       );
     } 
     else 
     {
-      this.orders = [...this.ordersBackup];
+      this.orders = [...this.orders];
     }
+
+    console.log('Orders after filtering:', this.orders);
   }
 
-  private matchesCriteria(order: Order, criteria: string): boolean {
-    const orderDate = this.formatDateToDDMMYYYY(new Date(order.orderDate)); // convert orderDate to 'dd-MM-yyyy' format
-    const deliverDate = this.formatDateToDDMMYYYY(new Date(order.deliverDate)); // convert deliverDate to 'dd-MM-yyyy' format
+private matchesCriteria(order: Order, criteria: string): boolean {
+  const orderDate = this.formatDateToDDMMYYYY(new Date(order.orderDate)); // convert orderDate to 'dd-MM-yyyy' format
+  const deliverDate = this.formatDateToDDMMYYYY(new Date(order.deliverDate)); // convert deliverDate to 'dd-MM-yyyy' format
 
-    const values = [orderDate, deliverDate, ...Object.values(order).filter(v => v != null)];
-    return values.some(value =>
-      value.toString().toLowerCase().includes(criteria)
-    );
-  }
+  const values = [orderDate, deliverDate, ...Object.values(order).filter(v => v != null)];
+  console.log('Values to match:', values);
+  console.log('Criteria:', criteria);
+
+  return values.some(value =>
+    value.toString().toLowerCase().includes(criteria)
+  );
+}
+
+ 
 
   private formatDateToDDMMYYYY(date: Date): string {
     const day = date.getDate().toString().padStart(2, '0'); // Ensure 2-digit day
