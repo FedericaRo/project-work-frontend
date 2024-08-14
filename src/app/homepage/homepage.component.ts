@@ -78,7 +78,7 @@ export class HomepageComponent implements OnInit{
 
   filterCommunications(): void {
     this.filteredCommunications = this.communications.reverse().filter(c => 
-      c.type === 'CAMBIO TURNO' || c.importance === 'ALTA'
+      c.type === 'CAMBIOTURNO' || c.importance === 'ALTA'
     );
   }
 

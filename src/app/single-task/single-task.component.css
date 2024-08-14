@@ -28,6 +28,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 1.5rem; /* Aggiungi margine a destra del checkbox per più spazio */
 }
 
 .custom-checkbox {
@@ -44,17 +45,35 @@ body {
     border-color: #2f4b7c;
 }
 
+.card-body {
+    display: flex;
+    align-items: flex-start; /* Allinea il contenuto in cima */
+}
+
 .task-info {
-    max-width: 70%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-info h5 {
+    margin-bottom: 1rem; /* Spazio sotto il titolo della task */
 }
 
 .details-grid {
-    margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonne uguali per Frequenza, Status, ecc. */
+    gap: 2rem; /* Aumenta lo spazio tra le colonne */
+    margin-top: 0.5rem; /* Spazio tra il titolo e i dettagli */
 }
 
 .detail-item {
     text-align: left;
-    margin-right: 1rem;
+    margin-right: 0;
+    display: flex;
+    flex-direction: column; /* Allinea il testo e il badge verticalmente */
+    justify-content: center;
+    min-width: 100px; /* Mantieni una larghezza minima per evitare ridimensionamenti */
 }
 
 .badge {
@@ -69,10 +88,12 @@ body {
     background-color: #DBD6E5;
     color: #665191;
 }
+
 .badge-bisettimanale {
     background-color: #FFF7D0;
     color: #FFA600;
 }
+
 .badge-mensile {
     background-color: #EAF4E0;
     color: #7eb745;
@@ -82,10 +103,12 @@ body {
     background-color: #FFE0D4;
     color: #FF7C43;
 }
+
 .badge-soft-completed {
     background-color: #D1F2FE;
     color: #003F5C;
 }
+
 .badge-soft-nevercompleted {
     background-color: #6c757d;
     color: white;
@@ -111,4 +134,8 @@ body {
 
 .action-buttons .hover-danger:hover {
     color: #dc3545;
+}
+
+.task-item {
+    margin-bottom: 1rem; /* Spazio tra i task */
 }
