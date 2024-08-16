@@ -12,7 +12,7 @@ import { CommunicationListComponent } from './communication-list/communication-l
 import { OrderListComponent } from './order-list/order-list.component';
 import { StoredTaskListComponent } from './stored-task-list/stored-task-list.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { ExpiredPageComponent } from './expired-page/expired-page.component';
+import { ProfileFormComponent } from './profile-form/profile-form.component';
 
 
 
@@ -62,6 +62,8 @@ export const routes: Routes = [
           { path: 'orders', component: OrderListComponent, canActivate: [LoggedGuardService] },
           { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'tasks', component: TaskListComponent, canActivate: [LoggedGuardService] },
+          { path: 'addProfile', component: ProfileFormComponent, canActivate: [LoggedGuardService] },
+
           // Altre rotte con barra laterale
         ]
       },
