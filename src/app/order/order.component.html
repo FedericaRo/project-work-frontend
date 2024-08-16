@@ -150,7 +150,7 @@
 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
     <div class="relative">
         <input type="checkbox" class="w-4 h-4 accent-[#003F5C]" (change)="updateOrderArrival()" [checked]="order.arrived">
-        <div *ngIf="order.deliverDate" class="mt-2 flex items-center justify-center text-gray-500 text-xs absolute top-4">
+        <div *ngIf="order.deliverDate" class="mt-2 flex items-center justify-center text-gray-500 text-xs absolute top-4 sizable">
             {{order.deliverDate | date: 'dd-MM-yyyy'}}
         </div>
     </div>

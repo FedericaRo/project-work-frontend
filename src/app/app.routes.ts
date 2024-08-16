@@ -12,6 +12,7 @@ import { CommunicationListComponent } from './communication-list/communication-l
 import { OrderListComponent } from './order-list/order-list.component';
 import { StoredTaskListComponent } from './stored-task-list/stored-task-list.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { ExpiredPageComponent } from './expired-page/expired-page.component';
 
 
 
@@ -33,6 +34,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 export const routes: Routes = [
   { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
+  { path: 'tokenExpired', component: ExpiredPageComponent },
 
   /**
    * *Codice extra non necessario, lasciato in caso di necessità e per reference

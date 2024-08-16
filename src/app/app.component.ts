@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormRegisterComponent } from "./form-register/form-register.component";
 import { LoginPageComponent } from "./login-page/login-page.component";
@@ -26,12 +26,18 @@ export class AppComponent implements OnInit{
 
   isLoading: boolean = false;
 
-  constructor(public authService:AuthService, private loadingService: LoadingService){}
+  constructor(public authService:AuthService, private loadingService: LoadingService, public auth : AuthService, private router : Router){}
 
   ngOnInit() {
     this.loadingService.loading$.subscribe(loading => {
       this.isLoading = loading;
     });
+
+    // if(this.auth.isTokenExpired())
+    // {
+    //   alert('sessione scaduta, riesegui il login!')
+    //   this.router.navigate(["auth/login"]);
+    // }
   }
   
   title = 'project-work-frontend';
