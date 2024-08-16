@@ -21,7 +21,8 @@ export class OrdersService{
     return this.http.get<Order[]>("/api/orders/recent");
   }
 
-  updateOrderArrivalDetails(id: number, order: Order): Observable<any> {
+  updateOrderArrivalDetails(id: number, order: Order): Observable<any> 
+  {
     console.log(`SERVICE ${id} ${order}`);
     return this.http.put<void>(`/api/orders/${id}/updateOrderArrivalDetails`, order);
   }
