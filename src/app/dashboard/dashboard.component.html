@@ -1,6 +1,62 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
+<!-- <app-profile-list 
+   [ngClass]="{'hidden': areProfilesVisible}"
+   class="fixed inset-0 flex items-center justify-center z-50 w-1/2"
+>
+</app-profile-list> -->
+<div [ngClass]="{'hidden': areProfilesVisible}" class="w-full h-full fixed z-50 bg-black opacity-70"></div>
+<div 
+  [ngClass]="{'hidden': areProfilesVisible}"
+  class="fixed inset-0 flex items-center justify-center z-60"
+>
+  <div (click)="onOverlayClick($event)" #fatherElement class="fixed inset-0 flex items-center justify-center z-60">
+    <div #profileGrid  class="p-4 bg-[#DBD6E5] shadow-md rounded-3xl border-2 border-[#665191] w-3/6 h-4/6 flex flex-col items-center justify-center">
+      <div class="grid grid-cols-3 gap-4 justify-center">
+        <!-- Esempio con @for del tuo template engine -->
+        @for (profile of profiles; track profile.id) 
+        { 
+          <div 
+            (click)="changeProfile(profile)" 
+            class="cursor-pointer flex-none rounded-full relative
+            bg-gray-50 h-64 w-64 flex items-center justify-center 
+            hover:opacity-80 border-3 border-transparent hover:border-[#665191] transition-all duration-300"
+          >
+            <div class="absolute top-4 right-6 z-50 bg-red-500 hover:bg-red-400 rounded-full w-7 h-7 flex items-center justify-center" matTooltip="Elimina profilo">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+            </div>
+            <img class="object-cover h-full w-full rounded-full" src="https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg" alt="Una bella immagine">
+          </div>
+        } 
+        @if (profiles.length < 6) 
+        {
+          <div class="h-64 w-64 flex items-center justify-center bg-gray-400 rounded-full bg-opacity-50">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+              width="60rem" 
+              height="60rem" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="#ededed" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              class="feather feather-plus-circle hover:stroke-white cursor-pointer transition duration-300">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
@@ -32,7 +88,7 @@
               class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 setPosition" id="dropdown-user">
                 <div class="px-4 py-3" role="none">
                   <p class="text-sm text-gray-900 dark:text-white" role="none">
-                    Neil Sims
+                    {{userName}} {{userSurname}}
                   </p>
                   <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     <!-- neil.sims@flowbite.com -->
@@ -40,10 +96,10 @@
                 </div>
                 <ul class="py-1" role="none">
                   <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Impostazioni</a>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+                    <a (click)="toggleProfileList()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Profili</a>
                   </li>
                   <li>
                     <a (click)="authService.logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Logout</a>

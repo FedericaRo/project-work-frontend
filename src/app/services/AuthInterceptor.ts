@@ -18,7 +18,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
       const now = Math.floor(Date.now() / 1000); // Tempo corrente in secondi
       if (now >= expiry) 
       {
-        window.location.href = 'tokenExpired';
+        // window.location.href = 'tokenExpired';
         // alert('Sessione scaduta. Riprova ad effettuare il login.');
       } 
       else {

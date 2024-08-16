@@ -34,7 +34,7 @@ import { ProfileFormComponent } from './profile-form/profile-form.component';
 export const routes: Routes = [
   { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
-  { path: 'tokenExpired', component: ExpiredPageComponent },
+  // { path: 'tokenExpired', component: ExpiredPageComponent },
 
   /**
    * *Codice extra non necessario, lasciato in caso di necessità e per reference

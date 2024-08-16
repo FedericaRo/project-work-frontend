@@ -16,6 +16,16 @@ export class ProfilesService {
     return this.http.post<Profile>(`api/profiles/newProfile`, profile);
   }
 
+  getAll():Observable<Profile[]>
+  {
+    return this.http.get<Profile[]>(`api/profiles/${localStorage.getItem('username')}`)
+  }
+
+  getPropic(profileId:number | null):Observable<Blob>
+  {
+    return this.http.get(`api/profiles/images/${profileId}`, { responseType: 'blob' });
+  }
+
   // saveProfilePicture(file:any):Observable<Profile>
   // {
   //   return this.http.post('api/imgupload', file)
