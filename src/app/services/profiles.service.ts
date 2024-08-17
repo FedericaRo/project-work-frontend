@@ -26,6 +26,11 @@ export class ProfilesService {
     return this.http.get(`api/profiles/images/${profileId}`, { responseType: 'blob' });
   }
 
+  delete(id: number):Observable<Profile>
+  {
+    return this.http.delete<Profile>(`/api/profiles/${id}`);
+  }
+
   // saveProfilePicture(file:any):Observable<Profile>
   // {
   //   return this.http.post('api/imgupload', file)

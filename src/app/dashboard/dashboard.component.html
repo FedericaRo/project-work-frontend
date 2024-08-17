@@ -1,41 +1,49 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-<!-- <app-profile-list 
-   [ngClass]="{'hidden': areProfilesVisible}"
-   class="fixed inset-0 flex items-center justify-center z-50 w-1/2"
->
-</app-profile-list> -->
+<!-- ? Inizio della finestra dei profili -->
+<!-- * Dialog che mostra e permette di selezionare tutti i profili-->
 <div [ngClass]="{'hidden': areProfilesVisible}" class="w-full h-full fixed z-50 bg-black opacity-70"></div>
 <div 
   [ngClass]="{'hidden': areProfilesVisible}"
   class="fixed inset-0 flex items-center justify-center z-60"
 >
   <div (click)="onOverlayClick($event)" #fatherElement class="fixed inset-0 flex items-center justify-center z-60">
-    <div #profileGrid  class="p-4 bg-[#DBD6E5] shadow-md rounded-3xl border-2 border-[#665191] w-3/6 h-4/6 flex flex-col items-center justify-center">
+    <div #profileGrid  class="p-4 bg-[#D1F2FE] shadow-md rounded-3xl border-[#003F5C] w-3/6 h-4/6 flex flex-col items-center justify-center content-grid">
       <div class="grid grid-cols-3 gap-4 justify-center">
-        <!-- Esempio con @for del tuo template engine -->
+
+         <!-- * Visualizzazione dei profili tramite iterazione -->
         @for (profile of profiles; track profile.id) 
         { 
-          <div 
-            (click)="changeProfile(profile)" 
-            class="cursor-pointer flex-none rounded-full relative
-            bg-gray-50 h-64 w-64 flex items-center justify-center 
-            hover:opacity-80 border-3 border-transparent hover:border-[#665191] transition-all duration-300"
-          >
-            <div class="absolute top-4 right-6 z-50 bg-red-500 hover:bg-red-400 rounded-full w-7 h-7 flex items-center justify-center" matTooltip="Elimina profilo">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="8" y1="12" x2="16" y2="12"></line>
-              </svg>
+         <div class="relative">
+            <div 
+               (click)="changeProfile(profile)" 
+               [ngClass]="{'active-profile': profile.id?.toString() === userId, 'not-active-profile': profile.id?.toString() !== userId}"
+               class="cursor-pointer flex-none rounded-lg
+               bg-gray-50 h-64 w-64 flex items-center justify-center 
+               hover:opacity-80 hover:border-[#ffffff] transition-all duration-300"
+               >
+               <img class="object-cover h-full w-full rounded-lg" src="https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg" alt="Una bella immagine">
             </div>
-            <img class="object-cover h-full w-full rounded-full" src="https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg" alt="Una bella immagine">
-          </div>
+            <!-- * Bottoncino che permette di eliminare un profilo -->
+               <div 
+               (click)="deleteProfile(profile.id!)"
+               class="absolute btn-controller z-50 bg-red-500 hover:bg-red-400 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer" matTooltip="Elimina profilo">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+               </svg>
+               </div>
+         </div>
         } 
+        <!-- * Bottone gigante che permette di aggiungere un profilo -->
         @if (profiles.length < 6) 
         {
-          <div class="h-64 w-64 flex items-center justify-center bg-gray-400 rounded-full bg-opacity-50">
-            <svg xmlns="http://www.w3.org/2000/svg" 
+          <div 
+          (click)="toggleForm()"
+          [ngClass]="{'hidden': isClicked}"
+          class="container h-64 w-64 flex items-center justify-center bg-gray-400 bg-opacity-50">
+            <svg  xmlns="http://www.w3.org/2000/svg" 
               width="60rem" 
               height="60rem" 
               viewBox="0 0 24 24" 
@@ -44,17 +52,74 @@
               stroke-width="2" 
               stroke-linecap="round" 
               stroke-linejoin="round" 
-              class="feather feather-plus-circle hover:stroke-white cursor-pointer transition duration-300">
+              [ngClass]="{'plusclicked': isClicked, 'hidden': isClicked,}"
+              class="feather feather-plus-circle hover:stroke-white cursor-pointer transition duration-300 plus">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="12" y1="8" x2="12" y2="16"></line>
               <line x1="8" y1="12" x2="16" y2="12"></line>
             </svg>
-          </div>
+         </div>
+            <!-- * Form con cui aggiungere un profilo -->
+            @if (isClicked) 
+            {
+               <div #formix class="h-64 w-64 flex items-center justify-center bg-gray-400 bg-opacity-50 p-3 relative rounded-lg">
+                  <form name="newProfile" #newProfile (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-container z-50 items-center">
+                     <mat-form-field class="example-full-width block">
+                     <mat-label>Nome</mat-label>
+                     <input 
+                     matInput 
+                     id="name"
+                     name="name"
+                     [(ngModel)]="profile_to_send.name"
+                     placeholder="Inserisci il nome"
+                     >
+                     </mat-form-field>
+               
+                     <mat-form-field class="example-full-width">
+                     <mat-label>Cognome</mat-label>
+                     <input 
+                     matInput 
+                     id="surname"
+                     name="surname"
+                     [(ngModel)]="profile_to_send.surname"
+                     placeholder="Inserisci il cognome"
+                     >
+                     </mat-form-field>
+                     
+                     <!-- * Pulsante di aggiunta file -->
+                     <input type="file" id="fileInput" class="absolute pointer-events-none bottom-0 left-0 opacity-0 cursor-pointer" (change)="onFileSelected($event)">
+                     <label for="fileInput" class="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600 transition">
+                        <span id="fileLabelText">{{!isFileSelected ? 'Immagine' : img.slice(-8)}}</span>
+                     </label>
+               
+                     <!-- * Bottone di SUBMIT -->
+                     <button class="bg-blue-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-16 bottom-8 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-plus-circle text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="8" x2="12" y2="16"></line>
+                          <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                     </button>
+                      
+                     <!-- * "Bottone" di chiusura Form -->
+                      <a 
+                      (click)="toggleForm()"
+                      class="bg-red-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-4 bottom-8 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-x-circle text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="15" y1="9" x2="9" y2="15"></line>
+                          <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                     </a>
+                  </form>
+               </div>
+            }
         }
       </div>
     </div>
   </div>
 </div>
+<!-- ? Fine della finestra dei profili -->
 
 
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -71,9 +136,12 @@
             <img src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F252892649%2F270195188790%2F1%2Foriginal.20220323-104227?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C3472%2C3472&s=eb35d7322df6acb06300049004cca884" class="h-8 me-3" alt="Rui Logo" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Residenza Rui</span>
           </a>
-      </div>
-        <!-- inizio user menu -->
-        <div class="flex items-center" #userMenu0>
+         </div>
+         <!-- inizio user menu -->
+         <div class="flex items-center" #userMenu0>
+           <div class="flex items-center">
+              <h2 class="inline-flex justify-end"><b>{{userName}} {{userSurname}}</b></h2>
+           </div>
             <div class="flex items-center ms-3">
               <div>
                 <!-- <button (click)="authService.logout()">LOGOUT</button> -->
@@ -85,16 +153,16 @@
               <div 
               #userMenu
               [ngClass]="{'hidden': !isUserMenuOpen, 'block': isUserMenuOpen,}"
-              class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 setPosition" id="dropdown-user">
-                <div class="px-4 py-3" role="none">
+              class="z-50 my-4 text-base w-80 list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 setPosition" id="dropdown-user">
+                <div class="px-4 w-80 py-3 justify-center" role="none">
                   <p class="text-sm text-gray-900 dark:text-white" role="none">
-                    {{userName}} {{userSurname}}
+                    <b>{{email}}</b>
                   </p>
                   <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                     <!-- neil.sims@flowbite.com -->
                   </p>
                 </div>
-                <ul class="py-1" role="none">
+                <ul class="py-1 w-80" role="none">
                   <li>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Impostazioni</a>
                   </li>

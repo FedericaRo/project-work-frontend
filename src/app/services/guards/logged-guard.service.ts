@@ -8,7 +8,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoggedGuardService {
 
-  constructor(private authService:AuthService, private router:Router,) {
+  constructor(private authService:AuthService, private router:Router) {
   }
   
   
@@ -20,6 +20,11 @@ export class LoggedGuardService {
         // this.router.navigate(["homepage"]);
         return true;
       }
+    if(this.authService.isTokenExpired())
+    {
+      this.router.navigate(["auth/login"]);
+      return false;
+    }
       
       this.router.navigate(["auth/login"]);
       // alert('Non hai i permessi necessari per accedere, devi prima fare il Login.');
