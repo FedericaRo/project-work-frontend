@@ -32,8 +32,27 @@
 }
 
 .btn-controller {
-    bottom: 14.5rem;
-    left: 14.5rem;
+    bottom: 11.8rem;
+    left: 11.8rem;
+}
+
+.form-control {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: none;
+}
+
+.btn-add-controller {
+    border: solid 0.4rem #ededed;
+}
+
+.btn-add-controller:hover {
+    border: solid 0.4rem #ffffff;
+    transition-duration: 300ms;
 }
 
 .content-grid {

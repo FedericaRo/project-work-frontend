@@ -312,6 +312,8 @@ private matchesCriteria(order: Order, criteria: string): boolean {
       }, 
       error: err => {
         this.loadingService.hide();
+        console.log(err);
+        // console.log(JSON.stringify(err));
         this.mailError = err.error;
         console.log("Errore nell'invio: ", err.error);
         this.loadingService.hide();
