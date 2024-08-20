@@ -27,12 +27,45 @@
     background-color: #9cc4dc3a;
 }
 
+.z-60 {
+    z-index: 60;
+}
 
+.btn-controller {
+    bottom: 11.8rem;
+    left: 11.8rem;
+}
 
+.form-control {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: none;
+}
 
+.btn-add-controller {
+    border: solid 0.4rem #ededed;
+}
 
+.btn-add-controller:hover {
+    border: solid 0.4rem #ffffff;
+    transition-duration: 300ms;
+}
 
+.content-grid {
+    border: solid 0.4rem #003F5C;
+}
 
+.active-profile {
+    border: solid 0.4rem #003F5C;
+}
+
+.not-active-profile {
+    border: solid 0.4rem #ffffff;
+}
 
 .hidden
 {
@@ -78,4 +111,33 @@
         
     }
 }
+
+.container {
+    border-radius: 0.5rem;
+}
+
+.clickedClass {
+    border-radius: 1rem !important;
+}
+
+.plus {
+    opacity: 100%;
+}
+
+.plusclicked {
+    opacity: 0%;
+}
+
+/* .form-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem; 
+    background-color: white; 
+    z-index: 10; 
+  } */
+  
+  
 

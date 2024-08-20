@@ -16,10 +16,46 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient, private router:Router) { }
-
+  constructor(private http:HttpClient, private router:Router) {
+    
+    this.token = localStorage.getItem('token');
+    console.log('Token:' + this.token);
+    console.log(this.tokenExpired(this.token));
+  }
   
+  token:string | null;
 
+  private tokenExpired(token: string | null): boolean {
+    if (!token) {
+      return true; // Token non presente è considerato scaduto o non valido
+    }
+  
+    try {
+      // Decodifica la parte del payload del token
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      
+      // Ottieni la data di scadenza dal payload
+      const expiry = payload.exp;
+      console.log(expiry);
+  
+      // Se non c'è il campo exp, consideriamo il token come non valido
+      if (!expiry) {
+        return true;
+      }
+  
+      // Confronta la data di scadenza con il tempo corrente
+      return (Math.floor(new Date().getTime() / 1000)) >= expiry;
+    } catch (e) {
+      // Se c'è un errore nella decodifica, considera il token come scaduto
+      return true;
+    }
+  }
+
+  isTokenExpired():boolean
+  {
+    return this.tokenExpired(this.token);
+  }
+  
   login(loginData:LoginData)
   {
     this.logout();
