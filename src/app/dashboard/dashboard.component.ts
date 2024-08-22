@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -42,10 +43,32 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   (
     private http: HttpClient, 
     public authService:AuthService, 
-    private profileService:ProfilesService
-  ){ this.profileService.getAll().subscribe(data=>{this.profiles=data}) }
+    private profileService:ProfilesService,
+    private domSanitizer: DomSanitizer
+  )
+  { 
+    this.profileService.getAll().subscribe(data=> {
+      this.profiles=data
 
-  // imgUrls:{[key: string]: string} = {};
+      for(let p of this.profiles) {
+        this.profileService.getPropic(p.id).subscribe({
+          next: data=> 
+          {
+            // image = this.profileService.getUrlFromBlob(data)
+            let imgUrl = URL.createObjectURL(data);
+            this.imgUrls[p.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+          },
+          error: err => 
+          {
+            console.log(err);
+          }
+        })
+      }
+  }) 
+}
+
+
+  imgUrls:{[key: string]: SafeUrl} = {};
 
   profile!:Profile;
   propicData:any;
@@ -107,23 +130,25 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   //   }
   // }
 
-  propic(profileId:number) 
-  {
-    let image:string = "";
+  // propic(profileId:number): SafeUrl | null
+  // {
+    
+  //   this.profileService.getPropic(profileId).subscribe({
+  //     next: data=> 
+  //     {
+  //       // image = this.profileService.getUrlFromBlob(data)
+  //       let imgUrl = URL.createObjectURL(data);
+  //       return this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+  //     },
+  //     error: err => 
+  //     {
+  //       console.log(err);
+  //       return null;
+  //     }
+  //   })
+  // }
 
-    this.profileService.getPropic(profileId).subscribe({
-      next: data=> 
-      {
-        image = this.profileService.getUrlFromBlob(data)
-      },
-      error: err => 
-      {
-        console.log(err);
-      }
-    })
 
-    return image;
-  }
 
   @HostListener('document:click', ['$event'])
   onOverlayClick(event: MouseEvent): void {
@@ -208,13 +233,35 @@ export class DashboardComponent implements AfterViewInit, OnInit{
           this.http.post(`api/profiles/imgupload/${data.id}`, formData)
           .subscribe(
             {
-              next:data => 
+              next:img => 
               {
-                console.log(data)
+                console.log(img)
+                this.imageUrl = img.toString()
+                this.imgUrls[data.id!] = this.imageUrl;
               },
+              // ! Ho dovuto compiere l'operazione di aggiunta propic su nuovo profilo qui 
+              // ! perché per qualche motivo, pur funzionando il metodo, parte l'errore 
+              // ! e non il next e quindi al momento va così...
               error: badResponse=>
               {
                 console.error("IMAGE FAILED", badResponse)
+                console.log(data);
+                console.log(this.imgUrls);
+                // this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
+                // let newUrl = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
+
+                this.profileService.getPropic(data.id).subscribe({
+                  next: ok=> 
+                  {
+                    // image = this.profileService.getUrlFromBlob(data)
+                    let imgUrl = URL.createObjectURL(ok);
+                    this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+                  },
+                  error: err => 
+                  {
+                    console.log(err);
+                  }
+                })
               }
             }
           )
@@ -231,7 +278,6 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         }
       }
     )
-    
   }
 
   backupProfiles:Profile[] = [];
@@ -246,6 +292,8 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         console.log(index);
         this.profiles.splice(index,1);
 
+        delete this.imgUrls[profileId]
+        
         if(Number(this.userId) === data.id)
         {
             localStorage.setItem("profilename", this.email!);
