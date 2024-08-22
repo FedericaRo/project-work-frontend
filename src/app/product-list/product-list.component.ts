@@ -174,6 +174,15 @@ export class ProductListComponent implements OnInit {
         },
       });
   }
+
+  deleteProduct(product:Product)
+  {
+    let index = this.products.findIndex((p: Product) => p.id === product.id);
+    if(index !== -1)
+    {
+      this.products.splice(index, 1);
+    }
+  }
 }
     //   onOrdersUpdate(product: Product): void {
     //     let index = this.products.indexOf(product);
