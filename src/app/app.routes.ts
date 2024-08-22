@@ -14,6 +14,7 @@ import { StoredTaskListComponent } from './stored-task-list/stored-task-list.com
 import { TaskListComponent } from './task-list/task-list.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { ExpiredPageComponent } from './expired-page/expired-page.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 
@@ -35,7 +36,7 @@ import { ExpiredPageComponent } from './expired-page/expired-page.component';
 export const routes: Routes = [
   { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
-  { path: 'tokenExpired', component: ExpiredPageComponent },
+  { path: 'tokenExpired', component: ErrorPageComponent },
 
   /**
    * *Codice extra non necessario, lasciato in caso di necessità e per reference
@@ -58,6 +59,7 @@ export const routes: Routes = [
           *  @Santo
           */
           { path: 'homepage', component: HomepageComponent, canActivate: [LoggedGuardService] }, 
+          { path: '', redirectTo: '/homepage', pathMatch: 'full' },
           { path: 'products', component: ProductListComponent, canActivate: [LoggedGuardService] },
           { path: 'communications', component: CommunicationListComponent, canActivate: [LoggedGuardService] },
           { path: 'orders', component: OrderListComponent, canActivate: [LoggedGuardService] },

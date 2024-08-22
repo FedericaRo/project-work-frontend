@@ -44,9 +44,9 @@
                 class="h-8 w-full bg-transparent rounded-md text-black ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600 mr-1" 
                 [placeholder]="previousUnitQuantity"
                 [(ngModel)]="order.unitOrderedQuantity" 
-                (ngModelChange)="onModelChange($event)"
-            />
-        </div>
+                />
+                <!-- (ngModelChange)="onModelChange($event)" -->
+            </div>
         <button
         (click)="editUnitQuantity()"
         (click)="employeeEditProductUnitsToggle()"

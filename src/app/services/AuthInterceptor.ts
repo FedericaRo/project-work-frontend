@@ -21,9 +21,8 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
       const now = Math.floor(Date.now() / 1000); // Tempo corrente in secondi
       if (now >= expiry) 
       {
-        router.navigate(['/auth/login']);
-
-        window.location.href = "/auth/login";
+        // window.location.href = 'tokenExpired';
+        router.navigate(['/tokenExpired'])
         // alert('Sessione scaduta. Riprova ad effettuare il login.');
       } 
       else {
@@ -32,8 +31,6 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     } catch (error) {
       console.error('Errore nella decodifica del token:', error);
       // Gestisci eventuali errori nella decodifica del token
-      router.navigate(['/auth/login']);
-
     }
   } else {
         
@@ -49,32 +46,33 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     });
   }
 
-  return next(req);//vai avanti poi normalmente
+  // return next(req);//vai avanti poi normalmente
 
   // // Passa la richiesta al prossimo handler
-  // return next(req).pipe(
-  //   catchError((error) => {
-  //     // Se il server risponde con un errore 401 (non autorizzato), reindirizza l'utente alla pagina di login
-  //     if (error.status === 401) {
+  return next(req).pipe(
+    catchError((error) => {
+      // Se il server risponde con un errore 401 (non autorizzato), reindirizza l'utente alla pagina di login
+      if (error.status === 401) {
+        router.navigate(['/tokenExpired']);
         
-  //       // Opzionale: mostra un messaggio all'utente
-  //       // alert('Sessione scaduta. Riprova ad effettuare il login.');
-  //       // window.location.href = '/auth/login';
-  //     }
+        // Opzionale: mostra un messaggio all'utente
+        // alert('Sessione scaduta. Riprova ad effettuare il login.');
+        // window.location.href = '/auth/login';
+      }
 
-  //   //   if(window.location.toString() != '/auth/login')
-  //   //   {
-  //   //       if(!token || !expiry || (Math.floor(new Date().getTime() / 1000)) >= expiry)
-  //   //       {
-  //   //         alert('sessione scaduta, riesegui il login!')
-  //   //         window.location.href = '/auth/login';
-  //   //       }
-  //   //   }
-  //     // Rilancia l'errore per gestirlo più in alto nella catena di chiamate
+    //   if(window.location.toString() != '/auth/login')
+    //   {
+    //       if(!token || !expiry || (Math.floor(new Date().getTime() / 1000)) >= expiry)
+    //       {
+    //         alert('sessione scaduta, riesegui il login!')
+    //         window.location.href = '/auth/login';
+    //       }
+    //   }
+      // Rilancia l'errore per gestirlo più in alto nella catena di chiamate
 
-  //     const err = new Error(error); 
-  //     console.log(error);
-  //     return throwError(() => err);
-  //   })
-  // );
+      const err = new Error(error); 
+      console.log(error);
+      return throwError(() => err);
+    })
+  );
 };
