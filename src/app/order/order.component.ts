@@ -42,14 +42,14 @@ export class OrderComponent implements OnInit {
     this.isRestrictedEditModeActivePackage = !this.isRestrictedEditModeActivePackage;
   }
 
-  onModelChange(newValue: number) {
-    console.log("Model change detected:");
-    console.log("Previous unit quantity:", this.previousUnitQuantity);
-    console.log("New value:", newValue);
-    console.log("Current unit ordered quantity:", this.order.unitOrderedQuantity);
+  // onModelChange(newValue: number) {
+  //   console.log("Model change detected:");
+  //   console.log("Previous unit quantity:", this.previousUnitQuantity);
+  //   console.log("New value:", newValue);
+  //   console.log("Current unit ordered quantity:", this.order.unitOrderedQuantity);
 
-    this.order.unitOrderedQuantity = newValue; // Update the model
-  }
+  //   this.order.unitOrderedQuantity = newValue; // Update the model
+  // }
 
   editPackagingQuantity() {
     console.log("Editing packaging quantity...");
@@ -65,7 +65,7 @@ export class OrderComponent implements OnInit {
       console.log("Sending request to update packaging quantity...");
       this.orderService.editPackagingQuantity(this.order.id, this.order.packagingOrderedQuantity).subscribe({
         next: data => {
-          console.log("Packaging quantity updated successfully:", data);
+          console.log("Packaging quantity updated successfully");
           // Update the previous quantity after successful edit
           this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
         },
@@ -95,7 +95,7 @@ export class OrderComponent implements OnInit {
       console.log("Sending request to update unit quantity...");
       this.orderService.editUnitQuantity(this.order.id, this.order.unitOrderedQuantity).subscribe({
         next: data => {
-          console.log("Unit quantity updated successfully:");
+          console.log("Unit quantity updated successfully", );
           // Update the previous unit quantity after successful edit
           this.previousUnitQuantity = this.order.unitOrderedQuantity;
         },
@@ -144,6 +144,22 @@ export class OrderComponent implements OnInit {
 
       }
     });
+  }
+
+
+
+
+  checkArrivalDate(deliverDateString: string): boolean {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    let deliverDate = new Date(deliverDateString);
+    deliverDate.setHours(0, 0, 0, 0);
+
+
+    let diffInMs = Math.abs(now.getTime() - deliverDate.getTime());
+    let diffInHrs = diffInMs / (1000 * 60 * 60);
+    console.log(`Deliver Date: ${deliverDate.toISOString()}, Current Time: ${now}, Difference in Hours: ${diffInHrs}`);
+    return diffInHrs > 24;
   }
 
   isPopoverVisible: boolean = false; // Property to manage popover visibility
