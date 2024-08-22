@@ -183,6 +183,11 @@ export class ProductListComponent implements OnInit {
       this.products.splice(index, 1);
     }
   }
+
+  
+
+
+
 }
     //   onOrdersUpdate(product: Product): void {
     //     let index = this.products.indexOf(product);
