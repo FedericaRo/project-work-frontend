@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,14 +32,40 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard.component.css'
 })
 
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent implements AfterViewInit, OnInit{
 
-  imageUrl: string | ArrayBuffer | null = null;
+  imageUrl: string | null = null;
 
   profile_to_send: Profile = {id: null, name: '', surname: '', user: '' }; 
 
-  constructor(private http: HttpClient, public authService:AuthService, private profileService:ProfilesService) {
-    this.profileService.getAll().subscribe(data=>{this.profiles=data})
+  constructor
+  (
+    private http: HttpClient, 
+    public authService:AuthService, 
+    private profileService:ProfilesService
+  ){ this.profileService.getAll().subscribe(data=>{this.profiles=data}) }
+
+  // imgUrls:{[key: string]: string} = {};
+
+  profile!:Profile;
+  propicData:any;
+  profiles:Profile[] = []
+
+  selectedFile: File | null = null;
+
+  isFileSelected: boolean = false;
+  isClicked = false;
+  isSidebarOpen = true; 
+  areProfilesVisible = true;
+
+  img:string = "";
+
+  ngOnInit(): void 
+  {
+    
+    // this.setPropics();
+    // console.log('ciaooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+    // console.log(this.imgUrls);
   }
 
   @ViewChild('profileGrid') fatherElement!: ElementRef;
@@ -60,20 +86,44 @@ export class DashboardComponent implements AfterViewInit {
   userId = localStorage.getItem('profileid')
   email = localStorage.getItem("username")
 
-  profile!:Profile;
-  propicData:any;
-  profiles:Profile[] = []
-
-  selectedFile: File | null = null;
-
-  isFileSelected: boolean = false;
-  isClicked = false;
-  isSidebarOpen = true; 
-  areProfilesVisible = true;
-
-  img:string = "";
-
   
+  // setPropics() 
+  // {
+  //   for(let p of this.profiles)
+  //   {
+  //     this.profileService.getPropic(p.id).subscribe({
+  //       next: data=> 
+  //       {
+  //         this.imgUrls[p.id!.toString()] = (this.profileService.getUrlFromBlob(data));
+  //         console.log(data);
+  //         console.log(this.imgUrls[p.id!]);
+  //         console.log(this.imgUrls);
+  //       },
+  //       error: err => 
+  //       {
+  //         console.log(err);
+  //       }
+  //     })
+  //   }
+  // }
+
+  propic(profileId:number) 
+  {
+    let image:string = "";
+
+    this.profileService.getPropic(profileId).subscribe({
+      next: data=> 
+      {
+        image = this.profileService.getUrlFromBlob(data)
+      },
+      error: err => 
+      {
+        console.log(err);
+      }
+    })
+
+    return image;
+  }
 
   @HostListener('document:click', ['$event'])
   onOverlayClick(event: MouseEvent): void {
@@ -224,6 +274,9 @@ export class DashboardComponent implements AfterViewInit {
       this.userMenu.nativeElement.classList.add('hidden');
     }
   }
+
+
+
 
   // propic(profile:Profile):string | null{
   //   let imageUrl: string | ArrayBuffer | null = null;
