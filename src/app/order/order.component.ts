@@ -146,6 +146,22 @@ export class OrderComponent implements OnInit {
     });
   }
 
+
+
+
+  checkArrivalDate(deliverDateString: string): boolean {
+    let now = new Date();
+    now.setHours(0, 0, 0, 0);
+    let deliverDate = new Date(deliverDateString);
+    deliverDate.setHours(0, 0, 0, 0);
+
+
+    let diffInMs = Math.abs(now.getTime() - deliverDate.getTime());
+    let diffInHrs = diffInMs / (1000 * 60 * 60);
+    console.log(`Deliver Date: ${deliverDate.toISOString()}, Current Time: ${now}, Difference in Hours: ${diffInHrs}`);
+    return diffInHrs > 24;
+  }
+
   isPopoverVisible: boolean = false; // Property to manage popover visibility
 
   // Toggle the visibility of the popover
