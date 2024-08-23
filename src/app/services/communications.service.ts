@@ -25,4 +25,7 @@ export class CommunicationsService {
   {
     return this.http.post<Communication>(`/api/communications/newCommunication`, communication);
   }
+
+
+
 }

@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -31,6 +32,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 })
 export class CommunicationFormComponent 
 {
+  selectedFile: File | null = null;
 
   communicationForm:FormGroup = new FormGroup
   ({
@@ -39,17 +41,27 @@ export class CommunicationFormComponent
     toPerson: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    creationDate: new FormControl(''),
+    // creationDate: new FormControl(''),
     importance: new FormControl('', Validators.required)
   });
 
 
-  constructor(private communicationService:CommunicationsService){};
+  constructor(private http: HttpClient, private communicationService:CommunicationsService){};
+
+  onFileSelected(event: any) {
+    this.selectedFile = <File>event.target.files[0];
+  }
 
   @Output() add = new EventEmitter<Communication>();
 
   onSubmit()
   {
+    // form data per mandare il pdf
+    const formData = new FormData();
+
+    formData.append('file', this.selectedFile!, this.selectedFile!.name);
+
+
     console.log(this.communicationForm.value)
     this.communicationService.addNewCommunication(this.communicationForm.value)
     .subscribe(
@@ -58,6 +70,23 @@ export class CommunicationFormComponent
         {
           this.add.emit(communication);
           this.communicationForm.reset();
+
+          this.http.post(`api/communications/pdfupload/${communication.id}`, formData,  { responseType: 'text' })
+          .subscribe(
+            {
+              next:data => 
+              {
+                console.log(data)
+              },
+              error: badResponse=>
+              {
+                console.error("PDF FAILED", badResponse)
+              }
+                
+            }
+          )
+
+
         },
         error: badResponse=>
         {
