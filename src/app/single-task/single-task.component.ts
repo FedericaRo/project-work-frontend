@@ -34,6 +34,11 @@ export class SingleTaskComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
       
   }
+
+  userName = localStorage.getItem("profilename")
+  userSurname = localStorage.getItem("profilesurname")
+  userId = localStorage.getItem('profileid')
+  email = localStorage.getItem("username")
   
   completed:boolean=false;
   
@@ -50,7 +55,7 @@ export class SingleTaskComponent implements OnInit, OnChanges{
     else
     {
       this.taskACompletamento.status='COMPLETATO';
-      this.taskACompletamento.signature=this.userRole;
+      this.taskACompletamento.signature=this.userName!;
     }
   }
 
@@ -58,6 +63,7 @@ export class SingleTaskComponent implements OnInit, OnChanges{
 
   updateTaskSon() 
   {
+    this.userName = localStorage.getItem("profilename");
       this.switchStatus();
       console.log(this.userRole);
     // this.toggleCheckbox();
@@ -68,6 +74,8 @@ export class SingleTaskComponent implements OnInit, OnChanges{
           this.loadingService.show();
           this.taskUpdated.emit(data);
           console.log(this.userRole);
+          // localStorage.setItem("profilename",profile.name);
+          // this.userName = localStorage.getItem("profilename");
           // this.updateTask.emit();
           // this.taskACompletamento={status:"", signature:""};
         },

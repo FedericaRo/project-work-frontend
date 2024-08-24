@@ -35,8 +35,6 @@ export class CommunicationComponent
         return 'bg-gray-200 text-white font-bold';
     }
   }
-
-
   
   importanceLable(importance: string): string
   {
