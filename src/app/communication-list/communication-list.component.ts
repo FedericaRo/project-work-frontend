@@ -54,7 +54,7 @@ export class CommunicationListComponent implements OnInit
 
   addNewCommunication(communication:Communication) 
   {
-    this.communications.push(communication);
+    this.communications.unshift(communication);
     this.toggleForm();
   }
 

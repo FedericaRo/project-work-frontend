@@ -8,6 +8,7 @@ export interface Communication
     type : string,
     creationDate: string,
     description : string,
-    importance : string
+    importance : string,
+    pdfFilePath : string
 
 }

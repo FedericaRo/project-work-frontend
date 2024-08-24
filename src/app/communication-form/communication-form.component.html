@@ -91,8 +91,18 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-label>Aggiungi un pdf</mat-label>
-      <input type="file" (change)="onFileSelected($event)" />
+        <div class="mb-4">
+          <label for="pdf" class="block text-sm font-medium text-gray-700">Aggiungi un PDF</label>
+          <div class="mt-1 relative rounded-md shadow-sm">
+            <input 
+              #fileInput
+              id="pdf"
+              type="file" 
+              (change)="onFileSelected($event)" 
+              class="block w-full px-3 py-2 placeholder-gray-400 text-gray-900 rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+        </div>
 
       <div>
         <button
