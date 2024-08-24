@@ -12,6 +12,7 @@ import { OrdersService } from '../services/orders.service';
 import { integerValidator } from '../validators/integerCheck';
 import { Order } from '../model/Order';
 import { Router } from '@angular/router';
+import { atLeastOnePositiveNumber } from '../validators/atLeastOnePositiveNumber';
 
 @Component({
   selector: 'tr[app-product]',
@@ -53,8 +54,10 @@ export class ProductComponent implements OnInit
   orderForm:FormGroup = new FormGroup
   ({
     unitOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator]), // ! Aggiugnere validatore per mettere almeno una quantità
-    packagingOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator])
-  });
+    packagingOrderedQuantity: new FormControl('', [ Validators.min(0), integerValidator]),
+    }, {validators: atLeastOnePositiveNumber()}
+    
+  );
 
 
 

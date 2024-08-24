@@ -1,0 +1,73 @@
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <nav
+    class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700"
+  >
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center justify-start rtl:justify-end">
+          <button
+          
+            data-drawer-target="logo-sidebar"
+            data-drawer-toggle="logo-sidebar"
+            aria-controls="logo-sidebar"
+            type="button"
+            class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          >
+            <span class="sr-only">Open sidebar</span>
+            <svg
+              class="w-6 h-6"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+              ></path>
+            </svg>
+          </button>
+            <img
+              src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F252892649%2F270195188790%2F1%2Foriginal.20220323-104227?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C3472%2C3472&s=eb35d7322df6acb06300049004cca884"
+              class="h-8 me-3"
+              alt="Rui Logo"
+            />
+            <span
+              class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
+              >Residenza Rui</span
+            >
+          
+        </div>
+        
+      </div>
+    </div>
+  </nav>
+
+  <div class="bg-white shadow-lg rounded-lg p-8 max-w-sm mx-auto text-center">
+    <svg
+      class="mx-auto mb-4 w-16 h-16 text-red-500"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"
+      ></path>
+    </svg>
+    <h1 class="text-2xl font-semibold text-gray-800">Sessione Scaduta</h1>
+    <p class="mt-4 text-gray-600">
+        La tua sessione è scaduta, effettua di nuovo il login
+    </p>
+    <button
+      [routerLink]="['/auth/login']"
+      class="mt-6 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600"
+    >
+      Vai al Login
+    </button>
+  </div>
+</body>
