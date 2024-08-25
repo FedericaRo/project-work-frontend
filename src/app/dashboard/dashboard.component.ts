@@ -55,8 +55,11 @@ export class DashboardComponent implements AfterViewInit, OnInit{
           next: data=> 
           {
             // image = this.profileService.getUrlFromBlob(data)
-            let imgUrl = URL.createObjectURL(data);
-            this.imgUrls[p.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+            if(data)
+            {
+              let imgUrl = URL.createObjectURL(data);
+              this.imgUrls[p.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+            }
           },
           error: err => 
           {
