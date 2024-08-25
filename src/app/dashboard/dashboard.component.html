@@ -9,7 +9,7 @@
   class="fixed inset-0 flex items-center justify-center z-60"
 >
   <div (click)="onOverlayClick($event)" #fatherElement class="fixed inset-0 flex items-center justify-center z-60">
-    <div #profileGrid  class="p-4 bg-[#D1F2FE] shadow-md rounded-3xl border-[#003F5C] w-3/6 h-4/6 flex flex-col items-center justify-center content-grid">
+    <div #profileGrid  class="p-4 bg-[#D1F2FE] shadow-md rounded-3xl border-[#003F5C] flex flex-col items-center justify-center content-grid">
       <div class="grid grid-cols-3 gap-4 justify-center">
 
          <!-- * Visualizzazione dei profili tramite iterazione -->
@@ -20,10 +20,11 @@
                (click)="changeProfile(profile)" 
                [ngClass]="{'active-profile': profile.id?.toString() === userId, 'not-active-profile': profile.id?.toString() !== userId}"
                class="cursor-pointer flex-none rounded-lg
-               bg-gray-50 h-64 w-64 flex items-center justify-center 
+               bg-gray-50 h-52 w-52 flex items-center justify-center 
                hover:opacity-80 hover:border-[#ffffff] transition-all duration-300"
                >
-               <img class="object-cover h-full w-full rounded-lg" src="https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg" alt="Una bella immagine">
+               <!-- https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg -->
+               <img class="object-cover h-full w-full rounded-sm" [src]="imgUrls[profile.id!] ? imgUrls[profile.id!] : 'nopropic.png'" alt="Una bella immagine">
             </div>
             <!-- * Bottoncino che permette di eliminare un profilo -->
                <div 
@@ -42,7 +43,7 @@
           <div 
           (click)="toggleForm()"
           [ngClass]="{'hidden': isClicked}"
-          class="container h-64 w-64 flex items-center justify-center bg-gray-400 bg-opacity-50">
+          class="container h-52 w-52 flex items-center justify-center bg-gray-400 bg-opacity-50 btn-add-controller">
             <svg  xmlns="http://www.w3.org/2000/svg" 
               width="60rem" 
               height="60rem" 
@@ -54,7 +55,7 @@
               stroke-linejoin="round" 
               [ngClass]="{'plusclicked': isClicked, 'hidden': isClicked,}"
               class="feather feather-plus-circle hover:stroke-white cursor-pointer transition duration-300 plus">
-              <circle cx="12" cy="12" r="10"></circle>
+              <!-- <circle cx="12" cy="12" r="10"></circle> -->
               <line x1="12" y1="8" x2="12" y2="16"></line>
               <line x1="8" y1="12" x2="16" y2="12"></line>
             </svg>
@@ -62,9 +63,9 @@
             <!-- * Form con cui aggiungere un profilo -->
             @if (isClicked) 
             {
-               <div #formix class="h-64 w-64 flex items-center justify-center bg-gray-400 bg-opacity-50 p-3 relative rounded-lg">
-                  <form name="newProfile" #newProfile (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-container z-50 items-center">
-                     <mat-form-field class="example-full-width block">
+               <div #formix class="h-52 w-52 flex items-center justify-center content-center bg-gray-400 bg-opacity-50 p-1 relative rounded-lg">
+                  <form name="newProfile" #newProfile (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-container z-50 items-center form-control">
+                     <mat-form-field class="w-full">
                      <mat-label>Nome</mat-label>
                      <input 
                      matInput 
@@ -75,7 +76,7 @@
                      >
                      </mat-form-field>
                
-                     <mat-form-field class="example-full-width">
+                     <mat-form-field class="w-full">
                      <mat-label>Cognome</mat-label>
                      <input 
                      matInput 
@@ -88,12 +89,12 @@
                      
                      <!-- * Pulsante di aggiunta file -->
                      <input type="file" id="fileInput" class="absolute pointer-events-none bottom-0 left-0 opacity-0 cursor-pointer" (change)="onFileSelected($event)">
-                     <label for="fileInput" class="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600 transition">
-                        <span id="fileLabelText">{{!isFileSelected ? 'Immagine' : img.slice(-8)}}</span>
+                     <label for="fileInput" class="bg-blue-500 flex justify-center text-white text-center py-2 px-4 w-2/4 rounded-md cursor-pointer hover:bg-blue-600 transition">
+                        <span id="fileLabelText" class="text-center">{{!isFileSelected ? 'Immagine' : img.slice(-8)}}</span>
                      </label>
                
                      <!-- * Bottone di SUBMIT -->
-                     <button class="bg-blue-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-16 bottom-8 cursor-pointer">
+                     <button class="bg-blue-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-14 bottom-2 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-plus-circle text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <circle cx="12" cy="12" r="10"></circle>
                           <line x1="12" y1="8" x2="12" y2="16"></line>
@@ -104,7 +105,7 @@
                      <!-- * "Bottone" di chiusura Form -->
                       <a 
                       (click)="toggleForm()"
-                      class="bg-red-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-4 bottom-8 cursor-pointer">
+                      class="bg-red-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-2.5 bottom-2 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-x-circle text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                           <circle cx="12" cy="12" r="10"></circle>
                           <line x1="15" y1="9" x2="9" y2="15"></line>
@@ -147,7 +148,8 @@
                 <!-- <button (click)="authService.logout()">LOGOUT</button> -->
                 <button type="button" (click)="toggleUserMenu()" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                   <span class="sr-only">Open user menu</span>
-                  <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                  <!-- * USER PHOTO -->
+                  <img class="w-8 h-8 rounded-full" [src]="imgUrls[userId!] ? imgUrls[userId!] : 'nopropic.png'" alt="user photo">
                 </button>
               </div>
               <div 

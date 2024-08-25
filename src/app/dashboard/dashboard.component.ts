@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,14 +33,62 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard.component.css'
 })
 
-export class DashboardComponent implements AfterViewInit {
+export class DashboardComponent implements AfterViewInit, OnInit{
 
-  imageUrl: string | ArrayBuffer | null = null;
+  imageUrl: string | null = null;
 
   profile_to_send: Profile = {id: null, name: '', surname: '', user: '' }; 
 
-  constructor(private http: HttpClient, public authService:AuthService, private profileService:ProfilesService) {
-    this.profileService.getAll().subscribe(data=>{this.profiles=data})
+  constructor
+  (
+    private http: HttpClient, 
+    public authService:AuthService, 
+    private profileService:ProfilesService,
+    private domSanitizer: DomSanitizer
+  )
+  { 
+    this.profileService.getAll().subscribe(data=> {
+      this.profiles=data
+
+      for(let p of this.profiles) {
+        this.profileService.getPropic(p.id).subscribe({
+          next: data=> 
+          {
+            // image = this.profileService.getUrlFromBlob(data)
+            let imgUrl = URL.createObjectURL(data);
+            this.imgUrls[p.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+          },
+          error: err => 
+          {
+            console.log(err);
+          }
+        })
+      }
+  }) 
+}
+
+
+  imgUrls:{[key: string]: SafeUrl} = {};
+
+  profile!:Profile;
+  propicData:any;
+  profiles:Profile[] = []
+
+  selectedFile: File | null = null;
+
+  isFileSelected: boolean = false;
+  isClicked = false;
+  isSidebarOpen = true; 
+  areProfilesVisible = true;
+
+  img:string = "";
+
+  ngOnInit(): void 
+  {
+    
+    // this.setPropics();
+    // console.log('ciaooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+    // console.log(this.imgUrls);
   }
 
   @ViewChild('profileGrid') fatherElement!: ElementRef;
@@ -60,20 +109,46 @@ export class DashboardComponent implements AfterViewInit {
   userId = localStorage.getItem('profileid')
   email = localStorage.getItem("username")
 
-  profile!:Profile;
-  propicData:any;
-  profiles:Profile[] = []
-
-  selectedFile: File | null = null;
-
-  isFileSelected: boolean = false;
-  isClicked = false;
-  isSidebarOpen = true; 
-  areProfilesVisible = true;
-
-  img:string = "";
-
   
+  // setPropics() 
+  // {
+  //   for(let p of this.profiles)
+  //   {
+  //     this.profileService.getPropic(p.id).subscribe({
+  //       next: data=> 
+  //       {
+  //         this.imgUrls[p.id!.toString()] = (this.profileService.getUrlFromBlob(data));
+  //         console.log(data);
+  //         console.log(this.imgUrls[p.id!]);
+  //         console.log(this.imgUrls);
+  //       },
+  //       error: err => 
+  //       {
+  //         console.log(err);
+  //       }
+  //     })
+  //   }
+  // }
+
+  // propic(profileId:number): SafeUrl | null
+  // {
+    
+  //   this.profileService.getPropic(profileId).subscribe({
+  //     next: data=> 
+  //     {
+  //       // image = this.profileService.getUrlFromBlob(data)
+  //       let imgUrl = URL.createObjectURL(data);
+  //       return this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+  //     },
+  //     error: err => 
+  //     {
+  //       console.log(err);
+  //       return null;
+  //     }
+  //   })
+  // }
+
+
 
   @HostListener('document:click', ['$event'])
   onOverlayClick(event: MouseEvent): void {
@@ -155,16 +230,48 @@ export class DashboardComponent implements AfterViewInit {
         {
           this.profiles.push(data);
           console.log(data)
-          this.http.post(`api/profiles/imgupload/${data.id}`, formData)
+          this.http.post(`api/profiles/imgupload/${data.id}`, formData, { responseType: 'text' })
           .subscribe(
             {
-              next:data => 
+              next:img => 
               {
-                console.log(data)
+
+                // console.log(img)
+                // this.imageUrl = img.toString()
+                // this.imgUrls[data.id!] = this.imageUrl;
+
+                console.log(img);
+                console.log(this.imgUrls);
+                // this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
+                // let newUrl = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
+
+                this.profileService.getPropic(data.id).subscribe({
+                  next: ok=> 
+                  {
+                    // image = this.profileService.getUrlFromBlob(data)
+                    let imgUrl = URL.createObjectURL(ok);
+                    this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+                  },
+                  error: err => 
+                  {
+                    console.log(err);
+                  }
+                })
               },
+              // ! Ho dovuto compiere l'operazione di aggiunta propic su nuovo profilo qui 
+              // ! perché per qualche motivo, pur funzionando il metodo, parte l'errore 
+              // ! e non il next e quindi al momento va così...
+              /**
+               * Il problema era che Angular si aspetta una risposa in json,
+               *  ma il metodo "api/profiles/imgupload/${data.id}" riporta una stringa,
+               *  quindi dobbiamo dire a angular che la risposta è un semplice text (a riga 233)
+               * 
+               * @fede 
+               */
               error: badResponse=>
               {
                 console.error("IMAGE FAILED", badResponse)
+                
               }
             }
           )
@@ -181,7 +288,6 @@ export class DashboardComponent implements AfterViewInit {
         }
       }
     )
-    
   }
 
   backupProfiles:Profile[] = [];
@@ -196,6 +302,8 @@ export class DashboardComponent implements AfterViewInit {
         console.log(index);
         this.profiles.splice(index,1);
 
+        delete this.imgUrls[profileId]
+        
         if(Number(this.userId) === data.id)
         {
             localStorage.setItem("profilename", this.email!);
@@ -224,6 +332,9 @@ export class DashboardComponent implements AfterViewInit {
       this.userMenu.nativeElement.classList.add('hidden');
     }
   }
+
+
+
 
   // propic(profile:Profile):string | null{
   //   let imageUrl: string | ArrayBuffer | null = null;

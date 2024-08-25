@@ -20,7 +20,7 @@ export class LoggedGuardService {
         // this.router.navigate(["homepage"]);
         return true;
       }
-    if(this.authService.isTokenExpired())
+    else if(this.authService.isTokenExpired())
     {
       this.router.navigate(["auth/login"]);
       return false;
