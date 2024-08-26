@@ -55,8 +55,11 @@ export class DashboardComponent implements AfterViewInit, OnInit{
           next: data=> 
           {
             // image = this.profileService.getUrlFromBlob(data)
-            let imgUrl = URL.createObjectURL(data);
-            this.imgUrls[p.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+            if(data)
+            {
+              let imgUrl = URL.createObjectURL(data);
+              this.imgUrls[p.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
+            }
           },
           error: err => 
           {
@@ -230,22 +233,17 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         {
           this.profiles.push(data);
           console.log(data)
-          this.http.post(`api/profiles/imgupload/${data.id}`, formData)
+          this.http.post(`api/profiles/imgupload/${data.id}`, formData, { responseType: 'text' })
           .subscribe(
             {
               next:img => 
               {
-                console.log(img)
-                this.imageUrl = img.toString()
-                this.imgUrls[data.id!] = this.imageUrl;
-              },
-              // ! Ho dovuto compiere l'operazione di aggiunta propic su nuovo profilo qui 
-              // ! perché per qualche motivo, pur funzionando il metodo, parte l'errore 
-              // ! e non il next e quindi al momento va così...
-              error: badResponse=>
-              {
-                console.error("IMAGE FAILED", badResponse)
-                console.log(data);
+
+                // console.log(img)
+                // this.imageUrl = img.toString()
+                // this.imgUrls[data.id!] = this.imageUrl;
+
+                console.log(img);
                 console.log(this.imgUrls);
                 // this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
                 // let newUrl = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
@@ -262,6 +260,21 @@ export class DashboardComponent implements AfterViewInit, OnInit{
                     console.log(err);
                   }
                 })
+              },
+              // ! Ho dovuto compiere l'operazione di aggiunta propic su nuovo profilo qui 
+              // ! perché per qualche motivo, pur funzionando il metodo, parte l'errore 
+              // ! e non il next e quindi al momento va così...
+              /**
+               * Il problema era che Angular si aspetta una risposa in json,
+               *  ma il metodo "api/profiles/imgupload/${data.id}" riporta una stringa,
+               *  quindi dobbiamo dire a angular che la risposta è un semplice text (a riga 233)
+               * 
+               * @fede 
+               */
+              error: badResponse=>
+              {
+                console.error("IMAGE FAILED", badResponse)
+                
               }
             }
           )
