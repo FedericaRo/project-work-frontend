@@ -179,7 +179,8 @@
                       @for (product of products; track $index)
                        {
                             <tr 
-                            app-product 
+                            app-product
+                            (newDeleteEvent)="deleteProduct($event)" 
                             class="bg-white transition-all duration-500 hover:bg-gray-50" 
                             [ngClass]="{'bg-white': $index % 2 === 0, 'bg-[#003f5c1c]': $index % 2 !== 0, 'flash': flashId === product.id}" 
                             [product]="product"

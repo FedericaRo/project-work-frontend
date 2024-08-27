@@ -66,6 +66,7 @@ export const routes: Routes = [
           { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'tasks', component: TaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'addProfile', component: ProfileFormComponent, canActivate: [LoggedGuardService] },
+          { path: '', redirectTo: '/homepage', pathMatch: 'full' },
 
           // Altre rotte con barra laterale
         ]

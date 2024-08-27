@@ -200,6 +200,19 @@ export class ProductListComponent implements OnInit {
     }, 500); // Match this duration with the CSS transition duration
   }
 
+  deleteProduct(product:Product)
+  {
+    let index = this.products.findIndex((p: Product) => p.id === product.id);
+    if(index !== -1)
+    {
+      this.products.splice(index, 1);
+    }
+  }
+
+  
+
+
+
 
 }
     //   onOrdersUpdate(product: Product): void {

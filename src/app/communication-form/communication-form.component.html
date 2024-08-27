@@ -65,15 +65,15 @@
 
 
      
-  <mat-label>Scegli grado di importanza</mat-label>
-  <mat-radio-group formControlName="importance" aria-label="Select an importance level">
-    <mat-radio-button value="ALTA">ALTA</mat-radio-button>
-    <mat-radio-button value="MEDIA">MEDIA</mat-radio-button>
-    <mat-radio-button value="BASSA">BASSA</mat-radio-button>
-  </mat-radio-group>
-  <mat-error *ngIf="communicationForm.get('importance')?.invalid && communicationForm.get('importance')?.touched">
-    Il campo "Importanza" è obbligatorio
-  </mat-error>
+      <mat-label>Scegli grado di importanza</mat-label>
+      <mat-radio-group formControlName="importance" aria-label="Select an importance level">
+        <mat-radio-button value="ALTA">ALTA</mat-radio-button>
+        <mat-radio-button value="MEDIA">MEDIA</mat-radio-button>
+        <mat-radio-button value="BASSA">BASSA</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="communicationForm.get('importance')?.invalid && communicationForm.get('importance')?.touched">
+        Il campo "Importanza" è obbligatorio
+      </mat-error>
 
 
 

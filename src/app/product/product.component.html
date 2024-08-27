@@ -1,5 +1,5 @@
 
-    <!-- controllare righe 206 e 232 -->
+    
     <!-- codice del fornitore -->
     <td class="p-2 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
         <!-- <span class="hover-text" >livello minimo di riordino: <br>{{product.reorderPoint}} unità</span> -->
@@ -69,14 +69,17 @@
             <div class="relative flex items-center justify-center w-16">
                 <input 
                     type="number" 
-                    id="username" 
-                    name="username"
+                    id="unitTypeQuantity" 
+                    name="unitTypeQuantity"
                     class="h-8 w-full bg-transparent rounded-md text-black ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600 mr-1" 
-                    [placeholder]="product.unitTypeQuantity"
+                    [placeholder]="previousUnitTypeQuantity"
+                    [(ngModel)]="product.unitTypeQuantity"
+                    
                 />
             </div>
             <!-- [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}" -->
             <button 
+            (click)="editUnitTypeQuantity()"
             (click)="employeeEditProductUnitsToggle()"
             class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
         >
@@ -130,16 +133,21 @@
             <div class="relative flex items-center justify-center w-16">
                 <input 
                     type="number" 
-                    id="username" 
-                    name="username"
+                    id="packagingTypeQuantity" 
+                    name="packagingTypeQuantity"
+                    min="0"
+                    max="999999"
                     class="h-8 w-full bg-transparent rounded-md text-black ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600 mr-1" 
-                    [placeholder]="product.packagingTypeQuantity"
+                    [placeholder]="previousPackagingTypeQuantity"
+                    [(ngModel)]="product.packagingTypeQuantity"
+                    
                 />
             </div>
             <!-- [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}" -->
             <button 
-    (click)="employeeEditProductPackageToggle()"
-    class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
+            (click)="editPackagingTypeQuantity()"    
+            (click)="employeeEditProductPackageToggle()"
+            class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
 >
     <svg 
         xmlns="http://www.w3.org/2000/svg" 
@@ -312,16 +320,56 @@
 
 
             <!-- pulsante di cancellazione -->
-            <button class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
-            [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}">
+            <button
+            (click)="toggleProductPopover()" 
+            class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
+            [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}"
+            [attr.aria-haspopup]="true"
+            [attr.aria-expanded]="isPopoverVisible ? 'true' : 'false'"
+            >
     <!-- icona spazzizi -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#ff6e54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-            <line x1="10" y1="11" x2="10" y2="17"></line>
-            <line x1="14" y1="11" x2="14" y2="17"></line>
-        </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                width="21" 
+                height="21" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="#ff6e54" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" c
+                lass="" 
+                aria-hidden="true"
+            >
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
             </button>
+
+            <!--Popover-->
+            <div *ngIf="isProductPopoverVisible" class="absolute top-full mt-1 right-0 bg-white shadow-lg border border-gray-300 p-4 rounded-lg z-10">
+                <div class="popover-content">
+                    <p class="text-gray-700">Vuoi confermare l'eliminazione del prodotto?</p>
+                    <div class="mt-3 flex justify-end space-x-2">
+                        <button 
+                            (click)="deleteProduct()" 
+                            class="btn bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded-md"
+                        >
+                            Conferma
+                        </button>
+                        <button 
+                            (click)="toggleProductPopover()" 
+                            class="btn bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-md"
+                        >
+                            Annulla
+                        </button>
+                    </div>
+                </div>
+                <!-- Freccia del popover -->
+            
+            </div>
+
 
         </div>
     </td>

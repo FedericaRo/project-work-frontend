@@ -1,7 +1,7 @@
 export interface Product
 {
   
-  id: number | null;
+  id: number;
   // category_id: number | null; //! Non siamo sicuri se abbia senso averceli sia qui che nel back
   productName: string;
   unitPrice: number;
