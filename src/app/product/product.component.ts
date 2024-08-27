@@ -13,6 +13,7 @@ import { integerValidator } from '../validators/integerCheck';
 import { Order } from '../model/Order';
 import { Router } from '@angular/router';
 import { atLeastOnePositiveNumber } from '../validators/atLeastOnePositiveNumber';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'tr[app-product]',
