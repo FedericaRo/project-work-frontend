@@ -206,9 +206,9 @@ export class OrderListComponent
   if (valueA == null && valueB == null) {
     return 0; // Both null, consider them equal
   } else if (valueA == null) { 
-    return orderingType === 'asc' ? -1 : 1;
-  } else if (valueB == null) {
     return orderingType === 'asc' ? 1 : -1;
+  } else if (valueB == null) {
+    return orderingType === 'asc' ? -1 : 1;
   }
   
     if (typeof valueA === 'string' && typeof valueB === 'string')
@@ -312,6 +312,8 @@ private matchesCriteria(order: Order, criteria: string): boolean {
       }, 
       error: err => {
         this.loadingService.hide();
+        console.log(err);
+        // console.log(JSON.stringify(err));
         this.mailError = err.error;
         console.log("Errore nell'invio: ", err.error);
         this.loadingService.hide();

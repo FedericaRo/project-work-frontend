@@ -12,3 +12,29 @@
     opacity: 0; /* Transparent when hiding */
     transition: opacity 0.3s ease; /* Smooth transition */
 }
+
+@media (min-width: 1861px) and (max-width: 1920px){
+    .sizable
+    {
+        left: 0.75rem;
+    }
+}
+@media (min-width: 1921px) and (max-width: 2200px){
+    .sizable
+    {
+        left: 1.5rem;
+    }
+}
+@media (min-width: 1700px) and (max-width: 1860px){
+    .sizable
+    {
+        right: 1rem;
+    }
+}
+/* @media (min-width: 1000px) and (max-width: 1860px){
+    .sizable
+    {
+        left: 0rem;
+    }
+} */
+

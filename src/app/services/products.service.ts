@@ -33,8 +33,22 @@ export class ProductsService {
     return this.http.post<Category>(`/api/products/addCategory`, category);
   }
 
-  
+  delete(id:number):Observable<Product>
+  {
+    return this.http.delete<Product>(`/api/products/${id}`);
+  }
 
+  updateRemainingUnitsQuantity(id: number, unitTypeQuantity: number)
+  {
+    console.log(`SERVICE ${id} ${unitTypeQuantity}`)
+    return this.http.put<Product>(`/api/products/${id}/updateRemainingUnitsQuantity`, { unitTypeQuantity });
+  }
+
+  updateRemainingPackagesQuantity(id: number, packagingTypeQuantity: number)
+  {
+    console.log(`SERVICE ${id} ${packagingTypeQuantity}`)
+    return this.http.put<Product>(`/api/products/${id}/updateRemainingPackagesQuantity`, { packagingTypeQuantity });
+  }
 
 
 }
