@@ -203,7 +203,7 @@
 
     <!-- pulsanti quickaction -->
     <td class="p-2 text-center">
-        <div class="flex text-center gap-1 justify-center">
+        <div class="flex text-center gap-1 justify-center relative">
             <!-- pulsante di modifica totale per admin -->
             <!-- <button 
             class="p-2  rounded-full  group transition-all duration-500  flex text-center btnBg"
@@ -254,9 +254,10 @@
             
             
 
-            <!-- Popover content -->
+            <!-- Popover content per aggiungere un nuovo ordine -->
             <div *ngIf="isPopoverVisible" 
                 class="p-4 popoverConfirm absolute z-10 right-0 top-0 mt-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm"
+
                 style="transform: translate(-25%, -35%); ">
             
                 <form [formGroup]="orderForm" class="example-form" (ngSubmit)="sendOrder()"> 
