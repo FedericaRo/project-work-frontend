@@ -70,9 +70,9 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     //   }
       // Rilancia l'errore per gestirlo più in alto nella catena di chiamate
 
-      const err = new Error(error); 
-      console.log(error);
-      return throwError(() => err);
+      // const err = new Error(error); 
+      // console.log(error);
+      return throwError(() => error);
     })
   );
 };

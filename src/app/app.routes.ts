@@ -15,6 +15,9 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { ExpiredPageComponent } from './expired-page/expired-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserPageComponent } from './user-page/user-page.component';
+
 
 
 
@@ -37,7 +40,7 @@ export const routes: Routes = [
   { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
   { path: 'tokenExpired', component: ErrorPageComponent },
-
+  { path: 'pageNotFound', component: PageNotFoundComponent },
   /**
    * *Codice extra non necessario, lasciato in caso di necessità e per reference
    * @Santo
@@ -66,7 +69,9 @@ export const routes: Routes = [
           { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'tasks', component: TaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'addProfile', component: ProfileFormComponent, canActivate: [LoggedGuardService] },
+          { path: 'userPage', component: UserPageComponent, canActivate: [LoggedGuardService] },
           { path: '', redirectTo: '/homepage', pathMatch: 'full' },
+
 
           // Altre rotte con barra laterale
         ]
@@ -78,7 +83,7 @@ export const routes: Routes = [
    * *Redirige qualsiasi altra rotta a login 
    * @Santo
    */
-  { path: '**', redirectTo: 'auth/login' }
+  { path: '**', redirectTo: 'pageNotFound', }
 ];
 
 /**
