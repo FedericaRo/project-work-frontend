@@ -1,9 +1,82 @@
-<!-- <div class="flex-1 p-4">
-    @for (storedtask of tasks; track $index)
-    {
-        <app-single-task [task]="task" (taskUpdated)="onTaskUpdated($event)"></app-single-task>
-    }
-     Aggiungi il contenuto principale qui -->
-<!-- </div> --> 
+<div class="task-list-box bg-light rounded-lg shadow-sm p-3">
+  <h2 class="text-dark mb-4">Stored Tasks</h2>
+  <ul class="list-unstyled">
+    <li *ngFor="let task of storedTasks">
+      <app-stored-task 
+        [storedTask]="task" 
+        (delete)="onTaskDelete(task.id)"
+        (update)="onTaskUpdate(task)">
+      </app-stored-task>
+    </li>
+  </ul>
 
-<app-stored-task></app-stored-task>
+  <div>
+    <button mat-fab color="primary" (click)="toggleModal()" matTooltip="Aggiungi una nuova task">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-plus" transform="scale(1, -1)">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="12" y1="18" x2="12" y2="12"></line>
+        <line x1="9" y1="15" x2="15" y2="15"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Modal -->
+  <div [ngClass]="{'flex': showModal, 'hidden': !showModal}" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto bg-black bg-opacity-50 h-full items-center justify-center">
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-full max-w-2xl">
+      <!-- Modal header -->
+      <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+          {{ isEditing ? 'Modifica Task' : 'Aggiungi Nuova Task' }}
+        </h3>
+        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" (click)="toggleModal()">
+          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <div class="p-6 space-y-6">
+        <form (ngSubmit)="isEditing ? updateStoredTask(newStoredTask) : addStoredTask()" class="d-flex flex-column">
+          <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Titolo</mat-label>
+            <input 
+              placeholder="Inserire titolo"
+              type="text"
+              id="taskTitle"
+              [(ngModel)]="newStoredTask.name"
+              name="taskTitle"
+              matInput
+              required
+            />
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Descrizione</mat-label>
+            <textarea 
+              matInput
+              id="taskDescription"
+              [(ngModel)]="newStoredTask.description"
+              name="taskDescription"
+              placeholder="Descrivi la task"
+              rows="5"
+              required
+            ></textarea>
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill" class="w-full mb-4">
+            <mat-label>Frequenza</mat-label>
+            <mat-select [(ngModel)]="newStoredTask.frequency" name="taskFrequency" required>
+              <mat-option value="SETTIMANALE">SETTIMANALE</mat-option>
+              <mat-option value="BISETTIMANALE">BISETTIMANALE</mat-option>
+              <mat-option value="MENSILE">MENSILE</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <button type="submit" mat-raised-button color="primary" class="align-self-end">
+            {{ isEditing ? 'Aggiorna Task' : 'Aggiungi Task' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -37,9 +37,13 @@
                                         <div class="text-muted small">Creazione</div>
                                         <div class="text-sm font-medium">{{task.creationDate | date: 'dd/MM/yyyy'}}</div>
                                     </div>
-                                    <div class="detail-item">
+                                    <div class="detail-item mr-4">
                                         <div class="text-muted small">Completamento</div>
                                         <div class="text-sm font-medium">{{task.completionDate == null ? "gg/mm/yyyy" : task.completionDate | date: 'dd/MM/yyyy'}}</div>
+                                    </div>
+                                    <div class="detail-item">
+                                        <div class="text-muted small">Firma</div>
+                                        <div class="text-sm font-medium">{{task.signature == null || task.signature == '' ? "nessuna" : task.signature}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +60,6 @@
                                     <i class="mdi mdi-trash-can-outline text-xl"></i>
                                 </a>
                             </div>
-                            
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,57 @@
-import { Component } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { StoredTask } from '../model/StoredTask';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-stored-task',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, MatTooltipModule],
   templateUrl: './stored-task.component.html',
-  styleUrl: './stored-task.component.css'
+  styleUrls: ['./stored-task.component.css']
 })
 export class StoredTaskComponent {
+  constructor(
+    public authService: AuthService) {}
 
+  @Input() storedTask!: StoredTask;
+
+  @Output() delete = new EventEmitter<number>();
+  @Output() update = new EventEmitter<StoredTask>();
+
+  isEditing: boolean = false;
+  showPopOver: boolean = false;
+
+  onUpdate(): void {
+    if (this.storedTask.id !== null && this.storedTask.id !== undefined) {
+      this.update.emit(this.storedTask);
+      this.isEditing = false;
+    } else {
+      console.error('ID non valido');
+    }
+  }
+
+  onEdit(): void {
+    this.isEditing = true;
+  }
+
+  onCancelEdit(): void {
+    this.isEditing = false;
+  }
+
+  onDelete(): void {
+    this.showPopOver = true; 
+  }
+
+  confirmDelete(): void {
+    if (this.storedTask.id !== null && this.storedTask.id !== undefined) {
+      this.delete.emit(this.storedTask.id);
+      this.showPopOver = false;
+    } else {
+      console.error('ID non valido');
+    }
+  }
 }
