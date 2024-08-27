@@ -18,6 +18,14 @@ export class TaskListComponent implements OnInit {
 
   filterCriteria:string = ' ';
 
+  counter:number = 0;
+  counter2:number = 0;
+
+  statux:string='';
+  freq:string='';
+
+  unitedTask: Task[] = [];
+
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
@@ -90,4 +98,59 @@ export class TaskListComponent implements OnInit {
     );
   }  
 
+
+  sortByStatus(): void {
+    this.counter++;
+    let valore = this.counter % 2;
+  
+    const statusOrder: { [key: string]: number } = {
+      'COMPLETATO': 1,
+      'INCOMPIUTO': 2,
+    };
+  
+    if (valore == 0) {
+      this.statux = 'Completate';
+      this.tasksbackup = [...this.tasksbackup].sort((a, b) => {
+        return statusOrder[a.status] - statusOrder[b.status];
+      });
+    } else {
+      this.statux = 'Incompiute';
+      this.tasksbackup = [...this.tasksbackup].sort((a, b) => {
+        return statusOrder[b.status] - statusOrder[a.status];
+      });
+    }
+  }
+  
+  sortByFrequency(): void {
+    this.counter2++;
+    let valore = this.counter2 % 3;
+  
+    const frequencyOrder: { [key: string]: number } = {
+      'SETTIMANALE': 1,
+      'BISETTIMANALE': 2,
+      'MENSILE': 3
+    };
+  
+    if (valore == 0) {
+      this.freq = 'Settimanale';
+      this.tasksbackup = [...this.tasksbackup].sort((a, b) => {
+        return frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
+      });
+    } else if (valore == 1) {
+      this.freq = 'Mensile';
+      this.tasksbackup = [...this.tasksbackup].sort((a, b) => {
+        return frequencyOrder[b.frequency] - frequencyOrder[a.frequency];
+      });
+    } else {
+      frequencyOrder['BISETTIMANALE'] = 1;
+      frequencyOrder['SETTIMANALE'] = 2;
+      frequencyOrder['MENSILE'] = 3;
+  
+      this.freq = 'Bisettimanale';
+      this.tasksbackup = [...this.tasksbackup].sort((a, b) => {
+        return frequencyOrder[a.frequency] - frequencyOrder[b.frequency];
+      });
+    }
+  }
+  
 }

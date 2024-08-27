@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { OrderComponent } from '../order/order.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from '../services/loading.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [CommonModule, OrderComponent, FormsModule],
+  imports: [CommonModule, OrderComponent, FormsModule, MatIcon],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
@@ -21,11 +22,12 @@ export class OrderListComponent
   orderingMap: { [key: string]: 'default' | 'asc' | 'desc' } = {}; // Map to store ordering type for each column
   displayRecentOrders:boolean = true;
         
-  orders: any[] = []; // Currently displayed orders
-  ordersLastThreeMonths: any[] = [];
-  ordersLastThreeMonthsBackup: any[] = []; // Original list of orders
-  ordersLastDayAndNotArrived: any[] = [];
-  ordersLastDayAndNotArrivedBackup: any[] = [];
+  orders: Order[] = []; // Currently displayed orders
+  allOrders: Order[] = [];
+  ordersLastThreeMonths: Order[] = [];
+  ordersLastThreeMonthsBackup: Order[] = []; // Original list of orders
+  ordersLastDayAndNotArrived: Order[] = [];
+  ordersLastDayAndNotArrivedBackup: Order[] = [];
 
 
 
@@ -36,48 +38,62 @@ export class OrderListComponent
    * order 1 back up 
    * order 2 back up
    */
-  ngOnInit(): void 
-  {
-    this.orderService.getOrdersInLast3Months().subscribe(data => 
-    {
+  ngOnInit(): void {
+    this.orderService.getOrdersInLast3Months().subscribe(data => {
       console.log("Data received from service:", data);
+      this.allOrders = data.reverse(); // Fetch all orders and reverse to latest first
+      
+      // Initialize backups and filtered lists
+      this.ordersLastThreeMonths = this.showOnlyOlderOrders(); // Only arrived orders
+      this.ordersLastThreeMonthsBackup = [...this.ordersLastThreeMonths]; // Backup of all arrived orders
   
-      this.ordersLastThreeMonthsBackup = data.reverse();
-      console.log("ordersLastThreeMonthsBackup initialized:", this.ordersLastThreeMonthsBackup);
+      this.ordersLastDayAndNotArrived = this.showOnlyRecentOrders(); // Orders not arrived or within last 24 hours
+      this.ordersLastDayAndNotArrivedBackup = [...this.ordersLastDayAndNotArrived]; // Backup of recent orders
   
-      this.ordersLastThreeMonths = [...this.ordersLastThreeMonthsBackup];
-      console.log("ordersLastThreeMonths initialized:", this. ordersLastThreeMonths);
-  
-      this.ordersLastDayAndNotArrived = this.showOnlyRecentOrders();
-      console.log("ordersLastDayAndNotArrived initialized:", this.ordersLastDayAndNotArrived);
-
-      this.ordersLastDayAndNotArrivedBackup = this.ordersLastDayAndNotArrived ;
-      console.log("ordersLastDayAndNotArrived initialized:", this.ordersLastDayAndNotArrivedBackup);
-  
-      this.orders = this.ordersLastDayAndNotArrived;
-      console.log("ORDERS initialized:", this.orders);
-      console.log("end ORDERS");
-    })
+      // Initially show recent orders
+      this.orders = [...this.ordersLastDayAndNotArrived];
+      console.log("Initial orders displayed:", this.orders);
+    });
   }
+  
 
-  showOnlyRecentOrders():Order[]
-  {
+  showOnlyRecentOrders(): Order[] {
     console.log("Filtering recent orders...");
-    return this.ordersLastThreeMonthsBackup
-      .filter(o => {
-        if (o.arrived == false) { // Check if arrived is null first
-          console.log(`ARRIVED NULL Order ID: ${o.id}`)
-          return true; // Include the order if arrived is null
-        }
-        
-        
-        console.log(`TIME DIFFERENCE Order ID: ${o.id}`)
-        const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
-        console.log(`Order ID: ${o.id}, Deliver Date: ${o.deliverDate}, Time Difference: ${timeDiff} hours`);
-        return timeDiff <= 24; 
-      });
-    console.log("Filtered recent orders:", this.orders);
+    return this.allOrders.filter(o => {
+      if (!o.arrived) { // Orders not yet arrived
+        console.log(`Order ID: ${o.productCode} has not arrived yet.`);
+        return true;
+      }
+      const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
+      console.log(`Order ID: ${o.productCode}, Arrived: ${o.arrived}, Time Difference: ${timeDiff} hours`);
+      return timeDiff <= 24; // Orders arrived within last 24 hours
+    });
   }
+  
+  
+  showOnlyOlderOrders(): Order[] {
+    console.log("Filtering older orders...");
+    // return this.allOrders.filter(o => {
+    //   if (o.arrived) {
+    //     const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
+    //     return timeDiff > 24; // Orders arrived more than 24 hours ago
+    //   }
+    //   return false; // Exclude orders that haven't arrived
+    // });
+    // return this.allOrders.filter(o => o.arrived && this.getTimeDifferenceBetweenDates(o.deliverDate) > 24) // Orders arrived more than 24 hours ago
+      return this.allOrders.filter(o => {
+        if (o.arrived) {
+          const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
+          console.log(`Order ID: ${o.id}, Arrived: ${o.arrived}, Time Difference: ${timeDiff} hours`);
+          return timeDiff > 24; // Orders arrived more than 24 hours ago
+        }
+        console.log(`Order ID: ${o.id} has not arrived yet or does not meet the criteria.`);
+        return false; // Exclude orders that haven't arrived
+      });
+    
+  
+  }
+  
 
   toggleBetweenRecentandOlderOrders() {
     console.log("TOGGLE METHOD START *******************");
@@ -86,11 +102,11 @@ export class OrderListComponent
 
     if (!this.displayRecentOrders) {
       console.log("Switching to show recent orders");
-      this.orders = this.showOnlyRecentOrders();
+      this.orders = this.ordersLastDayAndNotArrived;
       this.displayRecentOrders = true; // Explicitly set to true
     } else {
       console.log("Switching to show all orders");
-      this.orders = [...this.ordersLastThreeMonthsBackup]; // Restore the full list
+      this.orders = this.ordersLastThreeMonths; // Restore the full list
       this.displayRecentOrders = false; // Explicitly set to false
       
     }

@@ -24,11 +24,13 @@ import { atLeastOnePositiveNumber } from '../validators/atLeastOnePositiveNumber
 export class ProductComponent implements OnInit
 {
 
-  constructor(public authService:AuthService, public orderService:OrdersService){}
+  constructor(public authService:AuthService, public orderService:OrdersService, public productService:ProductsService){}
 
   @Input() product!:Product;
+  @Output() newDeleteEvent:EventEmitter<Product> = new EventEmitter<Product>();
 
   // @Output() updateProduct = new EventEmitter<Product>();
+  @Output() newOrder = new EventEmitter<String>();
 
   orders:Order[] = [];
 
@@ -37,6 +39,9 @@ export class ProductComponent implements OnInit
   isFullEditModeActive:boolean = false;
   isProductAlreadyOrdered!:boolean;
   ordersNumber:number = 0;
+  
+  previousUnitTypeQuantity: number = 0; // *** INIZIALIZZAZIONE DELLA QUANTITÀ PRECEDENTE DELLE UNITÀ ***
+  previousPackagingTypeQuantity: number = 0; // *** INIZIALIZZAZIONE DELLA QUANTITÀ PRECEDENTE DELLE CONFEZIONI ***
 
 
   ngOnInit(): void {
@@ -48,6 +53,74 @@ export class ProductComponent implements OnInit
       this.ordersNumber = this.orders.length;
     })
 
+    if(this.product)
+    {
+      this.previousUnitTypeQuantity = this.product.unitTypeQuantity;
+      this.previousPackagingTypeQuantity = this.product.packagingTypeQuantity;
+    }
+  }
+
+
+   /**
+ * Checks if the given value is a positive integer.
+ * @param value - The value to check.
+ * @returns `true` if the value is a positive integer, `false` otherwise.
+ */
+   isPositiveInteger(value: number): boolean 
+   {
+     return Number.isInteger(value) && value >= 0;
+   }
+
+   editUnitTypeQuantity() {
+    console.log("Modifica quantità unità attivata");
+    console.log("Quantità attuale delle unità:", this.product.unitTypeQuantity);
+    console.log("Quantità precedente delle unità:", this.previousUnitTypeQuantity);
+
+    if (
+      this.product.unitTypeQuantity !== this.previousUnitTypeQuantity &&
+      this.isPositiveInteger(this.product.id) &&
+      this.isPositiveInteger(this.product.unitTypeQuantity)
+    ) {
+      console.log("Invio richiesta per aggiornare la quantità delle unità...");
+      this.productService.updateRemainingUnitsQuantity(this.product.id, this.product.unitTypeQuantity).subscribe({
+        next: data => {
+          console.log("Quantità delle unità aggiornata con successo:", data);
+          this.previousUnitTypeQuantity = this.product.unitTypeQuantity;
+        },
+        error: badResponse => {
+          console.log("Errore nell'aggiornamento della quantità delle unità:", badResponse);
+        }
+      });
+    } else {
+      console.log("Nessun cambiamento nella quantità delle unità o valore non valido, richiesta non inviata.");
+      this.product.unitTypeQuantity = this.previousUnitTypeQuantity;
+    }
+  }
+
+  editPackagingTypeQuantity() {
+    console.log("Modifica quantità confezioni attivata");
+    console.log("Quantità attuale delle confezioni:", this.product.packagingTypeQuantity);
+    console.log("Quantità precedente delle confezioni:", this.previousPackagingTypeQuantity);
+
+    if (
+      this.product.packagingTypeQuantity !== this.previousPackagingTypeQuantity &&
+      this.isPositiveInteger(this.product.id) &&
+      this.isPositiveInteger(this.product.packagingTypeQuantity)
+    ) {
+      console.log("Invio richiesta per aggiornare la quantità delle confezioni...");
+      this.productService.updateRemainingPackagesQuantity(this.product.id, this.product.packagingTypeQuantity).subscribe({
+        next: data => {
+          console.log("Quantità delle confezioni aggiornata con successo:", data);
+          this.previousPackagingTypeQuantity = this.product.packagingTypeQuantity;
+        },
+        error: badResponse => {
+          console.log("Errore nell'aggiornamento della quantità delle confezioni:", badResponse);
+        }
+      });
+    } else {
+      console.log("Nessun cambiamento nella quantità delle confezioni o valore non valido, richiesta non inviata.");
+      this.product.packagingTypeQuantity = this.previousPackagingTypeQuantity;
+    }
   }
 
 
@@ -126,6 +199,7 @@ export class ProductComponent implements OnInit
       console.log(data);
       this.orderForm.reset();
       this.orders.push(data);
+      this.newOrder.emit("Success")
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
@@ -162,7 +236,30 @@ export class ProductComponent implements OnInit
     )
   }
 
-  
+  isProductPopoverVisible:boolean = false;
+
+  toggleProductPopover()
+  {
+    this.isProductPopoverVisible = !this.isProductPopoverVisible;
+    
+  }
+
+  deleteProduct()
+  {
+    this.isProductPopoverVisible = false;
+    this.productService.delete(this.product.id).subscribe({
+
+      next: data => {
+        this.newDeleteEvent.emit(data)
+        console.log("Prodotto eliminato con successo:", data);
+      },
+      error:badResponse => {
+        console.log("Errore nell'eliminazione del prodotto:", badResponse);
+
+
+      }
+    });
+  }
 
   
   // employeeEditProductUnitsToggle()
