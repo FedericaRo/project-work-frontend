@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { OrderComponent } from '../order/order.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingService } from '../services/loading.service';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [CommonModule, OrderComponent, FormsModule],
+  imports: [CommonModule, OrderComponent, FormsModule, MatIcon],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
