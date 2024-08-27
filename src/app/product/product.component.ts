@@ -31,6 +31,7 @@ export class ProductComponent implements OnInit
   @Output() newDeleteEvent:EventEmitter<Product> = new EventEmitter<Product>();
 
   // @Output() updateProduct = new EventEmitter<Product>();
+  @Output() newOrder = new EventEmitter<String>();
 
   orders:Order[] = [];
 
@@ -199,6 +200,7 @@ export class ProductComponent implements OnInit
       console.log(data);
       this.orderForm.reset();
       this.orders.push(data);
+      this.newOrder.emit("Success")
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);

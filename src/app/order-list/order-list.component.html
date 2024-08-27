@@ -105,20 +105,50 @@
                 <tr>
                     <th scope="col"
                         (click)="sort('productCode')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Identificativo
-                         <span *ngIf="sortColumn === 'productCode'">
-                            <span *ngIf="orderingMap['productCode'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['productCode'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'productCode' && orderingMap['productCode'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'productCode' && orderingMap['productCode'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'productCode' && orderingMap['productCode'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <th scope="col"
                         (click)="sort('supplierName')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Fornitore 
-                        <span *ngIf="sortColumn === 'supplierName'">
-                            <span *ngIf="orderingMap['supplierName'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['supplierName'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'supplierName' && orderingMap['supplierName'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'supplierName' && orderingMap['supplierName'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'supplierName' && orderingMap['supplierName'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -126,20 +156,50 @@
             </th> -->
                     <th scope="col"
                         (click)="sort('productName')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Nome Prodotto 
-                        <span *ngIf="sortColumn === 'productName'">
-                            <span *ngIf="orderingMap['productName'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['productName'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'productName' && orderingMap['productName'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'productName' && orderingMap['productName'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'productName' && orderingMap['productName'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <th scope="col"
                         (click)="sort('orderDate')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Data Ordine
-                        <span *ngIf="sortColumn === 'orderDate'">
-                            <span *ngIf="orderingMap['orderDate'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['orderDate'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'orderDate' && orderingMap['orderDate'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'orderDate' && orderingMap['orderDate'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'orderDate' && orderingMap['orderDate'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -150,20 +210,50 @@
             </th> -->
                     <th scope="col"
                         (click)="sort('unitOrderedQuantity')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Unità Ordinate
-                        <span *ngIf="sortColumn === 'unitOrderedQuantity'">
-                            <span *ngIf="orderingMap['unitOrderedQuantity'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['unitOrderedQuantity'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'unitOrderedQuantity' && orderingMap['unitOrderedQuantity'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'unitOrderedQuantity' && orderingMap['unitOrderedQuantity'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'unitOrderedQuantity' && orderingMap['unitOrderedQuantity'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <th scope="col"
                         (click)="sort('unitType')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         U.M.1
-                        <span *ngIf="sortColumn === 'unitType'">
-                            <span *ngIf="orderingMap['unitType'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['unitType'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'unitType' && orderingMap['unitType'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'unitType' && orderingMap['unitType'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'unitType' && orderingMap['unitType'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -174,21 +264,51 @@
             </th> -->
                     <th scope="col"
                         (click)="sort('packagingOrderedQuantity')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Confezioni Ordinate
-                        <span *ngIf="sortColumn === 'packagingOrderedQuantity'">
-                            <span *ngIf="orderingMap['packagingOrderedQuantity'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['packagingOrderedQuantity'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'packagingOrderedQuantity' && orderingMap['packagingOrderedQuantity'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'packagingOrderedQuantity' && orderingMap['packagingOrderedQuantity'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'packagingOrderedQuantity' && orderingMap['packagingOrderedQuantity'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     
                     </th>
                     <th scope="col"
                         (click)="sort('packagingType')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         U.M.2 
-                        <span *ngIf="sortColumn === 'packagingType'">
-                            <span *ngIf="orderingMap['packagingType'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['packagingType'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'packagingType' && orderingMap['packagingType'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'packagingType' && orderingMap['packagingType'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'packagingType' && orderingMap['packagingType'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                     </th>
                     <!-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -202,12 +322,26 @@
             </th> -->
                     <th scope="col"
                         (click)="sort('deliverDate')"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        class="relative px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Arrivato
-                        <span *ngIf="sortColumn === 'deliverDate'">
-                             <span *ngIf="orderingMap['deliverDate'] === 'default'">↑↓</span>
-                            <span *ngIf="orderingMap['deliverDate'] === 'asc'">↑</span>
-                            <span *ngIf="orderingMap['deliverDate'] === 'desc'">↓</span>
+                        <span class="absolute" style="width: 16px;">
+                            <span *ngIf="sortColumn === 'deliverDate' && orderingMap['deliverDate'] === 'asc'">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                </svg>
+                            </span>
+                            <span *ngIf="sortColumn === 'deliverDate' && orderingMap['deliverDate'] === 'desc'">
+                                <!-- <mat-icon class="text-[1rem]">arrow_drop_down</mat-icon> -->
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                </svg>
+                            </span>
+                                <span *ngIf="sortColumn === 'deliverDate' && orderingMap['deliverDate'] === 'default'">
+                                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                                        <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                                    </svg>
+                                </span>
                         </span>
                         <!-- {{ orderingMap['arrived'] == 'default' ? "" : orderingMap['arrived'] == 'desc' ? "↓" : "↑"}} -->
                     </th>
@@ -233,5 +367,6 @@
                 <!-- More rows... -->
             </tbody>
         </table>
+        
     </div>
 </div>

@@ -12,33 +12,36 @@ import { NewCategoryFormComponent } from "../new-category-form/new-category-form
 import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form.component";
 import { OrdersService } from '../services/orders.service';
 import { Order } from '../model/Order';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [ProductComponent, CommonModule, FormsModule, MatTooltipModule, NewProductStepperComponent, MatIconModule, NewCategoryFormComponent, NewSupplierFormComponent],
+  imports: [ProductComponent, CommonModule, FormsModule, MatTooltipModule, NewProductStepperComponent, MatIconModule, NewCategoryFormComponent, NewSupplierFormComponent, RouterLink],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-
+  
   constructor(private productService: ProductsService, private sanitizer: DomSanitizer) {}
-
+  
   openCreateProductStepper: boolean = false;
   openCreateCategory: boolean = false;
   openCreateSupplier: boolean = false;
-
+  
   isDialOpen: boolean = false;
   categoryCounter: number = 0;
   supplierCounter: number = 0;
   codeCounter: number = 0;
   quantityRemainingCounter: number = 0;
-
+  
   products: Product[] = []; 
   productsBackup: Product[] = [];
   orders: Order[] = [];
   
   filterCriteria: string = '';
+
+  isToastVisible: boolean = false;
   
   ngOnInit(): void {
     this.productService.getAll().subscribe(data => {
@@ -175,6 +178,28 @@ export class ProductListComponent implements OnInit {
       });
   }
 
+  showToastDiv = false; // Initially hidden
+  isVisible = false;
+
+  showToast() {
+    this.showToastDiv = true; // Ensure the toast div is in the DOM
+    setTimeout(() => {
+      this.isVisible = true; // Trigger the fade-in effect
+
+      // Automatically hide the toast after 3 seconds
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    }, 100); // Slight delay to allow for DOM rendering
+  }
+
+  hideToast() {
+    this.isVisible = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
   deleteProduct(product:Product)
   {
     let index = this.products.findIndex((p: Product) => p.id === product.id);
@@ -185,6 +210,7 @@ export class ProductListComponent implements OnInit {
   }
 
   
+
 
 
 
