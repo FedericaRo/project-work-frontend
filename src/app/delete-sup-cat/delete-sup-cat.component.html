@@ -1,0 +1,30 @@
+<div class="flex justify-between gap-5 ">
+
+    <div class="flex-1 p-5 border border-gray-300 rounded-lg bg-white shadow-md h-screen overflow-y-scroll">
+      <h2 class="text-center text-gray-800 font-sans text-xl mb-4">Fornitori</h2>
+      <ul class="list-none p-0 m-0">
+        <li *ngFor="let supplier of suppliers" class="flex justify-between items-center py-2 border-b border-gray-200">
+          <span class="text-gray-600 font-sans">{{ supplier.name }}</span>
+          <button (click)="deleteSupplier(supplier.id)" class="px-3 py-1 bg-red-500 text-white border-none rounded cursor-pointer font-sans text-sm">
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
+  
+    <div class="flex-1 p-5 border border-gray-300 rounded-lg bg-white shadow-md h-screen overflow-y-scroll">
+      <h2 class="text-center text-gray-800 font-sans text-xl mb-4">Categorie</h2>
+      <ul class="list-none p-0 m-0">
+        <li *ngFor="let category of categories" class="flex justify-between items-center py-2 border-b border-gray-200">
+          <span class="text-gray-600 font-sans">{{ category.name }}</span>
+          <button (click)="deleteCategory(category.id)" class="px-3 py-1 bg-red-500 text-white border-none rounded cursor-pointer font-sans text-sm">
+            Delete
+          </button>
+        </li>
+      </ul>
+    </div>
+  
+  </div>
+  
+  
+  

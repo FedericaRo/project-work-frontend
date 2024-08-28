@@ -1,0 +1,35 @@
+.pending {
+    background-color: #FFE0D4;
+    border: solid 0.1rem #FF7C43;
+    color: #FF7C43;
+}
+
+.completed {
+    background-color: #D1F2FE;
+    border: solid 0.1rem #003F5C;
+    color: #003F5C;
+}
+
+.notactive {
+    background-color: #ebebeb;
+    border: solid 0.1rem #585858;
+    color: #585858;
+}
+
+.settimanale {
+    background-color: #DBD6E5;
+    border: solid 0.1rem #665191;
+    color: #665191;
+}
+
+.bisettimanale {
+    background-color: #FFF7D0;
+    border: solid 0.1rem #FFA600;
+    color: #FFA600;
+}
+
+.mensile {
+    background-color: #EAF4E0;
+    border: solid 0.1rem #7eb745;
+    color: #7eb745;
+}
