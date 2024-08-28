@@ -35,7 +35,8 @@ export class SingleTaskComponent implements OnInit, OnChanges{
       
   }
 
-  userName = localStorage.getItem("profilename")
+  firma: string | null = ''
+  userName = `${localStorage.getItem("profilename")} ${localStorage.getItem("profileid")}`;
   userSurname = localStorage.getItem("profilesurname")
   userId = localStorage.getItem('profileid')
   email = localStorage.getItem("username")
@@ -55,7 +56,7 @@ export class SingleTaskComponent implements OnInit, OnChanges{
     else
     {
       this.taskACompletamento.status='COMPLETATO';
-      this.taskACompletamento.signature=this.userName!;
+      this.taskACompletamento.signature=this.firma!;
     }
   }
 
@@ -63,7 +64,7 @@ export class SingleTaskComponent implements OnInit, OnChanges{
 
   updateTaskSon() 
   {
-    this.userName = localStorage.getItem("profilename");
+      this.firma = `${localStorage.getItem("profilename")} ${localStorage.getItem("profileid")}`;
       this.switchStatus();
       console.log(this.userRole);
     // this.toggleCheckbox();

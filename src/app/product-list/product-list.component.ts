@@ -35,6 +35,7 @@ export class ProductListComponent implements OnInit {
   supplierCounter: number = 0;
   codeCounter: number = 0;
   quantityRemainingCounter: number = 0;
+  genericError: string = ''
   
   products: Product[] = []; 
   productsBackup: Product[] = [];
@@ -210,7 +211,25 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  
+  deleteLastOrder(errore:string)
+  {
+    this.genericError = errore; 
+    if(errore)
+      this.animateError();
+  }
+
+  animateError() {
+    const alertElement = document.getElementById('alert');
+    if (alertElement) {
+      alertElement.classList.add('show');
+      setTimeout(() => {
+        alertElement.classList.add('hide');
+        setTimeout(() => {
+          alertElement.classList.remove('show', 'hide');
+        }, 500); // Durata dell'animazione di uscita
+      }, 5000); // Durata della visualizzazione
+    }
+  }
 
 
 
