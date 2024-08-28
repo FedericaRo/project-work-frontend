@@ -212,9 +212,10 @@ export class ProductListComponent implements OnInit {
 
   deleteLastOrder(errore:string)
   {
-    this.genericError = errore; 
-    if(errore)
+    if(errore){
+      this.genericError = errore; 
       this.animateError();
+    }
   }
 
   animateError() {

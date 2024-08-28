@@ -233,6 +233,13 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     this.userSurname = localStorage.getItem("profilesurname");
     this.userId = localStorage.getItem("profileid");
 
+    /**
+     * ? pathname gli piace, location no...
+     */
+    if (window.location.pathname === '/userPage') {
+      window.location.reload();
+  }
+
     // this.toggleProfileList();
   }
 
