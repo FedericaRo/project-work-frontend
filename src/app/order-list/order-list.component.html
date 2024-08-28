@@ -354,7 +354,9 @@
             <tbody class="bg-white divide-y divide-gray-200">
                 @for (order of orders; track order.id) 
                 {
-                <tr (newDeleteEvent)="deleteOrder($event)" app-order [order]="order">
+                <tr (newDeleteEvent)="deleteOrder($event)" 
+                (orderUpdated)="onOrderUpdated($event)"
+                app-order [order]="order">
                 </tr>
                 }
 

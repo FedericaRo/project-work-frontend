@@ -20,11 +20,11 @@ export class LoggedGuardService {
         // this.router.navigate(["homepage"]);
         return true;
       }
-    else if(this.authService.isTokenExpired())
-    {
-      this.router.navigate(["auth/login"]);
-      return false;
-    }
+    // else if(this.authService.isTokenExpired())
+    // {
+    //   this.router.navigate(["auth/login"]);
+    //   return false;
+    // }
       
       this.router.navigate(["auth/login"]);
       // alert('Non hai i permessi necessari per accedere, devi prima fare il Login.');

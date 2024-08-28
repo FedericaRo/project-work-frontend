@@ -71,6 +71,8 @@
                     type="number" 
                     id="unitTypeQuantity" 
                     name="unitTypeQuantity"
+                    min="0"
+                    max="999999"
                     class="h-8 w-full bg-transparent rounded-md text-black ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600 mr-1" 
                     [placeholder]="previousUnitTypeQuantity"
                     [(ngModel)]="product.unitTypeQuantity"
@@ -263,7 +265,7 @@
                 <form [formGroup]="orderForm" class="example-form" (ngSubmit)="sendOrder()"> 
                     <mat-form-field class="example-full-width mb-1">
                       <mat-label>Unità da ordinare</mat-label>
-                      <input type="number" min=0 matInput placeholder="Inserisci quantità"  formControlName="unitOrderedQuantity" >
+                      <input type="number" min="0" matInput placeholder="Inserisci quantità"  formControlName="unitOrderedQuantity" >
                       <mat-error *ngIf="orderForm.invalid && orderForm.get('unitOrderedQuantity')?.touched">
                           Inserimento non valido
                       </mat-error>
@@ -274,7 +276,7 @@
 
                     <mat-form-field class="example-full-width mb-1">
                       <mat-label>Confezioni da ordinare</mat-label>
-                      <input type="number" matInput placeholder="Inserisci quantità" formControlName="packagingOrderedQuantity">
+                      <input type="number" min="0" matInput placeholder="Inserisci quantità" formControlName="packagingOrderedQuantity">
                       <mat-error *ngIf="orderForm.get('packagingOrderedQuantity')?.invalid && orderForm.get('packagingOrderedQuantity')?.touched">
                           Inserimento non valido
                       </mat-error>
@@ -323,7 +325,7 @@
             <button
             (click)="toggleProductPopover()" 
             class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
-            [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}"
+            [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}"
             [attr.aria-haspopup]="true"
             [attr.aria-expanded]="isPopoverVisible ? 'true' : 'false'"
             >

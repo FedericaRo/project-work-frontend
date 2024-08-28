@@ -55,6 +55,33 @@ export class OrderListComponent
       console.log("Initial orders displayed:", this.orders);
     });
   }
+
+
+  // Aggiorna lo stato degli ordini nel componente padre quando l'ordine viene aggiornato nel figlio
+  onOrderUpdated(updatedOrder: Order) {
+    // Aggiorna tutte le liste
+    this.updateList(this.ordersLastThreeMonths, updatedOrder);
+    this.ordersLastThreeMonthsBackup = this.ordersLastThreeMonths
+    // this.updateList(this.ordersLastThreeMonthsBackup, updatedOrder);
+    this.updateList(this.ordersLastDayAndNotArrived, updatedOrder);
+    // this.updateList(this.ordersLastDayAndNotArrivedBackup, updatedOrder);
+    this.ordersLastDayAndNotArrivedBackup = this.ordersLastDayAndNotArrived
+
+
+    // Dopo l'aggiornamento, rifiltra e riordina la lista attualmente visualizzata
+    this.filter();
+    this.sortData();
+  }
+
+  private updateList(list: Order[], updatedOrder: Order) {
+    const index = list.findIndex(order => order.id === updatedOrder.id);
+    if (index !== -1) {
+      // Aggiorna l'ordine nella lista
+      list[index] = updatedOrder;
+    }
+  }
+
+  
   
 
   showOnlyRecentOrders(): Order[] {

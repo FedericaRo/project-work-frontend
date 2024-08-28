@@ -16,13 +16,14 @@ import { CommonModule } from '@angular/common';
 export class OrderComponent implements OnInit {
   @Input() order!: Order; // Use non-null assertion since we expect it to be provided
   @Output() newDeleteEvent:EventEmitter<Order> = new EventEmitter<Order>();
+  @Output() orderUpdated: EventEmitter<Order> = new EventEmitter<Order>();
 
   previousPackagingQuantity: number = 0; // Initialize the previous quantity
   previousUnitQuantity: number = 0; // Initialize the previous unit quantity
 
   constructor(public orderService: OrdersService, public authService: AuthService) { }
 
-  ngOnInit(): void { // Use OnInit lifecycle hook
+  ngOnInit(): void {
     // Set previous quantities here after inputs are assigned
     if (this.order) {
       this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
@@ -121,6 +122,8 @@ export class OrderComponent implements OnInit {
         this.order = data;
         console.log("Arrived DATA", this.order)
         console.log(this.order.arrived)
+        this.orderUpdated.emit(this.order); // Emit updated order
+
         // this.order.arrived = !this.order.arrived;
       },
       error: badResponse => {

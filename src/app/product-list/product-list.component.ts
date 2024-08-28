@@ -13,6 +13,7 @@ import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form
 import { OrdersService } from '../services/orders.service';
 import { Order } from '../model/Order';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -23,7 +24,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   
-  constructor(private productService: ProductsService, private sanitizer: DomSanitizer) {}
+  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, public authService: AuthService) {}
   
   openCreateProductStepper: boolean = false;
   openCreateCategory: boolean = false;

@@ -1,3 +1,5 @@
+
+
 <!-- Contenitore Principale -->
 <div style="width: 100%; padding: 0; box-sizing: border-box;">
     <div class="flex items-center relative mb-4">
@@ -47,4 +49,4 @@
 </div>
 <div class="fixed inset-0 bg-black bg-opacity-50 z-50" [ngClass]="{'hidden': !showForm}" (click)="toggleForm()"></div>
 <app-communication-form [ngClass]="{'hidden': !showForm}" class="comform"
-    (add)="addNewCommunication($event)"></app-communication-form> <!--imposta visibilitÃ-->
+    (add)="addNewCommunication($event)" (delete)="deleteCommunication($event)" ></app-communication-form> <!--imposta visibilitÃ-->

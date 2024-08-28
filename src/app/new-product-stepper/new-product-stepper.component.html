@@ -68,7 +68,7 @@
         <ng-template matStepLabel>Inserisci prezzo unitario</ng-template>
         <mat-form-field class="w-3/4">
           <mat-label>Prezzo</mat-label>
-          <input matInput type="number" placeholder="0.00" formControlName="unitPrice" (keydown.enter)="stepper.next()">
+          <input matInput type="number" min=0 max=99999999 placeholder="0.00" formControlName="unitPrice" (keydown.enter)="stepper.next()">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Indietro</button>
@@ -94,7 +94,7 @@
         <p>Numero di unità sfuse presenti attualmente in magazzino</p>
         <mat-form-field class="w-3/4">
           <mat-label>n° unità</mat-label>
-          <input matInput type="number" formControlName="unitTypeQuantity" (keydown.enter)="stepper.next()">
+          <input matInput type="number" min=0 max=99999999 formControlName="unitTypeQuantity" (keydown.enter)="stepper.next()">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Indietro</button>
@@ -120,7 +120,7 @@
         <p>Numero di confezioni del prodotto presenti attualmente in magazzino</p>
         <mat-form-field class="w-3/4">
           <mat-label>n° confezioni</mat-label>
-          <input matInput type="number" formControlName="packagingTypeQuantity" (keydown.enter)="stepper.next()">
+          <input matInput type="number" min=0 max=99999999 formControlName="packagingTypeQuantity" (keydown.enter)="stepper.next()">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Indietro</button>
@@ -133,7 +133,7 @@
         <p>Numero di unità contenute nella confezione singola di questo prodotto</p>
         <mat-form-field class="w-3/4">
           <mat-label>qtà/confezione</mat-label>
-          <input matInput type="number" placeholder="10" formControlName="unitsPerPackaging" (keydown.enter)="stepper.next()">
+          <input matInput type="number" min=0 max=99999999 placeholder="10" formControlName="unitsPerPackaging" (keydown.enter)="stepper.next()">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Indietro</button>
@@ -146,7 +146,7 @@
         <p>Limite numerico di unità singole sotto cui si ritiene necessario riordinare</p>
         <mat-form-field class="w-3/4">
           <mat-label>minimo</mat-label>
-          <input matInput type="number" placeholder="5" formControlName="reorderPoint" (keydown.enter)="stepper.next()">
+          <input matInput type="number" min=0 max=99999999 placeholder="5" formControlName="reorderPoint" (keydown.enter)="stepper.next()">
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Indietro</button>
