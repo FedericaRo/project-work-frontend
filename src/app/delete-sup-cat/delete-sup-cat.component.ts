@@ -31,7 +31,27 @@ export class DeleteSupCatComponent implements OnInit
     });
   }
 
- 
+  isToastVisibleCateg:boolean = true;
+  showToastDivCateg = false;
+  isVisibleC = false;
+
+  showToastCateg(){
+    this.showToastDivCateg = true;
+    setTimeout(() => {
+      this.isVisibleC = true;
+
+      setTimeout(() => {
+        this.hideToastCateg();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideToastCateg() {
+    this.isVisibleC= false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showToastDivCateg = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
 
   deleteCategory(id:number): void {
     this.fatherService.deleteCat(id).subscribe({
@@ -39,6 +59,7 @@ export class DeleteSupCatComponent implements OnInit
         console.log("Categoria eliminata", data );
         // Update the previous unit quantity after successful edit
         this.categories = this.categories.filter(c => c.id !== id);
+        this.showToastCateg();
       },
       error: badResponse => {
         console.log("Errore nell'eliminazione:", badResponse);
@@ -47,7 +68,27 @@ export class DeleteSupCatComponent implements OnInit
   } 
   
 
+  isToastVisibleSup:boolean = true;
+  showToastDivSup = false;
+  isVisibleS = false;
 
+  showToastSup(){
+    this.showToastDivSup = true;
+    setTimeout(() => {
+      this.isVisibleS = true;
+
+      setTimeout(() => {
+        this.hideToastSup();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideToastSup() {
+    this.isVisibleS= false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showToastDivSup = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
 
   deleteSupplier(id:number):void {
     this.fatherService.deleteSup(id).subscribe({
@@ -55,6 +96,7 @@ export class DeleteSupCatComponent implements OnInit
         console.log("Fornitore eliminato", data );
         // Update the previous unit quantity after successful edit
         this.suppliers = this.suppliers.filter(s => s.id !== id);
+        this.showToastSup();
       },
       error: badResponse => {
         console.log("Errore nell'eliminazione:", badResponse);
