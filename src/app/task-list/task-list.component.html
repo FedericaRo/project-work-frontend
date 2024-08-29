@@ -22,12 +22,16 @@
 
     <!-- Bottoni di sorting -->
     <div class="flex space-x-3 ml-3"> <!-- Contenitore per i bottoni con spazio tra di loro -->
-        <button (click)="sortByFrequency()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        <button 
+            [ngClass]="{'settimanale': freq === 'Settimanale', 'bisettimanale': freq === 'Bisettimanale', 'mensile': freq === 'Mensile', 'notactive': freq !== 'Settimanale' && freq !== 'Bisettimanale' && freq !== 'Mensile'}"
+            (click)="sortByFrequency()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
            <div class="block">Frequenza:</div>
            <div class="block">{{freq}}</div>
         </button>
         
-        <button (click)="sortByStatus()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+        <button 
+        [ngClass]="{'pending': statux === 'Da farsi', 'completed': statux === 'Completate', 'notactive': statux !== 'Da farsi' && statux !== 'Completate'}"
+            (click)="sortByStatus()" type="button" class="items-center justify-center w-28 h-16 text-gray-400 border-gray-400 border-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
            <div class="block">Status:</div>
            <div class="block">{{statux}}</div>
         </button>

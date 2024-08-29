@@ -51,6 +51,28 @@ export class OrderComponent implements OnInit {
   //   this.order.unitOrderedQuantity = newValue; // Update the model
   // }
 
+  isPackToastVisible:boolean = true;
+  showPackToastDiv = false;
+  isVisiblePa = false;
+
+  showPackToast(){
+    this.showPackToastDiv = true;
+    setTimeout(() => {
+      this.isVisiblePa = true;
+
+      setTimeout(() => {
+        this.hidePackToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hidePackToast() {
+    this.isVisiblePa = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showPackToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
   editPackagingQuantity() {
     console.log("Editing packaging quantity...");
     console.log("Current packaging ordered quantity:", this.order.packagingOrderedQuantity);
@@ -68,6 +90,7 @@ export class OrderComponent implements OnInit {
           console.log("Packaging quantity updated successfully");
           // Update the previous quantity after successful edit
           this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
+          this.showPackToast();
         },
         error: badResponse => {
           console.log("Error updating packaging quantity:", badResponse);
@@ -78,6 +101,28 @@ export class OrderComponent implements OnInit {
       this.order.packagingOrderedQuantity = this.previousPackagingQuantity;
 
     }
+  }
+
+  isUnitToastVisible:boolean = true;
+  showUnitToastDiv = false;
+  isVisibleUt = false;
+
+  showUnitToast(){
+    this.showUnitToastDiv = true;
+    setTimeout(() => {
+      this.isVisibleUt = true;
+
+      setTimeout(() => {
+        this.hideUnitToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideUnitToast() {
+    this.isVisibleUt = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showUnitToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
   }
 
   editUnitQuantity() {
@@ -98,6 +143,7 @@ export class OrderComponent implements OnInit {
           console.log("Unit quantity updated successfully", );
           // Update the previous unit quantity after successful edit
           this.previousUnitQuantity = this.order.unitOrderedQuantity;
+          this.showUnitToast();
         },
         error: badResponse => {
           console.log("Error updating unit quantity:", badResponse);
@@ -138,6 +184,7 @@ export class OrderComponent implements OnInit {
       next: data => {
         this.newDeleteEvent.emit(data)
         console.log("Order deleted successfully:", data);
+        
       },
       error: badResponse => {
         console.log("Error deleting order:", badResponse);
@@ -145,8 +192,6 @@ export class OrderComponent implements OnInit {
       }
     });
   }
-
-
 
 
   checkArrivalDate(deliverDateString: string): boolean {
