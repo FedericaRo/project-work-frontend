@@ -21,6 +21,8 @@ export class CommunicationComponent
   @Input() communication!:Communication;
 
   @Output() delete = new EventEmitter<number>();
+  @Output() displayAlertError = new EventEmitter<string>()
+  
 
   typeLable(type: string): string 
   {
@@ -54,15 +56,21 @@ export class CommunicationComponent
     }
   }
   
-  onDelete(): void {
+  onDelete(errore:string): void {
+   
     // mi assicuro che communication.id non sia null o undefined
     if (this.communication.id !== null && this.communication.id !== undefined) {
       this.delete.emit(this.communication.id);
+      this.displayAlertError.emit(errore)
     } else {
       console.error("ID della comunicazione è null o undefined");
+      
     }
   }
   
+  
+
+
   loadPdf(id: number) 
   {
    this.communicationService.getPdf(id).subscribe
@@ -77,6 +85,7 @@ export class CommunicationComponent
       error: badResponse =>
       {
         console.log(badResponse);
+        this.displayAlertError.emit(badResponse.error);
       }
 
     }

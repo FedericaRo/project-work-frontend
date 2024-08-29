@@ -24,6 +24,8 @@ export class CommunicationListComponent implements OnInit
   communications:Communication[] = [];
   communicationsBackup:Communication[] = [];
 
+  genericError: string = '';
+
   filterCriteria: string = '';
 
   showForm:boolean = false;
@@ -65,13 +67,37 @@ export class CommunicationListComponent implements OnInit
     }, 500); // Match this duration with the CSS transition duration
   }
 
-  deleteCommunication(id: number): void 
+  animateError()
   {
-    this.communicationService.delete(id).subscribe(() => {
-      this.communications = this.communications.filter(c => c.id !== id)
-      this.showDeleteToast();
-    }, error => {
-      console.error("Errore durante l'eliminazione:", error);
+    const alertElement = document.getElementById('alert');
+    if(alertElement){
+      alertElement.classList.add('show');
+      setTimeout(() => {
+        alertElement.classList.add('hide');
+        setTimeout(() => {
+          alertElement.classList.remove('show', 'hide');
+        }, 500);
+      }, 5000);
+    }
+  }
+
+  errorAlert(errore:string)
+  {
+    this.genericError = errore;
+    this.animateError();
+  }
+
+
+  deleteCommunication(id: number): void {
+    this.communicationService.delete(id).subscribe({
+      next: () => {
+        this.communications = this.communications.filter(c => c.id !== id);
+        this.showDeleteToast();
+      },
+      error: (error) => {
+        console.error("Errore durante l'eliminazione:", error);
+        this.errorAlert(error.error);
+      }
     });
   }
 
