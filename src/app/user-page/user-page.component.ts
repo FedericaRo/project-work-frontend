@@ -161,6 +161,7 @@ export class UserPageComponent implements OnInit {
                     next: ok=> 
                     {
                       this.imgUrl = URL.createObjectURL(ok);
+                      window.location.reload()
                     },
                     error: err => 
                     {
