@@ -151,6 +151,28 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   //   })
   // }
 
+  showToastDiv = false; // Initially hidden
+  isVisible = false;
+
+  showToast() {
+    this.showToastDiv = true; // Ensure the toast div is in the DOM
+    setTimeout(() => {
+      this.isVisible = true; // Trigger the fade-in effect
+
+      // Automatically hide the toast after 3 seconds
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    }, 100); // Slight delay to allow for DOM rendering
+  }
+
+  hideToast() {
+    this.isVisible = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
 
 
   @HostListener('document:click', ['$event'])
@@ -210,6 +232,13 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     this.userName = localStorage.getItem("profilename");
     this.userSurname = localStorage.getItem("profilesurname");
     this.userId = localStorage.getItem("profileid");
+
+    /**
+     * ? pathname gli piace, location no...
+     */
+    if (window.location.pathname === '/userPage') {
+      window.location.reload();
+  }
 
     // this.toggleProfileList();
   }

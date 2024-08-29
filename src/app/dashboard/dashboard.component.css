@@ -3,6 +3,10 @@
     background-color: transparent; /* Evita lo sfondo grigio al passaggio del mouse */
 }
 
+#toast-success {
+    z-index: 1000;
+}
+
 .menu-item a:hover {
     transform: translateX(20px);
     background-color: #9cc4dc3a; /* Mantiene lo sfondo trasparente al passaggio del mouse */

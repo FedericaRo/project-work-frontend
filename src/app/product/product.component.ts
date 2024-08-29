@@ -13,6 +13,7 @@ import { integerValidator } from '../validators/integerCheck';
 import { Order } from '../model/Order';
 import { Router } from '@angular/router';
 import { atLeastOnePositiveNumber } from '../validators/atLeastOnePositiveNumber';
+import { ProductsService } from '../services/products.service';
 
 @Component({
   selector: 'tr[app-product]',
@@ -27,8 +28,10 @@ export class ProductComponent implements OnInit
   constructor(public authService:AuthService, public orderService:OrdersService, public productService:ProductsService){}
 
   @Input() product!:Product;
+  @Input() errore: string = '';
   @Output() newDeleteEvent:EventEmitter<Product> = new EventEmitter<Product>();
-
+  @Output() lastOrderEvent:EventEmitter<string> = new EventEmitter<string>()
+ 
   // @Output() updateProduct = new EventEmitter<Product>();
   @Output() newOrder = new EventEmitter<String>();
 
@@ -227,10 +230,12 @@ export class ProductComponent implements OnInit
         next: data => {
           console.log(data);
           this.orders.splice(this.orders.length-1,1)
+          // this.lastOrderEvent.emit(data)
           // window.location.reload();
         },
         error: err => {
           console.log("woops", err);
+          this.lastOrderEvent.emit(err.error)
         }
       }
     )
