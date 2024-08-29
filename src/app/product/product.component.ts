@@ -28,8 +28,10 @@ export class ProductComponent implements OnInit
   constructor(public authService:AuthService, public orderService:OrdersService, public productService:ProductsService){}
 
   @Input() product!:Product;
-  @Output() newDeleteEvent:EventEmitter<Product> = new EventEmitter<Product>();
-
+  @Input() errore: string = '';
+  @Output() newDeleteEvent:EventEmitter<number> = new EventEmitter<number>();
+  @Output() lastOrderEvent:EventEmitter<string> = new EventEmitter<string>()
+ 
   // @Output() updateProduct = new EventEmitter<Product>();
   @Output() newOrder = new EventEmitter<String>();
 
@@ -72,6 +74,28 @@ export class ProductComponent implements OnInit
      return Number.isInteger(value) && value >= 0;
    }
 
+  isUnitToastVisible:boolean = true;
+  showUnitToastDiv = false;
+  isVisibleUt = false;
+
+  showUnitToast(){
+    this.showUnitToastDiv = true;
+    setTimeout(() => {
+      this.isVisibleUt = true;
+
+      setTimeout(() => {
+        this.hideUnitToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideUnitToast() {
+    this.isVisibleUt = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showUnitToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
    editUnitTypeQuantity() {
     console.log("Modifica quantità unità attivata");
     console.log("Quantità attuale delle unità:", this.product.unitTypeQuantity);
@@ -87,6 +111,7 @@ export class ProductComponent implements OnInit
         next: data => {
           console.log("Quantità delle unità aggiornata con successo:", data);
           this.previousUnitTypeQuantity = this.product.unitTypeQuantity;
+          this.showUnitToast()
         },
         error: badResponse => {
           console.log("Errore nell'aggiornamento della quantità delle unità:", badResponse);
@@ -97,6 +122,29 @@ export class ProductComponent implements OnInit
       this.product.unitTypeQuantity = this.previousUnitTypeQuantity;
     }
   }
+
+  isPackToastVisible:boolean = true;
+  showPackToastDiv = false;
+  isVisiblePa = false;
+
+  showPackToast(){
+    this.showPackToastDiv = true;
+    setTimeout(() => {
+      this.isVisiblePa = true;
+
+      setTimeout(() => {
+        this.hidePackToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hidePackToast() {
+    this.isVisiblePa = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showPackToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
 
   editPackagingTypeQuantity() {
     console.log("Modifica quantità confezioni attivata");
@@ -113,6 +161,7 @@ export class ProductComponent implements OnInit
         next: data => {
           console.log("Quantità delle confezioni aggiornata con successo:", data);
           this.previousPackagingTypeQuantity = this.product.packagingTypeQuantity;
+          this.showPackToast();
         },
         error: badResponse => {
           console.log("Errore nell'aggiornamento della quantità delle confezioni:", badResponse);
@@ -220,6 +269,28 @@ export class ProductComponent implements OnInit
     }})
   }
 
+  isOrderToastVisible:boolean = true;
+  showOrderToastDiv = false;
+  isVisibleO = false;
+
+  showOrderToast(){
+    this.showOrderToastDiv = true;
+    setTimeout(() => {
+      this.isVisibleO = true;
+
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideOrderToast() {
+    this.isVisibleO = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showOrderToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
   deleteLatestOrderDone()
   {
     this.orderService.deleteLastOrder(this.product.productName)
@@ -227,11 +298,15 @@ export class ProductComponent implements OnInit
       {
         next: data => {
           console.log(data);
+          console.log("Ultimo ordine eliminato con successo");
           this.orders.splice(this.orders.length-1,1)
+          // this.lastOrderEvent.emit(data)
           // window.location.reload();
+          this.showOrderToast();
         },
         error: err => {
           console.log("woops", err);
+          this.lastOrderEvent.emit(err.error)
         }
       }
     )
@@ -252,7 +327,8 @@ export class ProductComponent implements OnInit
 
       next: data => {
         this.newDeleteEvent.emit(data)
-        console.log("Prodotto eliminato con successo:", data);
+        console.log("Prodotto eliminato con successo:", data)
+        this.showToast();
       },
       error:badResponse => {
         console.log("Errore nell'eliminazione del prodotto:", badResponse);
@@ -262,7 +338,27 @@ export class ProductComponent implements OnInit
     });
   }
 
+  isToastVisible:boolean = true;
+  showToastDiv = false;
+  isVisible = false;
+
+  showToast(){
+    this.showToastDiv = true;
+    setTimeout(() => {
+      this.isVisible = true;
+
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    }, 100);
+  }
   
+  hideToast() {
+    this.isVisible = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
   // employeeEditProductUnitsToggle()
   // {
   //   this.isRestrictedEditModeActiveUnits = false;

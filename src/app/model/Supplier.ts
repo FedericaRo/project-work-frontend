@@ -1,6 +1,6 @@
 export interface Supplier
 {
-    id:number | null;
+    id:number;
 
     name:string
 }

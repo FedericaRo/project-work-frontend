@@ -1,0 +1,13 @@
+input::placeholder
+{
+    color: black !important;
+    font-size: 1rem !important;
+    opacity: 1 !important;
+}
+
+input[type="text"]::placeholder {
+    display: block !important; 
+    color: black !important;
+    font-size: 1rem !important;
+    opacity: 1 !important;
+}

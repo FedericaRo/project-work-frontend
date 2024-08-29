@@ -123,7 +123,6 @@ export class OrderListComponent
   
 
   toggleBetweenRecentandOlderOrders() {
-    console.log("TOGGLE METHOD START *******************");
     console.log("Display recent orders: ", this.displayRecentOrders);
     console.log("Current orders before toggle: ", this.orders);
 
@@ -325,6 +324,28 @@ private matchesCriteria(order: Order, criteria: string): boolean {
   }
 
 
+  isDeleteToastVisible: boolean = true;
+  showDeleteToastDiv = false;
+  isVisibleD = false;
+
+  showDeleteToast(){
+    this.showDeleteToastDiv = true;
+    setTimeout(() => {
+      this.isVisibleD = true;
+
+      setTimeout(() => {
+        this.hideDeleteToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideDeleteToast() {
+    this.isVisibleD = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showDeleteToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
   deleteOrder(order:Order) 
   {
     let index = this.orders.findIndex((o: Order) => o.id === order.id);
@@ -332,6 +353,7 @@ private matchesCriteria(order: Order, criteria: string): boolean {
     {
       this.orders.splice(index, 1);
     }
+    this.showDeleteToast();
   }
 
   mailError:string = '';

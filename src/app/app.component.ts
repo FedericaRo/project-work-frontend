@@ -12,13 +12,14 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { LoadingService } from './services/loading.service';
 import { ProvaSocketComponent } from "./prova-socket/prova-socket.component";
 import { ProfileFormComponent } from "./profile-form/profile-form.component";
+import { DeleteSupCatComponent } from "./delete-sup-cat/delete-sup-cat.component";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, SidebarComponent, FormRegisterComponent, LoginPageComponent,
-    RegisterPageComponent, DashboardComponent, CommunicationListComponent, CommunicationFormComponent, MatProgressSpinnerModule, ProvaSocketComponent, ProfileFormComponent],
+    RegisterPageComponent, DashboardComponent, CommunicationListComponent, CommunicationFormComponent, MatProgressSpinnerModule, ProvaSocketComponent, ProfileFormComponent, DeleteSupCatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

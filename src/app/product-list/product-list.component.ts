@@ -15,6 +15,9 @@ import { Order } from '../model/Order';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
+import { ProductsiblingsService } from '../services/productsiblings.service';
+
+
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -24,7 +27,8 @@ import { AuthService } from '../services/auth.service';
 })
 export class ProductListComponent implements OnInit {
   
-  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, public authService: AuthService) {}
+  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService. public authService: AuthService) {}
+
   
   openCreateProductStepper: boolean = false;
   openCreateCategory: boolean = false;
@@ -35,6 +39,7 @@ export class ProductListComponent implements OnInit {
   supplierCounter: number = 0;
   codeCounter: number = 0;
   quantityRemainingCounter: number = 0;
+  genericError: string = ''
   
   products: Product[] = []; 
   productsBackup: Product[] = [];
@@ -201,16 +206,35 @@ export class ProductListComponent implements OnInit {
     }, 500); // Match this duration with the CSS transition duration
   }
 
-  deleteProduct(product:Product)
+  deleteProduct(productId:number)
   {
-    let index = this.products.findIndex((p: Product) => p.id === product.id);
+    let index = this.products.findIndex((p: Product) => p.id === productId);
     if(index !== -1)
     {
       this.products.splice(index, 1);
     }
   }
 
-  
+  deleteLastOrder(errore:string)
+  {
+    if(errore){
+      this.genericError = errore; 
+      this.animateError();
+    }
+  }
+
+  animateError() {
+    const alertElement = document.getElementById('alert');
+    if (alertElement) {
+      alertElement.classList.add('show');
+      setTimeout(() => {
+        alertElement.classList.add('hide');
+        setTimeout(() => {
+          alertElement.classList.remove('show', 'hide');
+        }, 500); // Durata dell'animazione di uscita
+      }, 5000); // Durata della visualizzazione
+    }
+  }
 
 
 

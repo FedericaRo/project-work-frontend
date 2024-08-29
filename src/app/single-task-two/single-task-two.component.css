@@ -1,13 +1,3 @@
-::ng-deep .custom-tooltip .mat-tooltip{
-    background-color: #ff5722 !important; /* Colore di sfondo arancione */
-  color: #fff; /* Colore del testo bianco */
-  font-size: 14px; /* Dimensione del testo */
-  padding: 8px; /* Spaziatura interna */
-}
-
-
-
-
 .detail-item {
     flex: 1;
     min-width: 120px; /* Imposta la larghezza minima per evitare il ridimensionamento */
@@ -24,29 +14,29 @@
     margin-left: 20px; /* Imposta un margine a sinistra per spostare un po' a destra */
 }
 .badge-settimanale {
-    color: #a34ef3;
-    background-color: rgba(177, 78, 243, 0.1);
+    background-color: #DBD6E5;
+    color: #665191;
 }
 .badge-bisettimanale {
-    color: #f7cc53;
-    background-color: rgba(247, 204, 83, 0.1);
+    background-color: #FFF7D0;
+    color: #FFA600;
 }
 .badge-mensile {
-    color: #4e82f3;
-    background-color: rgba(89, 78, 243, 0.1);
+    background-color: #EAF4E0;
+    color: #7eb745;;
 }
 
 .badge-soft-nevercompleted {
-    color: #a7a7a7;
-    background-color: rgba(233, 233, 233, 0.5);
+    background-color: #6c757d;
+    color: white;
 }
 .badge-soft-pending {
-     color: #f34e4e;
-     background-color: rgba(243,78,78,.1);
+    background-color: #FFE0D4;
+    color: #FF7C43;
  }
 .badge-soft-completed {
-     color: #6cd468;
-     background-color: rgba(81,210,140,.1);
+    background-color: #D1F2FE;
+    color: #003F5C;
  }
 
 .badge-soft-good {
@@ -59,3 +49,5 @@
      background-color: rgba(81,210,140,.1);
  }
  
+
+

@@ -35,3 +35,55 @@ th {
     transition: background-color 0.3s ease !important;
 }
 
+@keyframes slideIn {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+  }
+  
+  .alert {
+    /* Imposta la visibilità dell'elemento e lo stile iniziale */
+    position: absolute;
+    top: 4rem;
+    /* left: 50%; */
+    right: 5rem;
+    transform: translateX(-50%);
+    width: 80%;
+    background-color: #FEF2F2;
+    border: 1px solid #FECACA;
+    color: #B91C1C;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  
+  .alert.show {
+    /* Animazione di entrata */
+    animation: slideIn 0.5s forwards;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .alert.hide {
+    /* Animazione di uscita */
+    animation: slideOut 0.5s forwards;
+  }
+
