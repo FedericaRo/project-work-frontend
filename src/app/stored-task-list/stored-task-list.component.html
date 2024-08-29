@@ -1,6 +1,5 @@
-<div class="task-list-box bg-white rounded-lg shadow-sm p-6">
+<div class="task-list-box p-6">
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-dark font-semibold text-lg">Stored Tasks</h2>
     <button mat-fab color="primary" (click)="toggleModal()" matTooltip="Aggiungi una nuova task" class="ml-4">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -10,7 +9,7 @@
   </div>
 
   <!-- Griglia a due colonne -->
-  <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
     <li *ngFor="let task of storedTasks" class="col-span-1">
       <app-stored-task 
         [storedTask]="task" 
