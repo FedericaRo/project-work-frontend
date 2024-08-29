@@ -17,6 +17,8 @@ export class OrderComponent implements OnInit {
   @Input() order!: Order; // Use non-null assertion since we expect it to be provided
   @Output() newDeleteEvent:EventEmitter<Order> = new EventEmitter<Order>();
   @Output() orderUpdated: EventEmitter<Order> = new EventEmitter<Order>();
+  @Output() showErrorAlert = new EventEmitter<string>();
+
 
   previousPackagingQuantity: number = 0; // Initialize the previous quantity
   previousUnitQuantity: number = 0; // Initialize the previous unit quantity
@@ -95,6 +97,9 @@ export class OrderComponent implements OnInit {
         },
         error: badResponse => {
           console.log("Error updating packaging quantity:", badResponse);
+          this.showErrorAlert.emit(badResponse.error)
+          this.order.packagingOrderedQuantity = this.previousPackagingQuantity;
+
         }
       });
     } else {
@@ -148,6 +153,7 @@ export class OrderComponent implements OnInit {
         },
         error: badResponse => {
           console.log("Error updating unit quantity:", badResponse);
+          this.showErrorAlert.emit(badResponse.error)
         }
       });
     } else {
@@ -174,7 +180,7 @@ export class OrderComponent implements OnInit {
       },
       error: badResponse => {
         console.log("Error updating arrived status:", badResponse);
-
+        this.showErrorAlert.emit(badResponse.error)
       }
     });
   }
@@ -191,6 +197,8 @@ export class OrderComponent implements OnInit {
       },
       error: badResponse => {
         console.log("Error deleting order:", badResponse);
+        this.showErrorAlert.emit(badResponse.error)
+
 
       }
     });

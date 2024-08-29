@@ -8,9 +8,9 @@
 	</svg>
   </div> -->
   <!-- [ngClass]="{'hidden': mailError === ''}" -->
-  <div 
-  id="alert"
-  class="alert flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+  <!-- <div 
+  id="alertmail"
+  class="alertmail flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
     <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
       <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
     </svg>
@@ -18,7 +18,19 @@
     <div>
       <span class="font-medium">Errore nell'invio!</span> <p>{{mailError}}</p>
     </div>
-  </div>
+  </div> -->
+
+  <div 
+        id="alert"
+          class="alert flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium"> </span> <p>{{genericError}}</p>
+            </div>
+    </div>
 
 <div class="overflow-x-auto">
     <div class="min-w-full inline-block align-middle">
@@ -89,13 +101,13 @@
         </div> -->
 
         <!-- Toggle ordini -->
-        <div class="flex justify-end pb-3 px-2">
+        <div class="flex justify-start pb-3 px-2">
             <label (change)="toggleBetweenRecentandOlderOrders()" class="inline-flex items-center cursor-pointer">
-            <span class="me-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-            @if (!displayRecentOrders) { Mostra solo ordini recenti } @else { Mostra storico ordini }
-            </span>
-            <input type="checkbox" value="" class="sr-only peer">
-            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <input type="checkbox" value="" class="sr-only peer">
+                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="mx-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                @if (!displayRecentOrders) { Mostra solo ordini recenti } @else { Mostra storico ordini }
+                </span>
             </label>
         </div>
   
@@ -356,6 +368,7 @@
                 {
                 <tr (newDeleteEvent)="deleteOrder($event)" 
                 (orderUpdated)="onOrderUpdated($event)"
+                (showErrorAlert)="errorAlert($event)"
                 app-order [order]="order">
                 </tr>
                 }

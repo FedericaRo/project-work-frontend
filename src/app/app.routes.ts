@@ -72,7 +72,6 @@ export const routes: Routes = [
           { path: 'userPage', component: UserPageComponent, canActivate: [LoggedGuardService] },
           { path: 'forbidden', component: ForbiddenComponent, canActivate: [LoggedGuardService] },
           { path: 'pageNotFound', component: PageNotFoundComponent },
-
           {path: 'fathersPage', component:DeleteSupCatComponent, canActivate: [LoggedGuardService]},
 
           { path: '', redirectTo: '/homepage', pathMatch: 'full' },

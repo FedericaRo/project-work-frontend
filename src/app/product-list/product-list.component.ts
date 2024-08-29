@@ -26,8 +26,9 @@ import { ProductsiblingsService } from '../services/productsiblings.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
   
-  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService. public authService: AuthService) {}
+  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService, public authService: AuthService) {}
 
   
   openCreateProductStepper: boolean = false;
@@ -148,11 +149,26 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+  // filterByEverything(): void {
+  //   this.products = this.productsBackup;
+
+  //   for (let product of this.products) {
+  //     if (product.code.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+  //       this.products = this.products.filter(p => p.code.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //     else if (product.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+  //       this.products = this.products.filter(p => p.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //     else if (product.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+  //       this.products = this.products.filter(p => p.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //     else if (product.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+  //       this.products = this.products.filter(p => p.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //   }
+  // }
+
   filterByEverything(): void {
     this.products = this.productsBackup;
 
     for (let product of this.products) {
-      if (product.code.toLowerCase().includes(this.filterCriteria.toLowerCase()))
+      if (this.filterCriteria.toLowerCase().includes(product.code.toLowerCase()))
         this.products = this.products.filter(p => p.code.toLowerCase().includes(this.filterCriteria.toLowerCase()));
       else if (product.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
         this.products = this.products.filter(p => p.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
@@ -173,21 +189,25 @@ export class ProductListComponent implements OnInit {
           this.products.unshift(data);
           this.flashId = data.id;
           this.toggleStepperCreate();
-
+          this.showToast("Nuovo prodotto aggiunto con successo")
           setTimeout(() => {
             this.flashId = null;
           }, 500);
         },
         error: badResponse => {
           console.error("Errore nell'aggiunta di un nuovo prodotto", badResponse);
+          this.genericError = badResponse.error; 
+          this.animateError()
         },
       });
   }
 
   showToastDiv = false; // Initially hidden
   isVisible = false;
+  toastMessage = "";
 
-  showToast() {
+  showToast(toastMessage: string) {
+    this.toastMessage = toastMessage;
     this.showToastDiv = true; // Ensure the toast div is in the DOM
     setTimeout(() => {
       this.isVisible = true; // Trigger the fade-in effect
@@ -218,9 +238,16 @@ export class ProductListComponent implements OnInit {
   deleteLastOrder(errore:string)
   {
     if(errore){
-      this.genericError = errore; 
-      this.animateError();
+     ; this.genericError = errore; 
+      this.animateError()
     }
+  }
+
+
+  errorAlert(errore: string)
+  {
+    this.genericError = errore; 
+    this.animateError();
   }
 
   animateError() {
@@ -235,6 +262,8 @@ export class ProductListComponent implements OnInit {
       }, 5000); // Durata della visualizzazione
     }
   }
+
+
 
 
 

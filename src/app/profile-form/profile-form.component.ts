@@ -72,28 +72,31 @@ export class ProfileFormComponent
         next: data =>
         {
           console.log(data)
+        if (this.selectedFile != null){
+
           this.http.post(`api/profiles/imgupload/${data.id}`, formData)
           .subscribe(
             {
               next:data => 
+                {
+                  console.log(data)
+                },
+                error: badResponse=>
+                  {
+                    console.error("IMAGE FAILED", badResponse)
+                  }
+                  
+                }
+              )
+            }
+            },
+            error: badResponse=>
               {
-                console.log(data)
-              },
-              error: badResponse=>
-              {
-                console.error("IMAGE FAILED", badResponse)
-              }
+                console.error("PROFILE FAILED", badResponse)
                 
+              }
             }
           )
-        },
-        error: badResponse=>
-        {
-          console.error("PROFILE FAILED", badResponse)
-          
-        }
-      }
-    )
   }
 
 }

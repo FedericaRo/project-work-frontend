@@ -88,6 +88,7 @@ export class TaskListComponent implements OnInit {
     
     return this.tasksbackup.filter(
       t => 
+        // t.name.toLowerCase().includes(this.filterCriteria.toLowerCase())          ||
         t.name.toLowerCase().includes(this.filterCriteria.toLowerCase())          ||
         t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())     ||
         t.status.toLowerCase().includes(this.filterCriteria.toLowerCase())        ||
