@@ -14,7 +14,7 @@
       <app-stored-task 
         [storedTask]="task" 
         (delete)="onTaskDelete(task.id)"
-        (update)="onTaskUpdate(task)">
+        (update)="onTaskUpdate($event)">
       </app-stored-task>
     </li>
   </ul>

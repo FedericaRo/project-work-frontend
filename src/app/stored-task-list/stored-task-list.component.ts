@@ -35,7 +35,7 @@ export class StoredTaskListComponent implements OnInit {
 
   loadStoredTasks(): void {
     this.storedTaskService.getAll().subscribe(storedTask => {
-      this.storedTasks = storedTask;
+      this.storedTasks = storedTask.reverse();
     });
   }
 
@@ -50,7 +50,7 @@ export class StoredTaskListComponent implements OnInit {
 
   addStoredTask(): void {
     this.storedTaskService.addNewStoredTask(this.newStoredTask).subscribe(storedTask => {
-      this.storedTasks.push(storedTask);
+      this.storedTasks.unshift(storedTask);
       this.toggleModal();
     });
   }
@@ -76,6 +76,19 @@ export class StoredTaskListComponent implements OnInit {
   }
 
   onTaskUpdate(storedTask: StoredTask): void {
+    this.storedTaskService.update(storedTask.id!, storedTask).subscribe(
+      {
+        next: data=> 
+        {
+          console.log(data);
+        },
+        error: badResponse=> 
+        {
+          console.log(badResponse);
+        }
+      }
+    )
+    
     this.newStoredTask = { ...storedTask };
     this.isEditing = true;
   }
