@@ -9,7 +9,7 @@
   class="fixed inset-0 flex items-center justify-center z-60"
 >
   <div (click)="onOverlayClick($event)" #fatherElement class="fixed inset-0 flex items-center justify-center z-60">
-    <div #profileGrid  class="p-4 bg-[#D1F2FE] shadow-md rounded-3xl border-[#003F5C] flex flex-col items-center justify-center content-grid">
+    <div #profileGrid  class="p-4 bg-[#ffffff] shadow-md rounded-lg flex flex-col items-center justify-center content-grid">
       <div class="grid grid-cols-3 gap-4 justify-center">
 
          <!-- * Visualizzazione dei profili tramite iterazione -->
@@ -17,19 +17,32 @@
         { 
          <div class="relative">
             <div 
-               (click)="showToast()"
-               (click)="changeProfile(profile)" 
-               [ngClass]="{'active-profile': profile.id?.toString() === userId, 'not-active-profile': profile.id?.toString() !== userId}"
-               class="cursor-pointer flex-none rounded-lg
-               bg-gray-50 h-52 w-52 flex items-center justify-center 
-               hover:opacity-80 hover:border-[#ffffff] transition-all duration-300"
-               >
-               <!-- https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg -->
-               <img class="object-cover h-full w-full rounded-sm" [src]="imgUrls[profile.id!] ? imgUrls[profile.id!] : 'nopropic.png'" alt="Una bella immagine">
+                (click)="showToast()"
+                (click)="changeProfile(profile)" 
+                [ngClass]="{'active-profile': profile.id?.toString() === userId, 'not-active-profile': profile.id?.toString() !== userId}"
+                class="cursor-pointer flex-none rounded-lg
+                       bg-gray-50 h-52 w-52 flex items-center justify-center 
+                       hover:border-[#ffffff] transition-all duration-300 relative"
+            >
+                <!-- L'immagine di sfondo -->
+                <img class="object-cover h-full w-full rounded-lg z-0" 
+                     [src]="imgUrls[profile.id!] ? imgUrls[profile.id!] : 'nopropic.png'" 
+                     alt="Una bella immagine">
+                     
+                <!-- Il div bianco semi-trasparente sopra l'immagine -->
+                <div class="absolute inset-0 bg-white z-10 backname">
+
+                   <!-- I testi sopra il div bianco e l'immagine -->
+                   <div class="relative text-center z-20 name">
+                       <h1><b>{{profile.name}}</b></h1>
+                       <h1><b>{{profile.surname}}</b></h1>
+                   </div>
+               </div>
             </div>
+        
             <!-- * Bottoncino che permette di eliminare un profilo -->
                <div 
-               (click)="deleteProfile(profile.id!)"
+               (click)="showPopover()"
                class="absolute btn-controller z-50 bg-red-500 hover:bg-red-400 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer" matTooltip="Elimina profilo">
                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -37,6 +50,23 @@
                </svg>
                </div>
          </div>
+
+            <!-- * Popover conferma eliminazione profilo -->
+            <!-- <div [ngClass]="{'hidden': !showDoneAnimation}">
+               <img src="SuccessLowRes.gif" class="fixed inset-0 mx-auto my-auto z-50 w-80 h-80 myLoadGif" alt="Success GIF">
+               <div class="fixed inset-0 bg-white opacity-70 z-40"></div>
+           </div> -->
+           <div *ngIf="isPopoverOpen" class="popover fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg border border-gray-300 p-4 rounded-lg z-60">
+            <div class="popover-content">
+                <p class="text-gray-700">Vuoi confermare l'eliminazione del profilo {{profile.name}} {{profile.surname}}?</p>
+                <div class="mt-3 flex justify-end space-x-2">
+                    <button class="btn bg-green-400 hover:bg-green-500 text-white" (click)="deleteProfile(profile.id!);">Conferma</button>
+                    <button class="btn bg-red-400 hover:bg-red-500 text-white" (click)="cancelPopover()">Annulla</button>
+                </div>
+            </div>
+            <div class="popover-arrow absolute top-0 right-1 bg-white"></div>
+        
+           </div>
         } 
         <!-- * Bottone gigante che permette di aggiungere un profilo -->
         @if (profiles.length < 6) 
@@ -44,7 +74,7 @@
           <div 
           (click)="toggleForm()"
           [ngClass]="{'hidden': isClicked}"
-          class="container h-52 w-52 flex items-center justify-center bg-gray-400 bg-opacity-50 btn-add-controller">
+          class="container h-52 w-52 flex items-center justify-center bg-gray-400 bg-opacity-50 btn-add-controller rounded-lg">
             <svg  xmlns="http://www.w3.org/2000/svg" 
               width="60rem" 
               height="60rem" 
@@ -122,7 +152,6 @@
   </div>
 </div>
 <!-- ? Fine della finestra dei profili -->
-
 
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">

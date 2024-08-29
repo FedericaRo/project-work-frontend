@@ -51,26 +51,49 @@
 }
 
 .btn-add-controller {
-    border: solid 0.4rem #ededed;
+    /* border: solid 0.4rem #ededed; */
+    /* border-radius: 1rem !important; */
+}
+
+.name {
+    opacity: 0;
+    top: 35%;
+    font-size: 1.5rem;
+}
+
+.backname {
+    opacity: 0;
+    border-radius: 0.4rem;
+}
+
+.backname:hover {
+    opacity: 0.7;
+}
+
+.backname:hover .name {
+    opacity: 1;
 }
 
 .btn-add-controller:hover {
-    border: solid 0.4rem #ffffff;
+    /* border: solid 0.4rem #ffffff; */
     transition-duration: 300ms;
+    background: #dbdfe6;
 }
 
 .content-grid {
-    border: solid 0.4rem #003F5C;
+    /* border: solid 0.4rem #003F5C; */
     height: 70%;
     width: 50%;
 }
 
 .active-profile {
-    border: solid 0.4rem #003F5C;
+    border: solid 0.4rem #22C55E;
+    border-radius: 0.9rem;
 }
 
 .not-active-profile {
-    border: solid 0.4rem #ffffff;
+    border: solid 0rem #ffffff;
+    /* border-radius: 10rem !important; */
 }
 
 .hidden

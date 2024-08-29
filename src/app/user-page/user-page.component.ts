@@ -77,14 +77,14 @@ export class UserPageComponent implements OnInit {
 
           // * Da noi
           this.commFromUs = this.communications.filter(c => 
-            c.fromPerson.toLowerCase() === this.username.toLowerCase() && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
+            c.fromPerson.toLowerCase().includes(this.username.toLowerCase()) && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
           );
 
           this.numberCommFromUs = this.commFromUs.length;
 
           // * Per noi
           this.commForUs = this.communications.filter(c => 
-            c.toPerson.toLowerCase() === this.username.toLowerCase() && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
+            c.toPerson.toLowerCase().includes(this.username.toLowerCase()) && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
           );
 
           this.numberCommForUs = this.commForUs.length;
@@ -177,30 +177,34 @@ export class UserPageComponent implements OnInit {
   }
 
   updateProfile(): void {
-    this.profileService.update(this.userId, this.profile).subscribe(
-      {
-        next: data => 
+
+    if(this.profile.name != this.username || this.profile.surname != this.usersurname)
+    {
+      this.profileService.update(this.userId, this.profile).subscribe(
         {
-          console.log(data);
-
-          localStorage.removeItem('profilename');
-          localStorage.removeItem('profilesurname');
-          localStorage.removeItem("profileid")
-
-          localStorage.setItem("profilename",data.name);
-          localStorage.setItem("profilesurname", data.surname);
-          localStorage.setItem("profileid", data.id!.toString());
-
-          this.username = localStorage.getItem("profilename")!;
-          this.usersurname = localStorage.getItem("profilesurname")!;
-          this.userId = Number(localStorage.getItem("profileid"))!;
-        },
-        error: badResponse => 
-        {
-          console.log(badResponse);
+          next: data => 
+          {
+            console.log(data);
+  
+            localStorage.removeItem('profilename');
+            localStorage.removeItem('profilesurname');
+            localStorage.removeItem("profileid")
+  
+            localStorage.setItem("profilename",data.name);
+            localStorage.setItem("profilesurname", data.surname);
+            localStorage.setItem("profileid", data.id!.toString());
+  
+            this.username = localStorage.getItem("profilename")!;
+            this.usersurname = localStorage.getItem("profilesurname")!;
+            this.userId = Number(localStorage.getItem("profileid"))!;
+          },
+          error: badResponse => 
+          {
+            console.log(badResponse);
+          }
         }
-      }
-    )
+      )
+    }
   }
           
 }

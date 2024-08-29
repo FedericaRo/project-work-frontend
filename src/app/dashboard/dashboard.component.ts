@@ -84,6 +84,8 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   isSidebarOpen = true; 
   areProfilesVisible = true;
 
+  isPopoverOpen: boolean = false;
+
   img:string = "";
 
   ngOnInit(): void 
@@ -171,6 +173,16 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     setTimeout(() => {
       this.showToastDiv = false; // Remove the toast from the DOM after fade-out
     }, 500); // Match this duration with the CSS transition duration
+  }
+
+  showPopover() {
+    this.isPopoverOpen = true;
+    console.log(this.isPopoverOpen);
+  }
+
+  cancelPopover() {
+    this.isPopoverOpen = false;
+    console.log(this.isPopoverOpen);
   }
 
 
@@ -359,6 +371,8 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         console.log(badResponse);
       }
     });
+
+    this.isPopoverOpen = false;
   }
 
 
