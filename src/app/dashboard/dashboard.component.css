@@ -51,26 +51,30 @@
 }
 
 .btn-add-controller {
-    border: solid 0.4rem #ededed;
+    /* border: solid 0.4rem #ededed; */
+    /* border-radius: 1rem !important; */
 }
 
 .btn-add-controller:hover {
-    border: solid 0.4rem #ffffff;
+    /* border: solid 0.4rem #ffffff; */
     transition-duration: 300ms;
+    background: #dbdfe6;
 }
 
 .content-grid {
-    border: solid 0.4rem #003F5C;
+    /* border: solid 0.4rem #003F5C; */
     height: 70%;
     width: 50%;
 }
 
 .active-profile {
-    border: solid 0.4rem #003F5C;
+    border: solid 0.4rem #22C55E;
+    border-radius: 1rem;
 }
 
 .not-active-profile {
-    border: solid 0.4rem #ffffff;
+    border: solid 0rem #ffffff;
+    /* border-radius: 10rem !important; */
 }
 
 .hidden

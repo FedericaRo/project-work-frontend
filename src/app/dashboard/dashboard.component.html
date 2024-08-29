@@ -9,7 +9,7 @@
   class="fixed inset-0 flex items-center justify-center z-60"
 >
   <div (click)="onOverlayClick($event)" #fatherElement class="fixed inset-0 flex items-center justify-center z-60">
-    <div #profileGrid  class="p-4 bg-[#D1F2FE] shadow-md rounded-3xl border-[#003F5C] flex flex-col items-center justify-center content-grid">
+    <div #profileGrid  class="p-4 bg-[#ffffff] shadow-md rounded-lg flex flex-col items-center justify-center content-grid">
       <div class="grid grid-cols-3 gap-4 justify-center">
 
          <!-- * Visualizzazione dei profili tramite iterazione -->
@@ -25,7 +25,7 @@
                hover:opacity-80 hover:border-[#ffffff] transition-all duration-300"
                >
                <!-- https://live.staticflickr.com/5286/5254931408_d962bdf26b_b.jpg -->
-               <img class="object-cover h-full w-full rounded-sm" [src]="imgUrls[profile.id!] ? imgUrls[profile.id!] : 'nopropic.png'" alt="Una bella immagine">
+               <img class="object-cover h-full w-full rounded-lg" [src]="imgUrls[profile.id!] ? imgUrls[profile.id!] : 'nopropic.png'" alt="Una bella immagine">
             </div>
             <!-- * Bottoncino che permette di eliminare un profilo -->
                <div 
@@ -44,7 +44,7 @@
           <div 
           (click)="toggleForm()"
           [ngClass]="{'hidden': isClicked}"
-          class="container h-52 w-52 flex items-center justify-center bg-gray-400 bg-opacity-50 btn-add-controller">
+          class="container h-52 w-52 flex items-center justify-center bg-gray-400 bg-opacity-50 btn-add-controller rounded-lg">
             <svg  xmlns="http://www.w3.org/2000/svg" 
               width="60rem" 
               height="60rem" 
