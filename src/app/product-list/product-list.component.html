@@ -3,6 +3,7 @@
         <div class="min-w-full inline-block align-middle" >
 
 
+
           <div 
           id="alert"
           class="alert flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
@@ -14,6 +15,7 @@
               <span class="font-medium">Errore nella cancellazione!</span> <p>{{genericError}}</p>
             </div>
           </div>
+
 
         <!-- dove inizia il div della barra di ricerca -->
         <div class="relative flex text-gray-500 focus-within:text-gray-900 mb-4"> 
@@ -31,13 +33,14 @@
             <input 
                 [(ngModel)]="filterCriteria" 
                 type="text" id="default-search" 
-                class="block w-80 h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" 
+                class="block w-[22rem] h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" 
                 placeholder="Filtra per fornitore, categoria o prodotto"
                 (input)="filterByEverything()"
             >
             
             <!-- Contenitore del dial -->
-            <div data-dial-init class="flex absolute right-10 group">
+            <div [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}"
+            data-dial-init class="flex absolute right-10 group">
                 <!-- Menu del dial -->
                 <div id="speed-dial-menu-horizontal" class="flex items-center space-x-2 rtl:space-x-reverse mr-3" [ngClass]="{'hidden': !isDialOpen}">
                     <!-- Bottone di condivisione

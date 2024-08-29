@@ -1,3 +1,5 @@
+
+
 <!-- Contenitore Principale -->
 <div style="width: 100%; padding: 0; box-sizing: border-box;">
     <div class="flex items-center relative mb-4">
@@ -80,7 +82,8 @@
 </div>
 <div class="fixed inset-0 bg-black bg-opacity-50 z-50" [ngClass]="{'hidden': !showForm}" (click)="toggleForm()"></div>
 <app-communication-form [ngClass]="{'hidden': !showForm}" class="comform"
-    (add)="addNewCommunication($event)"></app-communication-form>
+    (add)="addNewCommunication($event)" (delete)="deleteCommunication($event)" ></app-communication-form> <!--imposta visibilitÃ-->
+
 
 <div *ngIf="showToastDiv" id="toast-success"
     class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
@@ -108,3 +111,4 @@
         </svg>
     </button>
 </div>
+

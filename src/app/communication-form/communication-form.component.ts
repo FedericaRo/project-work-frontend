@@ -57,22 +57,36 @@ export class CommunicationFormComponent
 
   @Output() add = new EventEmitter<Communication>();
 
+  @Output() delete = new EventEmitter<number>();
+
+  
+  
+
   onSubmit()
   {
     // form data per mandare il pdf
     
     const formData = new FormData();
     
+    
     console.log(this.communicationForm.value)
+
+    
+
+
+    // if(this.selectedFile!.size /1000 < 5000)
+    // {
+
+    
     this.communicationService.addNewCommunication(this.communicationForm.value)
     .subscribe(
       {
         next: (communication:Communication) =>
           {
-            if (this.selectedFile != null)
+          if (this.selectedFile != null)
           {
             formData.append('file', this.selectedFile!, this.selectedFile!.name);
-
+            console.log(this.selectedFile.size)
             this.http.post(`api/communications/pdfupload/${communication.id}`, formData,  { responseType: 'text' })
             .subscribe(
               {
@@ -84,6 +98,7 @@ export class CommunicationFormComponent
                   error: badResponse=>
                     {
                       console.error("PDF FAILED", badResponse)
+                      this.delete.emit(communication.id!);
                     }
                     
                   }
@@ -107,5 +122,7 @@ export class CommunicationFormComponent
 
     )
   }
+    
+
 
 }
