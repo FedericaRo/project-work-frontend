@@ -16,7 +16,6 @@ export class RegisterPageComponent {
 
   constructor(private authService:AuthService, private router: Router){}
 
-  
 
   passwordInputType: 'password' | 'text' = 'password';
   passwordConfirmInputType: 'password' | 'text' = 'password';
@@ -44,33 +43,65 @@ export class RegisterPageComponent {
     // ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$
     
   )
-  register()
-  {
-      this.authService.register(this.registerForm.value)
-      .subscribe(
-        {
-          next: data => 
-          {
-            console.log(data)
+  register() {
+    
+    console.log('Inizio del metodo register');
+    console.log('Valori del form:', this.registerForm.value);
+  
+    this.authService.register(this.registerForm.value)
+    .subscribe(
+      {
+        next: data => {
+          console.log('Registrazione avvenuta con successo:', data);
+            console.log('Inizio del processo di login...');
+  
             this.authService.login(this.registerForm.value).subscribe(
-              data=>
               {
-                localStorage.setItem("token",data.accessToken);
+
+              next: data =>
+              {
+                console.log('Login avvenuto con successo:', data);
+                localStorage.setItem("token", data.accessToken);
                 localStorage.setItem("role", data.role);
-                alert(`Sei loggato come user ${this.registerForm.value.username}`)
+                localStorage.setItem("username", data.username);
+                console.log('Impostato token e role in localStorage');
                 this.router.navigate(['homepage']);
+                console.log('Navigazione verso la homepage');
+                this.registerForm.reset();
+                console.log('Form resettato');
               },
+              error: badResponse=> {
+                console.log('Errore durante il login:', badResponse);
+              }
+            }
             );
-            
-            this.registerForm.reset();
-            
           },
-          error: err =>
-          {
-            console.log("NOOOOO")
-            console.log(err);
+          error: err => {
+            // event.preventDefault()
+            console.log('Errore durante la registrazione:', err);
+            // this.router.navigate(['auth/register'])
+            // this.animateError();
+            this.registerForm.setErrors({'usernameTaken': true});
+            console.log('Errore impostato nel form:', this.registerForm.errors);
+            console.log('Errore impostato nel fcsdasdasdaorm:', this.registerForm.hasError('usernameTaken'));
+            return;
           }
         }
-      )
+      );
+      console.log('Fine del metodo register');
+    }
+
+    animateError() {
+      const alertElement = document.getElementById('alert');
+      if (alertElement) {
+        alertElement.classList.add('show');
+        setTimeout(() => {
+          alertElement.classList.add('hide');
+          setTimeout(() => {
+            alertElement.classList.remove('show', 'hide');
+          }, 500); // Durata dell'animazione di uscita
+        }, 5000); // Durata della visualizzazione
+      }
+    }
   }
-}
+  

@@ -36,8 +36,13 @@ export class ProfilesService {
     return this.http.delete<Profile>(`/api/profiles/${id}`);
   }
 
-  // saveProfilePicture(file:any):Observable<Profile>
+  update(id: number, profile:Profile):Observable<Profile>
+  {
+    return this.http.put<Profile>(`/api/profiles/${id}`, profile);
+  }
+
+  // saveProfilePicture(file:Blob, id:number):Observable<string>
   // {
-  //   return this.http.post('api/imgupload', file)
+  //   return this.http.post<string>(`api/imgupload/${id}`, file)
   // }
 }

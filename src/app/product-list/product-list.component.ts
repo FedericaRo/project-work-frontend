@@ -13,7 +13,10 @@ import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form
 import { OrdersService } from '../services/orders.service';
 import { Order } from '../model/Order';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
 import { ProductsiblingsService } from '../services/productsiblings.service';
+
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +27,8 @@ import { ProductsiblingsService } from '../services/productsiblings.service';
 })
 export class ProductListComponent implements OnInit {
   
-  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService) {}
+  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService. public authService: AuthService) {}
+
   
   openCreateProductStepper: boolean = false;
   openCreateCategory: boolean = false;
@@ -213,9 +217,10 @@ export class ProductListComponent implements OnInit {
 
   deleteLastOrder(errore:string)
   {
-    this.genericError = errore; 
-    if(errore)
+    if(errore){
+      this.genericError = errore; 
       this.animateError();
+    }
   }
 
   animateError() {

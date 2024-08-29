@@ -1,66 +1,163 @@
-<section class="py-10 md:py-16">
-
+<section class="py-10 md:py-16 mb-16">
     <div class="container max-w-screen-xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row items-left">
+            <!-- Immagine Profilo -->
+            <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center relative">
 
-    
-        <img src="nopropic.png" alt="Logo">
+                <input 
+                #fileInput
+                type="file" 
+                class="imageChange absolute bottom-0 left-0 opacity-0 pointer-events-none cursor-pointer z-50 w-full h-full"
+                (change)="onFileSelected($event)"
+                >
 
-        
+                <!-- Immagine 1 -->
+                <img 
+                src="changephoto.png" 
+                alt="Profile Image" 
+                class="rounded-full w-48 h-48 object-cover absolute top-0 left-0 z-40 photoimage"
+                (click)="fileInput.click()"
+                >
 
-        <div class="text-center">
-            <div class="flex justify-center mb-16">
-                <img src="assets/image/home-img.png" alt="Image">
+                <!-- Immagine 2 -->
+                <img 
+                [src]="imgUrl" 
+                alt="Profile Image" 
+                class="rounded-full w-48 h-48 object-cover absolute top-0 left-0 opacity-100"
+                (click)="fileInput.click()"
+                >
             </div>
+            <!-- Informazioni Profilo -->
 
-            <h6 class="font-medium text-gray-600 text-lg md:text-2xl uppercase mb-8">Kate Wolff</h6>
+            <div class="md:w-2/3 text-left md:text-left ml-12">
+                <!-- <a href="#" class="px-7 py-3 md:px-9 md:py-4 font-medium md:font-semibold bg-gray-700 text-gray-50 text-sm rounded-md hover:bg-gray-50 hover:text-gray-700 transition ease-linear duration-500">
+                    Hire me
+                </a> -->
 
-            <h1 class="font-normal text-gray-900 text-4xl md:text-7xl leading-none mb-8">Senior Backend Developer</h1>
+                
+                <h6 class="font-medium text-gray-600 text-lg md:text-2xl uppercase mb-8">{{email}}</h6>
 
-            <p class="font-normal text-gray-600 text-md md:text-xl mb-16">I have a passion for software. I enjoy creating tools that make life easier for people.</p>
+                <div class="aFantastica flex">
 
-            <a href="#" class="px-7 py-3 md:px-9 md:py-4 font-medium md:font-semibold bg-gray-700 text-gray-50 text-sm rounded-md hover:bg-gray-50 hover:text-gray-700 transition ease-linear duration-500">Hire me</a>
+                    <h1 
+                    *ngIf="!isEditModeActive"
+                    class="font-normal text-gray-900 text-3xl md:text-6xl leading-none mb-8 mr-4">{{username}} {{usersurname}}
+                    </h1>
+
+                    <form 
+                    *ngIf="isEditModeActive"
+                    name="newProfile" 
+                    #changeInfo 
+                    class="z-50 items-center mb-3"
+                    >
+                    <div class="flex gap-4">
+                        <mat-form-field class="w-full">
+                        <mat-label>Nome</mat-label>
+                        <input 
+                        
+                        matInput 
+                        id="name"
+                        name="name"
+                        [(ngModel)]="profile.name"
+                        >
+                        </mat-form-field>
+                  
+                        <mat-form-field class="w-full">
+                        <mat-label>Cognome</mat-label>
+                        <input 
+                        matInput 
+                        id="surname"
+                        name="surname"
+                        [(ngModel)]="profile.surname"
+                        >
+                        </mat-form-field>
+                    </div>
+
+                    </form>
+                    <!-- * Bottone di modifica -->
+                     <div class="edit-profile-btn">
+                        <a 
+                            (click)="toggleEditMode()"
+                            matTooltip="Modifica Profilo"
+                            [ngClass]="{'hidd': isEditModeActive}"
+                            class="p-2 rounded-lg group transition-all duration-500 flex item-center btnBg bg-gray-50 btn1"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45
+                            " viewBox="0 0 24 24" fill="none" stroke="grey" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit cursor-pointer">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </a>
+    
+    
+                        <button 
+                        (click)="toggleEditMode()"
+                        type="submit"
+                        [ngClass]="{'hidd': !isEditModeActive}"
+                        (click)="updateProfile()"
+                        class="p-2 rounded-lg group transition-all duration-500 flex item-center btnBg bg-gray-50"
+                        >
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                width="45" 
+                                height="45
+                                " 
+                                viewBox="0 0 24 24" 
+                                fill="none" 
+                                stroke="#41AF60" 
+                                stroke-width="2" 
+                                stroke-linecap="round" 
+                                stroke-linejoin="round" 
+                                class="feather feather-check-square"
+                            >
+                                <polyline points="9 11 12 14 22 4"></polyline>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- * Fine Bottone di modifica-->
+                </div>
+                <p class="font-normal text-gray-600 text-md md:text-xl mb-16">
+                    {{role}}
+                </p>
+            </div>
         </div>
-
     </div>
-
 </section>
 
-<section class="py-10 md:py-16">
-
+<section class="py-10 flex md:py-16 text-center justify-center">
     <div class="container max-w-screen-xl mx-auto px-4">
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div class="bg-gray-100 px-8 py-10 rounded-md">
                 <div class="w-20 py-6 flex justify-center bg-gray-200 rounded-md mb-4">
                     <i data-feather="activity"></i>
                 </div>
-
-                <h4 class="font-medium text-gray-700 text-lg mb-4">High experience</h4>
-
-                <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
+                <h4 class="font-medium text-gray-700 text-lg mb-4">Task Completate (ultimi 6 mesi)</h4>
+                <p class="font-normal text-gray-500 text-md">
+                    {{numberTaskCompleted}}
+                </p>
             </div>
-            
             <div class="bg-gray-50 px-8 py-10 rounded-md">
                 <div class="w-20 py-6 flex justify-center bg-gray-100 rounded-md mb-4">
                     <i data-feather="codesandbox"></i>
                 </div>
-
-                <h4 class="font-medium text-gray-700 text-lg mb-4">Useful sandboxes</h4>
-
-                <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
+                <h4 class="font-medium text-gray-700 text-lg mb-4">Comunicazioni (ultimi 6 mesi)</h4>
+                <p class="font-normal text-gray-500 text-md text-2xl">
+                    {{numberCommFromUs}} &#x2B05; Da noi
+                </p>
+                <p class="font-normal text-gray-500 text-md text-2xl">
+                    Per noi &#x27A1; {{numberCommForUs}}
+                </p>
             </div>
-            
             <div class="bg-gray-50 px-8 py-10 rounded-md">
                 <div class="w-20 py-6 flex justify-center bg-gray-100 rounded-md mb-4">
                     <i data-feather="coffee"></i>
                 </div>
-
-                <h4 class="font-medium text-gray-700 text-lg mb-4">Success side projects</h4>
-
-                <p class="font-normal text-gray-500 text-md">Lorem ipsum dolor sit amet, consectetur <br> adipiscing elit, sed do eiusmod tempor <br> incididunt ut labore et dolore magna aliqua.</p>
+                <h4 class="font-medium text-gray-700 text-lg mb-4">Success Side Projects</h4>
+                <p class="font-normal text-gray-500 text-md">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </p>
             </div>
         </div>
-
     </div>
-
 </section>

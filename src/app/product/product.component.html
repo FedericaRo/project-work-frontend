@@ -59,21 +59,45 @@
         </button>
     </td> -->
 
-<!-- numero unità singole rimanenti -->
-<td class="p-2 text-left whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+    <!-- numero unità singole rimanenti -->
+    <td class="p-2 text-left whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
+        
+        <div 
+        [ngClass]="{'hidden': isRestrictedEditModeActiveUnits}"
+        class="flex items-center justify-end h-full">
+            <div class="relative flex items-center justify-center w-16">
+                <input 
+                    type="number" 
+                    id="unitTypeQuantity" 
+                    name="unitTypeQuantity"
+                    min="0"
+                    max="999999"
+                    class="h-8 w-full bg-transparent rounded-md text-black ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600 mr-1" 
+                    [placeholder]="previousUnitTypeQuantity"
+                    [(ngModel)]="product.unitTypeQuantity"
+                    
+                />
+            </div>
+            <!-- [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}" -->
+            <button 
+            (click)="editUnitTypeQuantity()"
+            (click)="employeeEditProductUnitsToggle()"
+            class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
+        >
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="#41AF60" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                class="feather feather-check-square"
+            >
 
-    <div [ngClass]="{'hidden': isRestrictedEditModeActiveUnits}" class="flex items-center justify-end h-full">
-        <div class="relative flex items-center justify-center w-16">
-            <input type="number" id="unitTypeQuantity" name="unitTypeQuantity"
-                class="h-8 w-full bg-transparent rounded-md text-black ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600 mr-1"
-                [placeholder]="previousUnitTypeQuantity" [(ngModel)]="product.unitTypeQuantity" />
-        </div>
-        <!-- [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'ADMIN'}" -->
-        <button (click)="editUnitTypeQuantity()" (click)="employeeEditProductUnitsToggle()"
-            class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="#41AF60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="feather feather-check-square">
+              
                 <polyline points="9 11 12 14 22 4"></polyline>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
             </svg>
@@ -279,6 +303,7 @@
                     <path _ngcontent-ng-c847935741="" d="M465.75,220.37h-195.38V25c0-13.81-11.19-25-25-25s-25,11.19-25,25v195.37H25c-13.81,0-25,11.19-25,25s11.19,25,25,25h195.37v195.37c0,13.81,11.19,25,25,25s25-11.19,25-25v-195.37h195.38c13.81,0,25-11.19,25-25s-11.19-25-25-25Z"         
                     stroke="black" stroke-width="2.5" stroke-linecap="round" class="stroke-black"></path>
                 </svg> -->
+
         <!-- </button> -->
 
         <!-- pulsante creazione nuovo ordine -->
@@ -293,8 +318,6 @@
             </svg>
         </button>
 
-
-
         <!-- Popover content per aggiungere un nuovo ordine -->
         <div *ngIf="isPopoverVisible"
             class="p-4 popoverConfirm absolute z-10 right-0 top-0 mt-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-lg shadow-sm"
@@ -303,7 +326,7 @@
             <form [formGroup]="orderForm" class="example-form" (ngSubmit)="sendOrder()">
                 <mat-form-field class="example-full-width mb-1">
                     <mat-label>Unità da ordinare</mat-label>
-                    <input type="number" min=0 matInput placeholder="Inserisci quantità"
+                    <input type="number" min="0" matInput placeholder="Inserisci quantità"
                         formControlName="unitOrderedQuantity">
                     <mat-error *ngIf="orderForm.invalid && orderForm.get('unitOrderedQuantity')?.touched">
                         Inserimento non valido
@@ -315,8 +338,7 @@
 
                 <mat-form-field class="example-full-width mb-1">
                     <mat-label>Confezioni da ordinare</mat-label>
-                    <input type="number" matInput placeholder="Inserisci quantità"
-                        formControlName="packagingOrderedQuantity">
+                    <input type="number" min="0" matInput placeholder="Inserisci quantità" formControlName="packagingOrderedQuantity">
                     <mat-error
                         *ngIf="orderForm.get('packagingOrderedQuantity')?.invalid && orderForm.get('packagingOrderedQuantity')?.touched">
                         Inserimento non valido
@@ -368,10 +390,12 @@
         <button (click)="toggleProductPopover()"
             class="p-2 rounded-full group transition-all duration-500 flex item-center btnBg"
             [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}"
-            [attr.aria-haspopup]="true" [attr.aria-expanded]="isPopoverVisible ? 'true' : 'false'">
+
+            [attr.aria-haspopup]="true" 
+            [attr.aria-expanded]="isPopoverVisible ? 'true' : 'false'">
             <!-- icona spazzizi -->
             <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none"
-                stroke="#ff6e54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" c lass=""
+                stroke="#ff6e54" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 aria-hidden="true">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
