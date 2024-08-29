@@ -13,6 +13,10 @@ import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form
 import { OrdersService } from '../services/orders.service';
 import { Order } from '../model/Order';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+import { ProductsiblingsService } from '../services/productsiblings.service';
+
 
 @Component({
   selector: 'app-product-list',
@@ -23,7 +27,8 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   
-  constructor(private productService: ProductsService, private sanitizer: DomSanitizer) {}
+  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService. public authService: AuthService) {}
+
   
   openCreateProductStepper: boolean = false;
   openCreateCategory: boolean = false;
@@ -201,9 +206,9 @@ export class ProductListComponent implements OnInit {
     }, 500); // Match this duration with the CSS transition duration
   }
 
-  deleteProduct(product:Product)
+  deleteProduct(productId:number)
   {
-    let index = this.products.findIndex((p: Product) => p.id === product.id);
+    let index = this.products.findIndex((p: Product) => p.id === productId);
     if(index !== -1)
     {
       this.products.splice(index, 1);

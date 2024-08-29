@@ -43,10 +43,33 @@ export class CommunicationListComponent implements OnInit
         this.communicationsBackup = data.reverse();});  
   }
 
+  isDeleteToastVisible: boolean = true;
+  showDeleteToastDiv = false;
+  isVisibleD = false;
+
+  showDeleteToast(){
+    this.showDeleteToastDiv = true;
+    setTimeout(() => {
+      this.isVisibleD = true;
+
+      setTimeout(() => {
+        this.hideDeleteToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideDeleteToast() {
+    this.isVisibleD = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showDeleteToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
   deleteCommunication(id: number): void 
   {
     this.communicationService.delete(id).subscribe(() => {
-      this.communications = this.communications.filter(c => c.id !== id);
+      this.communications = this.communications.filter(c => c.id !== id)
+      this.showDeleteToast();
     }, error => {
       console.error("Errore durante l'eliminazione:", error);
     });
@@ -56,6 +79,29 @@ export class CommunicationListComponent implements OnInit
   {
     this.communications.unshift(communication);
     this.toggleForm();
+    this.showToast();
+  }
+
+  isToastVisible:boolean = true;
+  showToastDiv = false;
+  isVisible = false;
+
+  showToast(){
+    this.showToastDiv = true;
+    setTimeout(() => {
+      this.isVisible = true;
+
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideToast() {
+    this.isVisible = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
   }
 
   filterByEverything(): void 

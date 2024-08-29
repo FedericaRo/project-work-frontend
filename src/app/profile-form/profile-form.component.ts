@@ -63,6 +63,7 @@ export class ProfileFormComponent
     // this.profile.surname = this.profileForm.get("surname")!.value;
 
     this.profile.user = localStorage.getItem("username")!;
+    
 
 
     this.profileService.createNewProfile(this.profile)

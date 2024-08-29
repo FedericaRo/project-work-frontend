@@ -33,9 +33,9 @@ export class ProductsService {
     return this.http.post<Category>(`/api/products/addCategory`, category);
   }
 
-  delete(id:number):Observable<Product>
+  delete(id:number):Observable<number>
   {
-    return this.http.delete<Product>(`/api/products/${id}`);
+    return this.http.delete<number>(`/api/products/${id}`);
   }
 
   updateRemainingUnitsQuantity(id: number, unitTypeQuantity: number)

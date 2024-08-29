@@ -51,9 +51,18 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
   // // Passa la richiesta al prossimo handler
   return next(req).pipe(
     catchError((error) => {
+      console.log(error)
       // Se il server risponde con un errore 401 (non autorizzato), reindirizza l'utente alla pagina di login
-      if (error.status === 401) {
+      if (error.status === 410) {
         router.navigate(['/tokenExpired']);
+        
+        // Opzionale: mostra un messaggio all'utente
+        // alert('Sessione scaduta. Riprova ad effettuare il login.');
+        // window.location.href = '/auth/login';
+      }
+
+      if (error.status === 403) {
+        router.navigate(['/forbidden']);
         
         // Opzionale: mostra un messaggio all'utente
         // alert('Sessione scaduta. Riprova ad effettuare il login.');

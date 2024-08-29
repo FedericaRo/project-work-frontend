@@ -16,7 +16,8 @@ export class LoginPageComponent {
   constructor(public authService:AuthService, private router: Router){}
 
   passwordInputType: 'password' | 'text' = 'password';
-
+  error:string = "";
+  
   togglePasswordVisibility(): void {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text' : 'password';
     // If you need to toggle icons or other elements based on this state, 
@@ -61,7 +62,8 @@ export class LoginPageComponent {
         error: err=>
         {
           console.log(err)
-        }
+          this.error = err.error;
+        } 
       }
     )
   }

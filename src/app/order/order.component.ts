@@ -16,13 +16,14 @@ import { CommonModule } from '@angular/common';
 export class OrderComponent implements OnInit {
   @Input() order!: Order; // Use non-null assertion since we expect it to be provided
   @Output() newDeleteEvent:EventEmitter<Order> = new EventEmitter<Order>();
+  @Output() orderUpdated: EventEmitter<Order> = new EventEmitter<Order>();
 
   previousPackagingQuantity: number = 0; // Initialize the previous quantity
   previousUnitQuantity: number = 0; // Initialize the previous unit quantity
 
   constructor(public orderService: OrdersService, public authService: AuthService) { }
 
-  ngOnInit(): void { // Use OnInit lifecycle hook
+  ngOnInit(): void {
     // Set previous quantities here after inputs are assigned
     if (this.order) {
       this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
@@ -51,6 +52,28 @@ export class OrderComponent implements OnInit {
   //   this.order.unitOrderedQuantity = newValue; // Update the model
   // }
 
+  isPackToastVisible:boolean = true;
+  showPackToastDiv = false;
+  isVisiblePa = false;
+
+  showPackToast(){
+    this.showPackToastDiv = true;
+    setTimeout(() => {
+      this.isVisiblePa = true;
+
+      setTimeout(() => {
+        this.hidePackToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hidePackToast() {
+    this.isVisiblePa = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showPackToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
+  }
+
   editPackagingQuantity() {
     console.log("Editing packaging quantity...");
     console.log("Current packaging ordered quantity:", this.order.packagingOrderedQuantity);
@@ -68,6 +91,7 @@ export class OrderComponent implements OnInit {
           console.log("Packaging quantity updated successfully");
           // Update the previous quantity after successful edit
           this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
+          this.showPackToast();
         },
         error: badResponse => {
           console.log("Error updating packaging quantity:", badResponse);
@@ -78,6 +102,28 @@ export class OrderComponent implements OnInit {
       this.order.packagingOrderedQuantity = this.previousPackagingQuantity;
 
     }
+  }
+
+  isUnitToastVisible:boolean = true;
+  showUnitToastDiv = false;
+  isVisibleUt = false;
+
+  showUnitToast(){
+    this.showUnitToastDiv = true;
+    setTimeout(() => {
+      this.isVisibleUt = true;
+
+      setTimeout(() => {
+        this.hideUnitToast();
+      }, 3000);
+    }, 100);
+  }
+  
+  hideUnitToast() {
+    this.isVisibleUt = false; // Trigger the fade-out effect
+    setTimeout(() => {
+      this.showUnitToastDiv = false; // Remove the toast from the DOM after fade-out
+    }, 500); // Match this duration with the CSS transition duration
   }
 
   editUnitQuantity() {
@@ -98,6 +144,7 @@ export class OrderComponent implements OnInit {
           console.log("Unit quantity updated successfully", );
           // Update the previous unit quantity after successful edit
           this.previousUnitQuantity = this.order.unitOrderedQuantity;
+          this.showUnitToast();
         },
         error: badResponse => {
           console.log("Error updating unit quantity:", badResponse);
@@ -121,6 +168,8 @@ export class OrderComponent implements OnInit {
         this.order = data;
         console.log("Arrived DATA", this.order)
         console.log(this.order.arrived)
+        this.orderUpdated.emit(this.order); // Emit updated order
+
         // this.order.arrived = !this.order.arrived;
       },
       error: badResponse => {
@@ -138,6 +187,7 @@ export class OrderComponent implements OnInit {
       next: data => {
         this.newDeleteEvent.emit(data)
         console.log("Order deleted successfully:", data);
+        
       },
       error: badResponse => {
         console.log("Error deleting order:", badResponse);
@@ -145,8 +195,6 @@ export class OrderComponent implements OnInit {
       }
     });
   }
-
-
 
 
   checkArrivalDate(deliverDateString: string): boolean {

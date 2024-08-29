@@ -17,7 +17,8 @@ import { ExpiredPageComponent } from './expired-page/expired-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { UserPageComponent } from './user-page/user-page.component';
-
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { DeleteSupCatComponent } from './delete-sup-cat/delete-sup-cat.component';
 
 
 
@@ -40,7 +41,6 @@ export const routes: Routes = [
   { path: 'auth/login', component: LoginPageComponent },
   { path: 'auth/register', component: RegisterPageComponent },
   { path: 'tokenExpired', component: ErrorPageComponent },
-  { path: 'pageNotFound', component: PageNotFoundComponent },
   /**
    * *Codice extra non necessario, lasciato in caso di necessità e per reference
    * @Santo
@@ -70,6 +70,11 @@ export const routes: Routes = [
           { path: 'tasks', component: TaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'addProfile', component: ProfileFormComponent, canActivate: [LoggedGuardService] },
           { path: 'userPage', component: UserPageComponent, canActivate: [LoggedGuardService] },
+          { path: 'forbidden', component: ForbiddenComponent, canActivate: [LoggedGuardService] },
+          { path: 'pageNotFound', component: PageNotFoundComponent },
+
+          {path: 'fathersPage', component:DeleteSupCatComponent, canActivate: [LoggedGuardService]},
+
           { path: '', redirectTo: '/homepage', pathMatch: 'full' },
 
 
@@ -80,7 +85,7 @@ export const routes: Routes = [
   // },
 
   /**
-   * *Redirige qualsiasi altra rotta a login 
+   * *Redirige qualsiasi altra rotta a page not found
    * @Santo
    */
   { path: '**', redirectTo: 'pageNotFound', }

@@ -31,4 +31,14 @@ export class FathersService {
   {
     return this.http.post<Category>(`/api/categories/addCategory`, category);
   }
+
+  deleteSup(id:number): Observable<void>
+  {
+    return this.http.delete<void>(`/api/suppliers/${id}`);
+  }
+  
+  deleteCat(id:number): Observable<void>
+  {
+    return this.http.delete<void>(`/api/categories/${id}`)
+  }
 }

@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../model/user';
 import { LoginData } from '../model/LoginData';
 import { RegistrationData } from '../model/RegistrationData';
 import { Router } from '@angular/router';
@@ -65,14 +64,13 @@ export class AuthService {
 
   logout()
   {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    this.clearLocalStorage();
     this.router.navigate(["auth/login"]);
   }
 
   register(registrationData:RegistrationData)
   {
-    this.logout();
+    this.clearLocalStorage();
     console.log("REGISTRATION DATA");
     console.log(registrationData);
     return this.http.post('api/auth/register', registrationData, { responseType: 'text' });
@@ -94,5 +92,16 @@ export class AuthService {
   userHasRole(role:string)
   {
     return this.isLogged() && this.getUserRole()==role;
+  }
+
+  private clearLocalStorage()
+  {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("profileid");
+    localStorage.removeItem("profilename");
+    localStorage.removeItem("profilesurname");
+    localStorage.removeItem("username");
+    // localStorage.removeItem("user");
   }
 }
