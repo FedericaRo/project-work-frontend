@@ -164,20 +164,35 @@ export class ProductListComponent implements OnInit {
   //   }
   // }
 
-  filterByEverything(): void {
-    this.products = this.productsBackup;
-
-    for (let product of this.products) {
-      if (this.filterCriteria.toLowerCase().includes(product.code.toLowerCase()))
-        this.products = this.products.filter(p => p.code.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-      else if (product.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-        this.products = this.products.filter(p => p.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-      else if (product.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-        this.products = this.products.filter(p => p.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-      else if (product.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-        this.products = this.products.filter(p => p.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  filter(): void 
+  {
+    if (this.filterCriteria) 
+    {
+      const criteria = this.filterCriteria.toLowerCase();
+      this.products = this.productsBackup.filter(product =>
+        this.matchesCriteria(product, criteria)
+      );
+    } 
+    else 
+    {
+      this.products = [...this.products];
     }
+
+    console.log('Orders after filtering:', this.products);
   }
+
+private matchesCriteria(product: Product, criteria: string): boolean {
+
+  const values = [...Object.values(product).filter(v => v != null)];
+  console.log('Values to match:', values);
+  console.log('Criteria:', criteria);
+
+  return values.some(value =>
+    value.toString().toLowerCase().includes(criteria)
+  );
+}
+
+  
 
   flashId: number | null = null;
   

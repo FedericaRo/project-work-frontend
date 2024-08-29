@@ -277,10 +277,9 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         {
           this.profiles.push(data);
           console.log(data)
-          if (formData != null)
-          {
-
           
+          if (this.selectedFile != null)
+          {
           this.http.post(`api/profiles/imgupload/${data.id}`, formData, { responseType: 'text' })
           .subscribe(
             {
