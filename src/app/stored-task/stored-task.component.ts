@@ -1,5 +1,4 @@
-
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ElementRef, HostListener } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { StoredTask } from '../model/StoredTask';
 import { CommonModule } from '@angular/common';
@@ -15,7 +14,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class StoredTaskComponent {
   constructor(
-    public authService: AuthService) {}
+    public authService: AuthService,
+    private elementRef: ElementRef // Per rilevare clic esterni
+  ) {}
 
   @Input() storedTask!: StoredTask;
 
@@ -52,6 +53,15 @@ export class StoredTaskComponent {
       this.showPopOver = false;
     } else {
       console.error('ID non valido');
+    }
+  }
+
+  // Aggiungi questo metodo per chiudere il popover al clic esterno
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+    if (!clickedInside && this.showPopOver) {
+      this.showPopOver = false;
     }
   }
 }
