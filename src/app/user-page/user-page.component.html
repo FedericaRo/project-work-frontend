@@ -1,3 +1,4 @@
+
 <section class="py-10 md:py-16 mb-16">
     <div class="container max-w-screen-xl mx-auto px-4">
         <div class="flex flex-col md:flex-row items-left">
@@ -10,7 +11,7 @@
                 class="imageChange absolute bottom-0 left-0 opacity-0 pointer-events-none cursor-pointer z-50 w-full h-full"
                 (change)="onFileSelected($event)"
                 >
-
+                
                 <!-- Immagine 1 -->
                 <img 
                 src="changephoto.png" 
@@ -129,29 +130,34 @@
     <div class="container max-w-screen-xl mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Primo elemento -->
-            <div class="bg-gray-100 px-8 py-10 rounded-md">
-                <div class="w-20 py-6 flex justify-center items-center bg-gray-200 rounded-md mb-4 mx-auto">
-                    <i data-feather="activity"></i>
+            <div class="bg-[#EAF4E0] px-8 py-8 rounded-lg shadow-md">
+                <div class="flex justify-center items-center w-16 h-16 rounded-full mb-6 mx-auto">
+                    <img src="tasksCompleted.svg" alt="Icona task completate" class="w-8 h-8 image">
                 </div>
-                <h4 class="font-medium text-gray-700 text-lg mb-4">Task Completate (ultimi 6 mesi)</h4>
-                <p class="font-normal text-gray-500 text-2xl">
+                <h4 class="text-center text-gray-700 font-semibold text-lg mb-2">Task Completate</h4>
+                <p class="text-center text-gray-500 text-sm mb-4">(ultimi 6 mesi)</p>
+                <p class="text-center text-gray-700 text-3xl font-bold">
                     {{numberTaskCompleted}}
                 </p>
             </div>
 
             <!-- Secondo elemento -->
-            <div class="bg-gray-50 px-8 py-10 rounded-md">
-                <div class="w-20 py-6 flex justify-center items-center bg-gray-100 rounded-md mb-4 mx-auto">
-                    <i data-feather="codesandbox"></i>
+            <div class="bg-[#D1F2FE] px-8 py-8 rounded-lg shadow-md">
+                <div class="flex justify-center items-center w-16 h-16 rounded-full mb-6 mx-auto">
+                    <img src="arrows.svg" alt="Icona cambi turno" class="w-8 h-8 image">
                 </div>
-                <h4 class="font-medium text-gray-700 text-lg mb-4">Comunicazioni (ultimi 6 mesi)</h4>
-                <p class="font-normal text-gray-500 text-md text-2xl">
-                    {{numberCommFromUs}} &#x2B05; Da noi
-                </p>
-                <p class="font-normal text-gray-500 text-md text-2xl">
-                    Per noi &#x27A1; {{numberCommForUs}}
-                </p>
+                <h4 class="text-center text-gray-700 font-semibold text-lg mb-2">Cambi turno</h4>
+                <p class="text-center text-gray-500 text-sm mb-4">(ultimi 6 mesi)</p>
+                <div class="text-center text-gray-700 text-xl font-bold">
+                    <p class="mb-2">
+                        {{numberCommFromUs}} <span class="text-base text-gray-500">&#x2B05; Da noi</span>
+                    </p>
+                    <p>
+                        <span class="text-base text-gray-500">Per noi  &#x27A1;</span> {{numberCommForUs}}
+                    </p>
+                </div>
             </div>
+
 
             <!-- Terzo elemento -->
             <div class="bg-gray-50 px-8 py-10 rounded-md">
