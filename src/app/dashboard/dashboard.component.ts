@@ -266,7 +266,10 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   onSubmit() {
 
     const formData = new FormData();
-    formData.append('file', this.selectedFile!, this.selectedFile!.name);
+    if (this.selectedFile != null)
+    {
+      formData.append('file', this.selectedFile!, this.selectedFile!.name);
+    }
     this.profile_to_send.user = localStorage.getItem("username")!;
 
 
@@ -277,6 +280,9 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         {
           this.profiles.push(data);
           console.log(data)
+          
+          if (this.selectedFile != null)
+          {
           this.http.post(`api/profiles/imgupload/${data.id}`, formData, { responseType: 'text' })
           .subscribe(
             {
@@ -322,6 +328,7 @@ export class DashboardComponent implements AfterViewInit, OnInit{
               }
             }
           )
+        }
         },
         error: badResponse=>
         {

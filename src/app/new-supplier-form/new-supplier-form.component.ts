@@ -21,7 +21,8 @@ export class NewSupplierFormComponent
   constructor(private fatherService:FathersService, private productsSibling:ProductsiblingsService){}
 
   @Output() toggleForm = new EventEmitter<boolean>();
-  @Output() newSupplierEvent:EventEmitter<Supplier> = new EventEmitter<Supplier>();
+  // @Output() newSupplierEvent:EventEmitter<Supplier> = new EventEmitter<Supplier>();
+  @Output() showToast = new EventEmitter<Event>();
 
   
   formState:boolean = false;
@@ -64,8 +65,9 @@ export class NewSupplierFormComponent
       {
         next: data => {
           console.log(data);
-          this.newSupplierEvent.emit(data); // ! NON VIENE CATCHATA
+          // this.newSupplierEvent.emit(data); // ! NON VIENE CATCHATA
           this.productsSibling.addSupplier(data);
+          this.showToast.emit();
         },
         error: badResponse => {
           console.log("Error:", badResponse);

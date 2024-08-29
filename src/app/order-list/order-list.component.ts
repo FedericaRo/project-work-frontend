@@ -356,7 +356,8 @@ private matchesCriteria(order: Order, criteria: string): boolean {
     this.showDeleteToast();
   }
 
-  mailError:string = '';
+  // mailError:string = '';
+  genericError: string = '';
 
   /**
    * * Metodo fierissimo che mostra una spunta di operazione completata compresa di audio.
@@ -379,14 +380,33 @@ private matchesCriteria(order: Order, criteria: string): boolean {
         this.loadingService.hide();
         console.log(err);
         // console.log(JSON.stringify(err));
-        this.mailError = err.error;
+        this.genericError = err.error;
         console.log("Errore nell'invio: ", err.error);
         this.loadingService.hide();
-        if(this.mailError != "")
+        if(this.genericError != "")
           this.animateError();
       }
     });
   }
+
+  errorAlert(errore: string)
+  {
+    this.genericError = errore; 
+    this.animateError()
+  }
+
+  // animateMailError() {
+  //   const alertElement = document.getElementById('alertmail');
+  //   if (alertElement) {
+  //     alertElement.classList.add('show');
+  //     setTimeout(() => {
+  //       alertElement.classList.add('hide');
+  //       setTimeout(() => {
+  //         alertElement.classList.remove('show', 'hide');
+  //       }, 500); // Durata dell'animazione di uscita
+  //     }, 5000); // Durata della visualizzazione
+  //   }
+  // }
 
   animateError() {
     const alertElement = document.getElementById('alert');

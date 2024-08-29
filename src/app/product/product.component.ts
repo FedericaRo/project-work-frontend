@@ -31,6 +31,9 @@ export class ProductComponent implements OnInit
   @Input() errore: string = '';
   @Output() newDeleteEvent:EventEmitter<number> = new EventEmitter<number>();
   @Output() lastOrderEvent:EventEmitter<string> = new EventEmitter<string>()
+  @Output() showErrorAlert = new EventEmitter<string>();
+
+
  
   // @Output() updateProduct = new EventEmitter<Product>();
   @Output() newOrder = new EventEmitter<String>();
@@ -115,6 +118,8 @@ export class ProductComponent implements OnInit
         },
         error: badResponse => {
           console.log("Errore nell'aggiornamento della quantità delle unità:", badResponse);
+          this.showErrorAlert.emit(badResponse.error)
+
         }
       });
     } else {
@@ -165,6 +170,7 @@ export class ProductComponent implements OnInit
         },
         error: badResponse => {
           console.log("Errore nell'aggiornamento della quantità delle confezioni:", badResponse);
+          this.showErrorAlert.emit(badResponse.error)
         }
       });
     } else {
@@ -253,6 +259,7 @@ export class ProductComponent implements OnInit
     },
     error: badResponse => {
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
+      this.showErrorAlert.emit(badResponse.error)
       this.orderForm.reset();
 
 
@@ -332,8 +339,7 @@ export class ProductComponent implements OnInit
       },
       error:badResponse => {
         console.log("Errore nell'eliminazione del prodotto:", badResponse);
-
-
+        this.showErrorAlert.emit(badResponse.error)
       }
     });
   }

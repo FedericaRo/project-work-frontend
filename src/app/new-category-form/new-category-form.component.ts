@@ -19,6 +19,8 @@ export class NewCategoryFormComponent {
   constructor(private fatherService:FathersService, private productsSibling:ProductsiblingsService){}
 
   @Output() toggleForm = new EventEmitter<boolean>();
+  @Output() showToast = new EventEmitter<Event>();
+  @Output() showErrorAlert = new EventEmitter<string>();
   
   formState:boolean = false;
 
@@ -62,10 +64,11 @@ export class NewCategoryFormComponent {
         next: data => {
           console.log(data);
           this.productsSibling.addCategory(data);
-
+          this.showToast.emit();
         },
         error: badResponse => {
           console.log("Error:", badResponse);
+          this.showErrorAlert.emit(badResponse.error)
         }
       }
     )
