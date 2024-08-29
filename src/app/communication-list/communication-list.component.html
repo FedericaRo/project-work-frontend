@@ -16,13 +16,12 @@
                 <input [(ngModel)]="filterCriteria" type="text" id="default-search"
                     class="block w-80 h-11 pl-12 pr-16 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
                     placeholder="Filtra per comunicazione" (input)="filterByEverything()">
-
             </div>
         </div>
 
         <!-- Bottone Aggiungi -->
         <div>
-            <button mat-fab color="primary" (click)=" toggleForm()" matTooltip="Aggiungi nuova comunicazione">
+            <button mat-fab (click)="toggleForm()" matTooltip="Aggiungi nuova comunicazione" class="shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="feather feather-file-plus" transform="scale(1, -1)">
@@ -33,7 +32,6 @@
                 </svg>
             </button>
         </div>
-
     </div>
 
 
