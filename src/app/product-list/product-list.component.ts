@@ -27,7 +27,7 @@ import { ProductsiblingsService } from '../services/productsiblings.service';
 })
 export class ProductListComponent implements OnInit {
   
-  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService. public authService: AuthService) {}
+  constructor(private productService: ProductsService, private sanitizer: DomSanitizer, siblingService:ProductsiblingsService, public authService: AuthService) {}
 
   
   openCreateProductStepper: boolean = false;

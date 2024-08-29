@@ -1,87 +1,156 @@
-<div class="flex justify-between gap-5 ">
+<div class="flex flex-col md:flex-row gap-5 p-0 h-screen overflow-hidden">
 
-    <div class="flex-1 p-5 border border-gray-300 rounded-lg bg-white shadow-md h-screen overflow-y-scroll">
-      <h2 class="text-center text-gray-800 font-sans text-xl mb-4">Fornitori</h2>
-      <ul class="list-none p-0 m-0">
-        <li *ngFor="let supplier of suppliers" class="flex justify-between items-center py-2 border-b border-gray-200">
-          <span class="text-gray-600 font-sans">{{ supplier.name }}</span>
-          <button (click)="deleteSupplier(supplier.id)" class="px-3 py-1 bg-red-500 text-white border-none rounded cursor-pointer font-sans text-sm">
-            Delete
+  <!-- Fornitori Section -->
+  <div class="flex-1 p-5 border border-gray-300 rounded-lg bg-white max-h-full overflow-y-auto">
+    <h2 class="text-center text-gray-800 font-semibold text-2xl mb-4">Fornitori</h2>
+    <ul class="list-none p-0 m-0">
+      <li *ngFor="let supplier of suppliers"
+        class="flex justify-between items-center py-3 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+        <span class="text-gray-600 font-medium">{{ supplier.name }}</span>
+        <div class="relative">
+          <button (click)="toggleSupplierPopover(supplier.id)"
+            class="flex items-center px-4 py-2 bg-red-400 text-white border-none rounded-md cursor-pointer font-semibold text-sm transition-transform duration-200 transform hover:scale-105 hover:bg-red-500"
+            [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}"
+            [attr.aria-haspopup]="true" [attr.aria-expanded]="selectedCategoryId === supplier.id ? 'true' : 'false'">
+            <!-- Modificato: Wrapper <span> aggiunto per allineare testo e icona -->
+            <span class="flex items-center space-x-1">
+              <!-- Modificato: Il testo "Cancella" è ora all'interno del <span> -->
+              <span>Cancella</span>
+              <!-- Modificato: La classe ml-2 rimossa per spostare l'icona più vicina al testo -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </span>
           </button>
-        </li>
-      </ul>
-    </div>
 
-    <div *ngIf="showToastSup" id="toast-success"
-            class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
-            [ngClass]="{
-                'opacity-0 translate-y-5 duration-500 ease-in-out': !isVisibleS,
-                'opacity-100 translate-y-0 duration-500 ease-in-out': isVisibleS
-                }" role="alert">
-            <div
-                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                </svg>
-                <span class="sr-only">Check icon</span>
-            </div>
-            <div class="ms-3 text-gray-900 text-sm font-normal">Fornitore eliminato con successo!</div>
-            <button (click)="hideToastSup()" type="button"
-                class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-                aria-label="Close">
-                <span class="sr-only">Close</span>
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-            </button>
-        </div>
-    
-  
-    <div class="flex-1 p-5 border border-gray-300 rounded-lg bg-white shadow-md h-screen overflow-y-scroll">
-      <h2 class="text-center text-gray-800 font-sans text-xl mb-4">Categorie</h2>
-      <ul class="list-none p-0 m-0">
-        <li *ngFor="let category of categories" class="flex justify-between items-center py-2 border-b border-gray-200">
-          <span class="text-gray-600 font-sans">{{ category.name }}</span>
-          <button (click)="deleteCategory(category.id)" class="px-3 py-1 bg-red-500 text-white border-none rounded cursor-pointer font-sans text-sm">
-            Delete
-          </button>
-        </li>
-      </ul>
-    </div>
 
-    <div *ngIf="showToastCateg" id="toast-success"
-            class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
-            [ngClass]="{
-                'opacity-0 translate-y-5 duration-500 ease-in-out': !isVisibleC,
-                'opacity-100 translate-y-0 duration-500 ease-in-out': isVisibleC
-                }" role="alert">
-            <div
-                class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                    viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                </svg>
-                <span class="sr-only">Check icon</span>
+          <!-- Popover -->
+          <div *ngIf="selectedSupplierId === supplier.id"
+            class="absolute top-full mt-2 right-0 bg-white shadow-lg border border-gray-300 p-4 rounded-lg z-10 supplier-popover">
+            <div class="popover-content">
+              <p class="text-gray-700">Vuoi confermare l'eliminazione del fornitore? Ciò cancellerà anche i prodotti
+                associati.</p>
+              <div class="mt-4 flex justify-end space-x-3">
+                <button (click)="deleteSupplier(supplier.id)"
+                  class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-colors duration-300">
+                  Conferma
+                </button>
+                <button (click)="toggleSupplierPopover(supplier.id)"
+                  class="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-md transition-colors duration-300">
+                  Annulla
+                </button>
+              </div>
             </div>
-            <div class="ms-3 text-gray-900 text-sm font-normal">Categoria eliminata con successo!</div>
-            <button (click)="hideToastCateg()" type="button"
-                class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-                aria-label="Close">
-                <span class="sr-only">Close</span>
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-            </button>
+          </div>
         </div>
-  
+      </li>
+    </ul>
   </div>
-  
-  
-  
+
+  <!-- Fornitori Toast Notification -->
+  <div *ngIf="showToastSup" id="toast-success"
+    class="fixed bottom-5 right-5 flex items-center max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow-lg dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
+    [ngClass]="{
+          'opacity-0 translate-y-5 duration-500 ease-in-out': !isVisibleS,
+          'opacity-100 translate-y-0 duration-500 ease-in-out': isVisibleS
+          }" role="alert">
+    <div
+      class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-full dark:bg-green-800 dark:text-green-200">
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+      </svg>
+      <span class="sr-only">Check icon</span>
+    </div>
+    <div class="ml-3 text-gray-900 text-sm font-medium">Fornitore eliminato con successo!</div>
+    <button (click)="hideToastSup()" type="button"
+      class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+      aria-label="Close">
+      <span class="sr-only">Close</span>
+      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Categorie Section -->
+  <div class="flex-1 p-5 border border-gray-300 rounded-lg bg-white max-h-full overflow-hidden">
+
+    <h2 class="text-center text-gray-800 font-semibold text-2xl mb-4">Categorie</h2>
+    <ul class="list-none p-0 m-0">
+      <li *ngFor="let category of categories"
+        class="flex justify-between items-center py-3 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+        <span class="text-gray-600 font-medium">{{ category.name }}</span>
+        <div class="relative">
+          <button (click)="togglePopover(category.id)"
+            class="flex items-center px-4 py-2 bg-red-400 text-white border-none rounded-md cursor-pointer font-semibold text-sm transition-transform duration-200 transform hover:scale-105 hover:bg-red-500"
+            [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}"
+            [attr.aria-haspopup]="true" [attr.aria-expanded]="selectedCategoryId === category.id ? 'true' : 'false'">
+            <!-- Modificato: Wrapper <span> aggiunto per allineare testo e icona -->
+            <span class="flex items-center space-x-1">
+              <!-- Modificato: Il testo "Cancella" è ora all'interno del <span> -->
+              <span>Cancella</span>
+              <!-- Modificato: La classe ml-2 rimossa per spostare l'icona più vicina al testo -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </span>
+          </button>
+
+
+          <!-- Popover -->
+          <div *ngIf="selectedCategoryId === category.id"
+            class="absolute top-full mt-2 right-0 bg-white shadow-lg border border-gray-300 p-4 rounded-lg z-10 category-popover">
+            <div class="popover-content">
+              <p class="text-gray-700">Vuoi confermare l'eliminazione della categoria? Ciò cancellerà anche i prodotti
+                associati.</p>
+              <div class="mt-4 flex justify-end space-x-3">
+                <button (click)="deleteCategory(category.id)"
+                  class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md transition-colors duration-300">
+                  Conferma
+                </button>
+                <button (click)="togglePopover(category.id)"
+                  class="bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-md transition-colors duration-300">
+                  Annulla
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Categorie Toast Notification -->
+  <div *ngIf="showToastCateg" id="toast-success"
+    class="fixed bottom-5 right-5 flex items-center max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow-lg dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
+    [ngClass]="{
+          'opacity-0 translate-y-5 duration-500 ease-in-out': !isVisibleC,
+          'opacity-100 translate-y-0 duration-500 ease-in-out': isVisibleC
+          }" role="alert">
+    <div
+      class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-full dark:bg-green-800 dark:text-green-200">
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+      </svg>
+      <span class="sr-only">Check icon</span>
+    </div>
+    <div class="ml-3 text-gray-900 text-sm font-medium">Categoria eliminata con successo!</div>
+    <button (click)="hideToastCateg()" type="button"
+      class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+      aria-label="Close">
+      <span class="sr-only">Close</span>
+      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+      </svg>
+    </button>
+  </div>
+
+</div>

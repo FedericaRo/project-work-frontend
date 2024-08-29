@@ -406,21 +406,23 @@
 
         <!--Popover-->
         <div *ngIf="isProductPopoverVisible"
-            class="absolute top-full mt-1 right-0 bg-white shadow-lg border border-gray-300 p-4 rounded-lg z-10">
-            <div class="popover-content">
-                <p class="text-gray-700">Vuoi confermare l'eliminazione del prodotto?</p>
-                <div class="mt-3 flex justify-end space-x-2">
-                    <button (click)="deleteProduct()"
-                        class="btn bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded-md">
-                        Conferma
-                    </button>
-                    <button (click)="toggleProductPopover()"
-                        class="btn bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-md">
-                        Annulla
-                    </button>
-                </div>
-            </div>
-        </div>
+        class="absolute z-10 right-0 top-0 mt-2 bg-white shadow-lg border border-gray-300 p-4 rounded-lg"
+        style="transform: translate(-25%, -35%);">
+       <div class="popover-content">
+           <p class="text-gray-700">Vuoi confermare l'eliminazione del prodotto?</p>
+           <div class="mt-3 flex justify-end space-x-2">
+               <button (click)="deleteProduct()"
+                       class="btn bg-green-400 hover:bg-green-500 text-white px-4 py-2 rounded-md">
+                   Conferma
+               </button>
+               <button (click)="toggleProductPopover()"
+                       class="btn bg-red-400 hover:bg-red-500 text-white px-4 py-2 rounded-md">
+                   Annulla
+               </button>
+           </div>
+       </div>
+   </div>
+   
 
         <div *ngIf="showToastDiv" id="toast-success"
             class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"

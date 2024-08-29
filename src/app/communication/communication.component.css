@@ -167,7 +167,12 @@
     -webkit-line-clamp: 3; /* Limita a 3 righe di testo */
 }
 
-
+.title-font {
+    word-break: break-word; /* Permette al testo di andare a capo quando necessario */
+    overflow-wrap: break-word; /* Gestisce la rottura delle parole lunghe */
+    white-space: normal; /* Permette al testo di andare a capo su più righe */
+    text-overflow: clip; /* Rimuove i puntini di sospensione */
+}
 
 /* Badge styling */
 /* .badge {

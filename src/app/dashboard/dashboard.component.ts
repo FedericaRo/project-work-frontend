@@ -35,6 +35,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 export class DashboardComponent implements AfterViewInit, OnInit{
 
+  idPopover: number = 0;
+
   imageUrl: string | null = null;
 
   profile_to_send: Profile = {id: null, name: '', surname: '', user: '' }; 
@@ -83,6 +85,8 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   isClicked = false;
   isSidebarOpen = true; 
   areProfilesVisible = true;
+
+  isPopoverOpen: boolean = false;
 
   img:string = "";
 
@@ -171,6 +175,17 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     setTimeout(() => {
       this.showToastDiv = false; // Remove the toast from the DOM after fade-out
     }, 500); // Match this duration with the CSS transition duration
+  }
+
+  showPopover(id: number) {
+    this.idPopover = id;
+    this.isPopoverOpen = true;
+    console.log(this.isPopoverOpen);
+  }
+
+  cancelPopover() {
+    this.isPopoverOpen = false;
+    console.log(this.isPopoverOpen);
   }
 
 
@@ -324,6 +339,30 @@ export class DashboardComponent implements AfterViewInit, OnInit{
 
   backupProfiles:Profile[] = [];
 
+  isDeleteToastVisible:boolean = true;
+  showDeleteToastDiv = false;
+  isDeleteVisible = false;
+
+  showDeleteToast()
+  {
+    this.showDeleteToastDiv = true;
+    setTimeout(() => {
+      this.isDeleteVisible = true;
+
+      setTimeout(() => {
+        this.hideDeleteToast();
+      }, 3000);
+    }, 100);
+  }
+
+  hideDeleteToast()
+  {
+    this.isDeleteVisible = false;
+    setTimeout(() => {
+      this.showDeleteToastDiv = false;
+    }, 500);
+  }
+
   deleteProfile(profileId : number){
     let profile_to_delete:Profile = this.profiles.filter(p => p.id === profileId)[0];
     let index:number = this.profiles.indexOf(profile_to_delete);
@@ -345,12 +384,15 @@ export class DashboardComponent implements AfterViewInit, OnInit{
         }
 
         console.log(this.backupProfiles);
+        this.showDeleteToast();
         // this.profiles = this.backupProfiles;
       },
       error: badResponse => {
         console.log(badResponse);
       }
     });
+
+    this.isPopoverOpen = false;
   }
 
 

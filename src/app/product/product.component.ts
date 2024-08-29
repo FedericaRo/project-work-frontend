@@ -279,7 +279,7 @@ export class ProductComponent implements OnInit
       this.isVisibleO = true;
 
       setTimeout(() => {
-        this.hideToast();
+        this.hideOrderToast();
       }, 3000);
     }, 100);
   }
