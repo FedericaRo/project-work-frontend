@@ -49,12 +49,12 @@
                                       <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
                                     </svg>
                                 </button>
-                                <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched"
+                                <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched && !error"
                                     class="absolute text-red-600 p-2 text-sm">
                                     La password non può essere vuota
                                     </div>
                             </div> 
-                            <div *ngIf="error"
+                            <div *ngIf="error && !loginForm.get('password')?.hasError('required')"
                                 class="absolute text-red-600 p-2 text-sm">
                                 L'username o la password non sono validi
                             </div>

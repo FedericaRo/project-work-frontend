@@ -12,7 +12,6 @@ import { CommunicationListComponent } from './communication-list/communication-l
 import { OrderListComponent } from './order-list/order-list.component';
 import { StoredTaskListComponent } from './stored-task-list/stored-task-list.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { ProfileFormComponent } from './profile-form/profile-form.component';
 import { ExpiredPageComponent } from './expired-page/expired-page.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -68,7 +67,6 @@ export const routes: Routes = [
           { path: 'orders', component: OrderListComponent, canActivate: [LoggedGuardService] },
           { path: 'storedtasks', component: StoredTaskListComponent, canActivate: [LoggedGuardService] },
           { path: 'tasks', component: TaskListComponent, canActivate: [LoggedGuardService] },
-          { path: 'addProfile', component: ProfileFormComponent, canActivate: [LoggedGuardService] },
           { path: 'userPage', component: UserPageComponent, canActivate: [LoggedGuardService] },
           { path: 'forbidden', component: ForbiddenComponent, canActivate: [LoggedGuardService] },
           { path: 'pageNotFound', component: PageNotFoundComponent },
