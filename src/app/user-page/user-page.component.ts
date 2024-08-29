@@ -77,14 +77,14 @@ export class UserPageComponent implements OnInit {
 
           // * Da noi
           this.commFromUs = this.communications.filter(c => 
-            c.fromPerson.toLowerCase() === this.username.toLowerCase() && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
+            c.fromPerson.toLowerCase().includes(this.username.toLowerCase()) && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
           );
 
           this.numberCommFromUs = this.commFromUs.length;
 
           // * Per noi
           this.commForUs = this.communications.filter(c => 
-            c.toPerson.toLowerCase() === this.username.toLowerCase() && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
+            c.toPerson.toLowerCase().includes(this.username.toLowerCase()) && new Date(c.creationDate) >= sixMonthsAgo && c.type === "CAMBIOTURNO"
           );
 
           this.numberCommForUs = this.commForUs.length;
