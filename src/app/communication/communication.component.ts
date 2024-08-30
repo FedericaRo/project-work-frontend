@@ -56,12 +56,12 @@ export class CommunicationComponent
     }
   }
   
-  onDelete(errore:string): void {
+  onDelete(): void {
    
     // mi assicuro che communication.id non sia null o undefined
     if (this.communication.id !== null && this.communication.id !== undefined) {
       this.delete.emit(this.communication.id);
-      this.displayAlertError.emit(errore)
+      // this.displayAlertError.emit(event)
     } else {
       console.error("ID della comunicazione è null o undefined");
       
