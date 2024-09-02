@@ -130,26 +130,54 @@ export class CommunicationListComponent implements OnInit
     }, 500); // Match this duration with the CSS transition duration
   }
 
+  // filterByEverything(): void 
+  // {
+  //   this.communications = this.communicationsBackup;
+
+  //   for (let communication of this.communications) 
+  //     {
+  //       if (communication.communicationName.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+  //         this.communications = this.communications.filter(c => c.communicationName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //       } else if (communication.fromPerson.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+  //         this.communications = this.communications.filter(c => c.fromPerson.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //       } else if (communication.toPerson.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+  //         this.communications = this.communications.filter(c => c.toPerson.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //       } else if (communication.type.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+  //         this.communications = this.communications.filter(c => c.type.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //       } else if (communication.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+  //         this.communications = this.communications.filter(c => c.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //       } else if (communication.importance.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
+  //         this.communications = this.communications.filter(c => c.importance.toLowerCase().includes(this.filterCriteria.toLowerCase()));
+  //       }
+  //   }
+  // }
+
   filterByEverything(): void 
   {
-    this.communications = this.communicationsBackup;
-
-    for (let communication of this.communications) 
-      {
-        if (communication.communicationName.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.communications = this.communications.filter(c => c.communicationName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (communication.fromPerson.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.communications = this.communications.filter(c => c.fromPerson.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (communication.toPerson.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.communications = this.communications.filter(c => c.toPerson.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (communication.type.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.communications = this.communications.filter(c => c.type.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (communication.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.communications = this.communications.filter(c => c.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        } else if (communication.importance.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-          this.communications = this.communications.filter(c => c.importance.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-        }
+    if (this.filterCriteria) 
+    {
+      const criteria = this.filterCriteria.toLowerCase();
+      this.communications = this.communicationsBackup.filter(product =>
+        this.matchesCriteria(product, criteria)
+      );
+    } 
+    else 
+    {
+      this.communications = [...this.communications];
     }
+
+    console.log('Communications after filtering:', this.communications);
+  }
+
+  private matchesCriteria(com: Communication, criteria: string): boolean {
+
+    const values = [...Object.values(com).filter(v => v != null)];
+    console.log('Values to match:', values);
+    console.log('Criteria:', criteria);
+
+    return values.some(value =>
+      value.toString().toLowerCase().includes(criteria)
+    );
   }
   
   
