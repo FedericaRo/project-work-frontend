@@ -61,10 +61,10 @@ export class CommunicationListComponent implements OnInit
   }
   
   hideDeleteToast() {
-    this.isVisibleD = false; // Trigger the fade-out effect
+    this.isVisibleD = false; 
     setTimeout(() => {
-      this.showDeleteToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showDeleteToastDiv = false; 
+    }, 500); 
   }
 
   animateError()
@@ -81,6 +81,7 @@ export class CommunicationListComponent implements OnInit
     }
   }
 
+  
   errorAlert(errore:string)
   {
     this.genericError = errore;
@@ -124,33 +125,12 @@ export class CommunicationListComponent implements OnInit
   }
   
   hideToast() {
-    this.isVisible = false; // Trigger the fade-out effect
+    this.isVisible = false; 
     setTimeout(() => {
-      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showToastDiv = false;
+    }, 500); 
   }
 
-  // filterByEverything(): void 
-  // {
-  //   this.communications = this.communicationsBackup;
-
-  //   for (let communication of this.communications) 
-  //     {
-  //       if (communication.communicationName.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-  //         this.communications = this.communications.filter(c => c.communicationName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //       } else if (communication.fromPerson.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-  //         this.communications = this.communications.filter(c => c.fromPerson.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //       } else if (communication.toPerson.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-  //         this.communications = this.communications.filter(c => c.toPerson.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //       } else if (communication.type.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-  //         this.communications = this.communications.filter(c => c.type.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //       } else if (communication.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-  //         this.communications = this.communications.filter(c => c.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //       } else if (communication.importance.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-  //         this.communications = this.communications.filter(c => c.importance.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //       }
-  //   }
-  // }
 
   filterByEverything(): void 
   {
@@ -179,6 +159,4 @@ export class CommunicationListComponent implements OnInit
       value.toString().toLowerCase().includes(criteria)
     );
   }
-  
-  
 }

@@ -34,17 +34,14 @@ export class NewCategoryFormComponent {
   {
     this.categoryForm.reset();
 
-    // this.categoryForm.markAsUntouched();
-    // this.categoryForm.markAsPristine();
     this.toggleForm.emit(this.formState);
   }
 
   @HostListener('document:click', ['$event'])
   clickOutside(event: MouseEvent) {
     const clickedElement = event.target as HTMLElement;
-    const modalElement = document.querySelector('.category-form'); // Make sure this matches the popover class
+    const modalElement = document.querySelector('.category-form'); 
 
-    // Check if the click target is outside the popover and the button
     if (modalElement && !modalElement.contains(clickedElement) && !clickedElement.closest('button')) {
       this.toggleForm.emit(false);
       this.categoryForm.reset();
@@ -55,8 +52,6 @@ export class NewCategoryFormComponent {
   createNewCategory() 
   {
     this.toggleForm.emit(false);
-    // this.categoryForm.markAsUntouched();
-    // this.categoryForm.markAsPristine();
     console.log(this.categoryForm.value);
     this.fatherService.addCategory(this.categoryForm.value)
     .subscribe(

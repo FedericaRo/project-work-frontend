@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../model/Product';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer} from '@angular/platform-browser';
 import { ProductComponent } from "../product/product.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -10,7 +10,6 @@ import { NewProductStepperComponent } from "../new-product-stepper/new-product-s
 import { MatIconModule } from '@angular/material/icon';
 import { NewCategoryFormComponent } from "../new-category-form/new-category-form.component";
 import { NewSupplierFormComponent } from "../new-supplier-form/new-supplier-form.component";
-import { OrdersService } from '../services/orders.service';
 import { Order } from '../model/Order';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -149,21 +148,6 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  // filterByEverything(): void {
-  //   this.products = this.productsBackup;
-
-  //   for (let product of this.products) {
-  //     if (product.code.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-  //       this.products = this.products.filter(p => p.code.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //     else if (product.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-  //       this.products = this.products.filter(p => p.supplierName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //     else if (product.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-  //       this.products = this.products.filter(p => p.categoryName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //     else if (product.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-  //       this.products = this.products.filter(p => p.productName.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-  //   }
-  // }
-
   filter(): void 
   {
     if (this.filterCriteria) 
@@ -217,28 +201,28 @@ private matchesCriteria(product: Product, criteria: string): boolean {
       });
   }
 
-  showToastDiv = false; // Initially hidden
+  showToastDiv = false;
   isVisible = false;
   toastMessage = "";
 
   showToast(toastMessage: string) {
     this.toastMessage = toastMessage;
-    this.showToastDiv = true; // Ensure the toast div is in the DOM
+    this.showToastDiv = true; 
     setTimeout(() => {
-      this.isVisible = true; // Trigger the fade-in effect
+      this.isVisible = true; 
 
-      // Automatically hide the toast after 3 seconds
+      
       setTimeout(() => {
         this.hideToast();
       }, 3000);
-    }, 100); // Slight delay to allow for DOM rendering
+    }, 100); 
   }
 
   hideToast() {
-    this.isVisible = false; // Trigger the fade-out effect
+    this.isVisible = false;
     setTimeout(() => {
-      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showToastDiv = false; 
+    }, 500); 
   }
 
   deleteProduct(productId:number)
@@ -277,46 +261,7 @@ private matchesCriteria(product: Product, criteria: string): boolean {
       }, 5000); // Durata della visualizzazione
     }
   }
-
-
-
-
-
-
 }
-    //   onOrdersUpdate(product: Product): void {
-    //     let index = this.products.indexOf(product);
-    
-    //     // Verifica che l'elemento sia stato trovato
-    //     if (index !== -1) {
-    //         // Rimuovi l'elemento
-    //         let element = this.products.splice(index, 1)[0];
-    
-    //         // Reinserisci l'elemento nella stessa posizione
-    //         this.products.splice(index, 0, element);
-    //     }
-    // }
-  
-    /**
-     * ?prima versione del filtro solo per categoria
-     */
-    // filteredByCategory():void
-    // {
-    //   this.products = this.productsBackup;
-    //   this.products = this.products.filter(p => p.categoryName.includes(this.filterCriteria));
-    // }
-  /**
-   * ?test che avevo fatto che non funzionava, sopra 
-   * ?c'è la versione funzionante (in teoria ahah)
-   */
-  // if(this.products.filter(p=>p.supplierCode.includes(this.filterCriteria)))
-  // {
-  //   this.products = this.products.filter(p => p.supplierCode.includes(this.filterCriteria));
-  // }
-  // else if(this.products.filter(p=>p.categoryName.includes(this.filterCriteria)))
-  // {
-  //   this.products = this.products.filter(p => p.categoryName.includes(this.filterCriteria));
-  // }
 
 
 

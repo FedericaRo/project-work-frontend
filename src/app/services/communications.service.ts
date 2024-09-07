@@ -29,10 +29,6 @@ export class CommunicationsService {
   getPdf(communicationid:number):Observable<Blob>
   {
     return this.http.get(`api/communications/pdf/${communicationid}`, { responseType: 'blob' });
-    // return this.http.get(`api/profiles/images/${profileId}`, { responseType: 'blob' });
 
   }
-
-
-
 }

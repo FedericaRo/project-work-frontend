@@ -23,12 +23,8 @@ td {
     position: relative;
     height: 1rem;
     padding-right: 0.4rem;
-    
-    /* align-items: center; */
-    /* justify-content: flex-end; */
 }
 
-/* Stile per il testo che appare al passaggio del mouse */
 .hover-text {
     visibility: hidden; /* Inizialmente nascosto */
     width: 16rem; /* Modifica la larghezza secondo necessità */
@@ -62,7 +58,6 @@ td:hover .hover-text {
     border-radius: 50rem;
     position: absolute;
     transform: translateY(0.3rem);
-    /* transform: translateX(0.5rem); */
 }
 .statusDotYellow{
     background-color: rgb(238, 210, 49);
@@ -72,7 +67,6 @@ td:hover .hover-text {
     border-radius: 50rem;
     position: absolute;
     transform: translateY(0.3rem);
-    /* transform: translateX(0.5rem); */
 }
 .statusDotGreen{
     background-color: rgb(115, 230, 87);
@@ -82,7 +76,6 @@ td:hover .hover-text {
     border-radius: 50rem;
     position: absolute;
     transform: translateY(0.3rem);
-    /* transform: translateX(0.5rem); */
 }
 
 .general-svg-container{
@@ -109,14 +102,8 @@ td:hover .hover-text {
     position: relative;
     height: 1rem;
     padding-right: 0.4rem;
-    
-    /* align-items: center; */
-    /* justify-content: flex-end; */
 }
 
-/* .hidden{
-    display: none !important;
-}
 
 .hidden2{
     display: none !important;
@@ -124,12 +111,10 @@ td:hover .hover-text {
 
 .btnBg{
     background-color: transparent;
-    /* border-radius: 50rem; */
 }
 
 .btnBg:hover{
     background-color: rgb(226, 226, 226);
-    /* border-radius: 50rem; */
 }
 
 .example-form {
@@ -141,7 +126,6 @@ td:hover .hover-text {
   
   .example-full-width {
     width: 100%;
-    /* height: 50%; */
   }
 
 

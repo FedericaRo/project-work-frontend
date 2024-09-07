@@ -5,7 +5,6 @@ export function integerValidator(): ValidatorFn{
         {
             let value = control.value;
 
-            // Check if value is not a number
             if (isNaN(value) || !Number.isInteger(Number(value))) {
                 return { 'notInteger': "La quantità da ordinare deve essere un numero intero" };
             }

@@ -28,7 +28,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1.5rem; /* Aggiungi margine a destra del checkbox per più spazio */
+    margin-right: 1.5rem; 
 }
 
 .custom-checkbox {
@@ -47,7 +47,7 @@ body {
 
 .card-body {
     display: flex;
-    align-items: flex-start; /* Allinea il contenuto in cima */
+    align-items: flex-start; 
 }
 
 .task-info {
@@ -57,23 +57,23 @@ body {
 }
 
 .task-info h5 {
-    margin-bottom: 1rem; /* Spazio sotto il titolo della task */
+    margin-bottom: 1rem; 
 }
 
 .details-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colonne uguali per Frequenza, Status, ecc. */
-    gap: 2rem; /* Aumenta lo spazio tra le colonne */
-    margin-top: 0.5rem; /* Spazio tra il titolo e i dettagli */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 2rem; 
+    margin-top: 0.5rem; 
 }
 
 .detail-item {
     text-align: left;
     margin-right: 0;
     display: flex;
-    flex-direction: column; /* Allinea il testo e il badge verticalmente */
+    flex-direction: column; 
     justify-content: center;
-    min-width: 100px; /* Mantieni una larghezza minima per evitare ridimensionamenti */
+    min-width: 100px; 
 }
 
 .badge {
@@ -137,5 +137,5 @@ body {
 }
 
 .task-item {
-    margin-bottom: 1rem; /* Spazio tra i task */
+    margin-bottom: 1rem; 
 }

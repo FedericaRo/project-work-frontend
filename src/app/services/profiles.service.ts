@@ -40,9 +40,4 @@ export class ProfilesService {
   {
     return this.http.put<Profile>(`/api/profiles/${id}`, profile);
   }
-
-  // saveProfilePicture(file:Blob, id:number):Observable<string>
-  // {
-  //   return this.http.post<string>(`api/imgupload/${id}`, file)
-  // }
 }

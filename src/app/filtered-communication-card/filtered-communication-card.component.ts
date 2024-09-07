@@ -21,8 +21,6 @@ export class FilteredCommunicationCardComponent {
   {
     let now = new Date();
     let creation = new Date(this.communication.creationDate);
-    // console.log("Creation Date:", this.communication.creationDate);
-    // console.log("Type of Creation Date:", typeof this.communication.creationDate);
 
     let diffInMs = now.getTime() - creation.getTime();
     let diffInHrs = diffInMs / (1000 * 60 * 60);
@@ -41,37 +39,5 @@ export class FilteredCommunicationCardComponent {
     return Math.trunc(diffInHrs).toString()+" ore fa";
   }
 
-  
-
-  // getTypeLable() : string
-  // {
-  //   return this.colorService.typeLable(this.communication.type);
-  // }
-
-  // getImportanceLable() : string
-  // {
-  //   return this.colorService.importanceLable(this.communication.importance);
-  // }
-
-  
-  
-  
-
   @Input() communication!: Communication;
-
-  // getTypeLable() : string
-  // {
-  //   return CommunicationComponent.prototype.typeLable.call(this, this.communication.type);
-  // }
-
-  // getImportanceLable() : string
-  // {
-  //   return CommunicationComponent.prototype.importanceLable.call(this, this.communication.importance);
-  // }
-
-
-
-
-
-
 }

@@ -43,10 +43,6 @@ export class StoredTaskListComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
-  // resetForm(): void {
-  //   this.newStoredTask = { id: 0, name: '', description: '', frequency: '' };
-  //   this.isEditing = false;
-  // }
 
   addStoredTask(): void {
     this.storedTaskService.addNewStoredTask(this.newStoredTask).subscribe(storedTask => {
@@ -58,7 +54,7 @@ export class StoredTaskListComponent implements OnInit {
   updateStoredTask(updatedTask: any): void {
     const index = this.storedTasks.findIndex(task => task.id === updatedTask.id);
     if (index !== -1) {
-      this.storedTasks[index] = { ...updatedTask }; // Aggiorna la task nella lista
+      this.storedTasks[index] = { ...updatedTask };
     }
   }
   

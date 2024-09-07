@@ -9,11 +9,9 @@ import { Category } from '../model/Category';
 })
 export class ProductsiblingsService {
 
-  // Subjects to hold the current state of categories and suppliers
   private categoriesSubject: BehaviorSubject<Category[]> = new BehaviorSubject<Category[]>([]);
   private suppliersSubject: BehaviorSubject<Supplier[]> = new BehaviorSubject<Supplier[]>([]);
 
-  // Observable streams to allow components to subscribe to the state
   public categories$: Observable<Category[]> = this.categoriesSubject.asObservable();
   public suppliers$: Observable<Supplier[]> = this.suppliersSubject.asObservable();
 
@@ -21,8 +19,6 @@ export class ProductsiblingsService {
     this.loadData();
   }
 
-
-  // Load initial categories and supplier data for categories and suppliers from the backend
   private loadData(): void {
     this.fatherService.getAllCategories().subscribe(data => {
       this.categoriesSubject.next(data);
@@ -45,7 +41,6 @@ export class ProductsiblingsService {
     console.log('Suppliers updated:', suppliers);
   }
 
-  // Add a new supplier to the list
   addSupplier(newSupplier: Supplier): void {
     const currentSuppliers = this.suppliersSubject.value;
     this.suppliersSubject.next([...currentSuppliers, newSupplier]);
@@ -53,7 +48,6 @@ export class ProductsiblingsService {
     console.log('Updated suppliers list:', this.suppliersSubject.value);
   }
 
-  // Add a new category to the list.
   addCategory(newCategory: Category): void {
     const currentCategories = this.categoriesSubject.value;
     this.categoriesSubject.next([...currentCategories, newCategory]);

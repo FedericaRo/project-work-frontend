@@ -3,7 +3,6 @@ import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild, 
 import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
-import { ProfileListComponent } from "../profile-list/profile-list.component";
 import { Profile } from '../model/Profile';
 import { ProfilesService } from '../services/profiles.service';
 import { MatTooltip } from '@angular/material/tooltip';
@@ -23,7 +22,6 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
     RouterLink, 
     MatIconModule, 
     RouterLinkActive, 
-    ProfileListComponent, 
     MatTooltip, 
     MatFormFieldModule, 
     MatInputModule, 
@@ -92,10 +90,6 @@ export class DashboardComponent implements AfterViewInit, OnInit{
 
   ngOnInit(): void 
   {
-    
-    // this.setPropics();
-    // console.log('ciaooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-    // console.log(this.imgUrls);
   }
 
   @ViewChild('profileGrid') fatherElement!: ElementRef;
@@ -116,65 +110,25 @@ export class DashboardComponent implements AfterViewInit, OnInit{
   userId = localStorage.getItem('profileid')
   email = localStorage.getItem("username")
 
-  
-  // setPropics() 
-  // {
-  //   for(let p of this.profiles)
-  //   {
-  //     this.profileService.getPropic(p.id).subscribe({
-  //       next: data=> 
-  //       {
-  //         this.imgUrls[p.id!.toString()] = (this.profileService.getUrlFromBlob(data));
-  //         console.log(data);
-  //         console.log(this.imgUrls[p.id!]);
-  //         console.log(this.imgUrls);
-  //       },
-  //       error: err => 
-  //       {
-  //         console.log(err);
-  //       }
-  //     })
-  //   }
-  // }
-
-  // propic(profileId:number): SafeUrl | null
-  // {
-    
-  //   this.profileService.getPropic(profileId).subscribe({
-  //     next: data=> 
-  //     {
-  //       // image = this.profileService.getUrlFromBlob(data)
-  //       let imgUrl = URL.createObjectURL(data);
-  //       return this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
-  //     },
-  //     error: err => 
-  //     {
-  //       console.log(err);
-  //       return null;
-  //     }
-  //   })
-  // }
-
-  showToastDiv = false; // Initially hidden
+  showToastDiv = false; 
   isVisible = false;
 
   showToast() {
-    this.showToastDiv = true; // Ensure the toast div is in the DOM
+    this.showToastDiv = true; 
     setTimeout(() => {
-      this.isVisible = true; // Trigger the fade-in effect
+      this.isVisible = true; 
 
-      // Automatically hide the toast after 3 seconds
       setTimeout(() => {
         this.hideToast();
       }, 3000);
-    }, 100); // Slight delay to allow for DOM rendering
+    }, 100); 
   }
 
   hideToast() {
-    this.isVisible = false; // Trigger the fade-out effect
+    this.isVisible = false; 
     setTimeout(() => {
-      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showToastDiv = false;
+    }, 500);
   }
 
   showPopover(id: number) {
@@ -187,8 +141,6 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     this.isPopoverOpen = false;
     console.log(this.isPopoverOpen);
   }
-
-
 
   @HostListener('document:click', ['$event'])
   onOverlayClick(event: MouseEvent): void {
@@ -255,7 +207,6 @@ export class DashboardComponent implements AfterViewInit, OnInit{
       window.location.reload();
   }
 
-    // this.toggleProfileList();
   }
 
   toggleForm() {
@@ -289,19 +240,12 @@ export class DashboardComponent implements AfterViewInit, OnInit{
               next:img => 
               {
 
-                // console.log(img)
-                // this.imageUrl = img.toString()
-                // this.imgUrls[data.id!] = this.imageUrl;
-
                 console.log(img);
                 console.log(this.imgUrls);
-                // this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
-                // let newUrl = this.domSanitizer.bypassSecurityTrustUrl(badResponse.error["text"].split(":")[1]);
 
                 this.profileService.getPropic(data.id).subscribe({
                   next: ok=> 
                   {
-                    // image = this.profileService.getUrlFromBlob(data)
                     let imgUrl = URL.createObjectURL(ok);
                     this.imgUrls[data.id!] = this.domSanitizer.bypassSecurityTrustUrl(imgUrl);
                   },
@@ -392,7 +336,6 @@ export class DashboardComponent implements AfterViewInit, OnInit{
 
         console.log(this.backupProfiles);
         this.showDeleteToast();
-        // this.profiles = this.backupProfiles;
       },
       error: badResponse => {
         console.log(badResponse);
@@ -408,52 +351,8 @@ export class DashboardComponent implements AfterViewInit, OnInit{
     const clickedInside = this.userMenu0.nativeElement.contains(event.target);
 
     if (!clickedInside && this.isUserMenuOpen) {
-      // Solo chiudi se il menu è aperto e il clic è avvenuto all'esterno
       this.isUserMenuOpen = false;
       this.userMenu.nativeElement.classList.add('hidden');
     }
   }
-
-
-
-
-  // propic(profile:Profile):string | null{
-  //   let imageUrl: string | ArrayBuffer | null = null;
-
-  //   this.profileService.getPropic(profile.id).subscribe(imageBlob => {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       this.imageUrl = reader.result;
-  //     };
-  //     reader.readAsDataURL(imageBlob);
-  //   })
-
-  //   return imageUrl;
-  // }
-
-  // profilePropic(profile:Profile):any {
-  //   this.profileService.getPropic(profile).subscribe(data => {
-  //     this.propicData = data;
-  //   })
-
-  //   return this.propicData;
-  // }
-
-  
-
-
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: MouseEvent): void {
-  //   const clickedInside = this.userMenu.nativeElement.contains(event.target);
-
-  //   if (!clickedInside) {
-  //     this.removeUserMenuClass();
-  //   }
-  // }
-
-  // removeUserMenuClass(): void {
-  //   // Rimuove una classe specifica dall'elemento `#userMenu`
-  //   this.userMenu.nativeElement.classList.remove('hidden');
-  // }
-
 }

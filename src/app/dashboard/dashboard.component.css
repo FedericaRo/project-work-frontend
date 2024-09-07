@@ -50,11 +50,6 @@
     padding: none;
 }
 
-.btn-add-controller {
-    /* border: solid 0.4rem #ededed; */
-    /* border-radius: 1rem !important; */
-}
-
 .name {
     opacity: 0;
     top: 35%;
@@ -157,16 +152,6 @@
     opacity: 0%;
 }
 
-/* .form-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1rem; 
-    background-color: white; 
-    z-index: 10; 
-  } */
   
   
 

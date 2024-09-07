@@ -50,7 +50,6 @@ export class UserPageComponent implements OnInit {
       {
         next: data=> {
           this.tasks = data;
-          // console.log(data);
 
           const sixMonthsAgo = new Date();
           sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
@@ -58,7 +57,6 @@ export class UserPageComponent implements OnInit {
             Number(t.signature.split(" ")[1]) === this.userId && new Date(t.creationDate) >= sixMonthsAgo
           );
 
-          // console.log(this.taskCompleted);
           this.numberTaskCompleted = this.taskCompleted.length;
         },
         error: badResponse=> {
@@ -136,8 +134,6 @@ export class UserPageComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0];
-    // this.img = this.selectedFile.name;
-    // this.isFileSelected = true;
     this.changePropic();
   }
 

@@ -28,8 +28,6 @@ export class SingleTaskTwoComponent implements OnInit, OnChanges{
   
   ngOnInit(): void {
     this.completed=this.task.status==='COMPLETATO' ? true : false;
-    // this.userRole=this.authService.getUserRole()!;
-    // this.isChecked=this.completed;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -40,9 +38,6 @@ export class SingleTaskTwoComponent implements OnInit, OnChanges{
   
   @Input() task!:Task;
   @Output() taskUpdated = new EventEmitter<Task>();
-  
-  
-
 }
     
      

@@ -11,9 +11,6 @@ th {
     background-color: #f2f2f2;
 }
 
-/* tr:hover{
-    background-color: aqua !important;
-} */
 
 .sortbtn{
     cursor: pointer;
@@ -31,7 +28,6 @@ th {
 }
 
 .flash{
-    /* background-color: rgb(255, 237, 79) !important; */
     background-color: rgb(255, 243, 140) !important;
     transition: background-color 0.4s ease !important;
 }

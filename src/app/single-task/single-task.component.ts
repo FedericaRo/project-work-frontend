@@ -27,8 +27,6 @@ export class SingleTaskComponent implements OnInit, OnChanges{
   
   ngOnInit(): void {
     this.completed=this.task.status==='COMPLETATO' ? true : false;
-    // this.userRole=this.authService.getUserRole()!;
-    // this.isChecked=this.completed;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -60,14 +58,11 @@ export class SingleTaskComponent implements OnInit, OnChanges{
     }
   }
 
-
-
   updateTaskSon() 
   {
       this.firma = `${localStorage.getItem("profilename")} ${localStorage.getItem("profileid")}`;
       this.switchStatus();
       console.log(this.userRole);
-    // this.toggleCheckbox();
 
       this.taskService.update(this.task.id!, this.taskACompletamento)
       .subscribe({
@@ -75,14 +70,9 @@ export class SingleTaskComponent implements OnInit, OnChanges{
           this.loadingService.show();
           this.taskUpdated.emit(data);
           console.log(this.userRole);
-          // localStorage.setItem("profilename",profile.name);
-          // this.userName = localStorage.getItem("profilename");
-          // this.updateTask.emit();
-          // this.taskACompletamento={status:"", signature:""};
         },
         error: (badResponse) => 
         {
-          // Gestisci l'errore qui
           console.error('Update failed', badResponse);
         },
         complete: () => {

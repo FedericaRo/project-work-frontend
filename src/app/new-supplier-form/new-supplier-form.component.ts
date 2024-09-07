@@ -35,18 +35,14 @@ export class NewSupplierFormComponent
   toggleFormNewSupplier():void
   {
     this.supplierForm.reset();
-
-    // this.supplierForm.markAsUntouched();
-    // this.supplierForm.markAsPristine();
     this.toggleForm.emit(this.formState);
   }
 
   @HostListener('document:click', ['$event'])
   clickOutside(event: MouseEvent) {
     const clickedElement = event.target as HTMLElement;
-    const modalElement = document.querySelector('.supplier-form'); // Make sure this matches the popover class
+    const modalElement = document.querySelector('.supplier-form');
 
-    // Check if the click target is outside the popover and the button
     if (modalElement && !modalElement.contains(clickedElement) && !clickedElement.closest('button')) {
       this.toggleForm.emit(false);
 
@@ -57,15 +53,12 @@ export class NewSupplierFormComponent
   createNewSupplier() 
   {
     this.toggleForm.emit(false);
-    // this.supplierForm.markAsUntouched();
-    // this.supplierForm.markAsPristine();
     console.log(this.supplierForm.value);
     this.fatherService.addSupplier(this.supplierForm.value)
     .subscribe(
       {
         next: data => {
           console.log(data);
-          // this.newSupplierEvent.emit(data); // ! NON VIENE CATCHATA
           this.productsSibling.addSupplier(data);
           this.showToast.emit();
         },
@@ -76,5 +69,4 @@ export class NewSupplierFormComponent
     )
     this.supplierForm.reset();
   }
-
 }

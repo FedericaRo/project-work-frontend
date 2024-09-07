@@ -14,19 +14,18 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  @Input() order!: Order; // Use non-null assertion since we expect it to be provided
+  @Input() order!: Order; 
   @Output() newDeleteEvent:EventEmitter<Order> = new EventEmitter<Order>();
   @Output() orderUpdated: EventEmitter<Order> = new EventEmitter<Order>();
   @Output() showErrorAlert = new EventEmitter<string>();
 
 
-  previousPackagingQuantity: number = 0; // Initialize the previous quantity
-  previousUnitQuantity: number = 0; // Initialize the previous unit quantity
+  previousPackagingQuantity: number = 0;
+  previousUnitQuantity: number = 0;
 
   constructor(public orderService: OrdersService, public authService: AuthService) { }
 
   ngOnInit(): void {
-    // Set previous quantities here after inputs are assigned
     if (this.order) {
       this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
       this.previousUnitQuantity = this.order.unitOrderedQuantity;
@@ -45,15 +44,6 @@ export class OrderComponent implements OnInit {
     this.isRestrictedEditModeActivePackage = !this.isRestrictedEditModeActivePackage;
   }
 
-  // onModelChange(newValue: number) {
-  //   console.log("Model change detected:");
-  //   console.log("Previous unit quantity:", this.previousUnitQuantity);
-  //   console.log("New value:", newValue);
-  //   console.log("Current unit ordered quantity:", this.order.unitOrderedQuantity);
-
-  //   this.order.unitOrderedQuantity = newValue; // Update the model
-  // }
-
   isPackToastVisible:boolean = true;
   showPackToastDiv = false;
   isVisiblePa = false;
@@ -70,10 +60,10 @@ export class OrderComponent implements OnInit {
   }
   
   hidePackToast() {
-    this.isVisiblePa = false; // Trigger the fade-out effect
+    this.isVisiblePa = false;
     setTimeout(() => {
-      this.showPackToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showPackToastDiv = false; 
+    }, 500); 
   }
 
   editPackagingQuantity() {
@@ -91,7 +81,6 @@ export class OrderComponent implements OnInit {
       this.orderService.editPackagingQuantity(this.order.id, this.order.packagingOrderedQuantity).subscribe({
         next: data => {
           console.log("Packaging quantity updated successfully");
-          // Update the previous quantity after successful edit
           this.previousPackagingQuantity = this.order.packagingOrderedQuantity;
           this.showPackToast();
         },
@@ -125,10 +114,10 @@ export class OrderComponent implements OnInit {
   }
   
   hideUnitToast() {
-    this.isVisibleUt = false; // Trigger the fade-out effect
+    this.isVisibleUt = false; 
     setTimeout(() => {
-      this.showUnitToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showUnitToastDiv = false; 
+    }, 500); 
   }
 
   editUnitQuantity() {
@@ -136,7 +125,6 @@ export class OrderComponent implements OnInit {
     console.log("Current unit ordered quantity:", this.order.unitOrderedQuantity);
     console.log("Previous unit ordered quantity:", this.previousUnitQuantity);
 
-    // checks if the value changed and if the orderId and the quantity are valid integers
     if 
       (
         this.order.unitOrderedQuantity !== this.previousUnitQuantity && 
@@ -147,7 +135,6 @@ export class OrderComponent implements OnInit {
       this.orderService.editUnitQuantity(this.order.id, this.order.unitOrderedQuantity).subscribe({
         next: data => {
           console.log("Unit quantity updated successfully", );
-          // Update the previous unit quantity after successful edit
           this.previousUnitQuantity = this.order.unitOrderedQuantity;
           this.showUnitToast();
         },
@@ -164,19 +151,14 @@ export class OrderComponent implements OnInit {
 
   updateOrderArrival() 
   {
-    // console.log("Changing arrived status from:", this.order.arrived);
     console.log("ORDER TO SEND", this.order);
     this.orderService.updateOrderArrivalDetails(this.order.id, this.order).subscribe({
 
       next: data => {
-        // console.log("Arrived status updated successfully");
-        // console.log(this.order.arrived)
         this.order = data;
         console.log("Arrived DATA", this.order)
         console.log(this.order.arrived)
-        this.orderUpdated.emit(this.order); // Emit updated order
-
-        // this.order.arrived = !this.order.arrived;
+        this.orderUpdated.emit(this.order); 
       },
       error: badResponse => {
         console.log("Error updating arrived status:", badResponse);
@@ -204,7 +186,6 @@ export class OrderComponent implements OnInit {
     });
   }
 
-
   checkArrivalDate(deliverDateString: string): boolean {
     let now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -218,22 +199,19 @@ export class OrderComponent implements OnInit {
     return diffInHrs > 24;
   }
 
-  isPopoverVisible: boolean = false; // Property to manage popover visibility
+  isPopoverVisible: boolean = false;
 
-  // Toggle the visibility of the popover
   togglePopover() {
     this.isPopoverVisible = !this.isPopoverVisible;
   }
 
-  // Close the popover when clicking outside
   @HostListener('document:click', ['$event'])
   clickOutside(event: MouseEvent) {
     const buttonElement = event.target as HTMLElement;
-    const popoverElement = document.querySelector('.popoverConfirm'); // Make sure this matches the popover class
+    const popoverElement = document.querySelector('.popoverConfirm'); 
 
-    // Check if the click target is outside the popover and the button
     if (popoverElement && !popoverElement.contains(buttonElement) && !buttonElement.closest('button')) {
-      this.isPopoverVisible = false; // Close the popover
+      this.isPopoverVisible = false; 
     }
   }
 

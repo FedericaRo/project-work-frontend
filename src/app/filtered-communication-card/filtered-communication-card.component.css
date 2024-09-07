@@ -233,18 +233,6 @@
     color: #ffffff;
   }
   
-  /* .importance-label {
-    background-color: #c53030;
-    color: #ffffff;
-  } */
-  
-  /* .tags span:hover {
-    transform: scale(1.05);
-    background-color: #ffffff;
-    color: #2b6cb0;
-    cursor: pointer;
-  } */
-  
   .tags span.importance-label:hover {
     color: #c53030;
   }

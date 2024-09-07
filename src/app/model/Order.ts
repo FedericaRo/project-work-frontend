@@ -3,7 +3,7 @@ export interface Order {
     productCode: string;
     supplierName: string;
     productName: string;
-    orderDate: string; // In TypeScript, dates are typically represented as strings in ISO format
+    orderDate: string; 
     deliverDate: string;
 
     unitOrderedQuantity: number;
@@ -13,20 +13,4 @@ export interface Order {
     packagingType: string;
 
     arrived:boolean;
-
-
-    // unitDeliveredQuantity: number;
-    // packagingDeliveredQuantity: number;
-    // deliverDate: string;
-
-    // productId: number;
-    // unitPrice: number;
-    // unitTypeQuantity: number;
-    // packagingTypeQuantity: number;
-    // unitsPerPackaging: number;
-
-    // categoryId: number;
-    // categoryName: string;
-
-    // supplierId: number;
 }

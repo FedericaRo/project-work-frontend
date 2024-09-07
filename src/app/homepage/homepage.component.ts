@@ -132,22 +132,14 @@ export class HomepageComponent implements OnInit{
       return diffInMs <= 86400000;
     });
 
-    // console.log(this.newCommunications)
-    // console.log(this.communications[0].communicationName, this.communications[0].creationDate)
-    // console.log(this.communications)
     
   }
 
   loadTasks(): void {
-    //   this.taskService.getAll().subscribe(data => {
-    //   this.tasks = data;
-    // });
     
     this.loadBiweeklyTask();
     this.loadMonthlyTask();
     this.loadWeeklyTask();
-    
-    // this.unitedTask = this.weeklyTask.concat(this.biWeeklyTask,this.monthlyTask);
     
   }
 
@@ -160,11 +152,9 @@ export class HomepageComponent implements OnInit{
     this.notCompletedTask = this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask)
     .filter(t => t.status === "DAFARSI");
     this.backupTasks =this.weeklyTask.concat(this.biWeeklyTask, this.monthlyTask);
-    // console.log('United Task:', this.unitedTask);
   }
 
   onTaskUpdated(updatedTask: any): void {
-    // Find the updated task in the local array and update it
     const index = this.unitedTask.findIndex(task => task.id === updatedTask.id);
     if (index > -1) {
       this.unitedTask[index] = updatedTask;
@@ -255,12 +245,6 @@ export class HomepageComponent implements OnInit{
         {
           if(task.name.toLowerCase().includes(this.filterCriteria.toLowerCase()))
             this.unitedTask = this.unitedTask.filter(p => p.name.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-          // else if(task.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-          //   this.unitedTask = this.unitedTask.filter(p => p.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-          // else if(task.status.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-          //   this.unitedTask = this.unitedTask.filter(p => p.status.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-          // else if(task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()))
-          //   this.unitedTask = this.unitedTask.filter(p => p.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
         }
   }
 
@@ -290,10 +274,6 @@ export class HomepageComponent implements OnInit{
           return statusOrder[b.status] - statusOrder[a.status];
         });
       }
-      // if (valore == 2)
-      // {
-      //   return this.unitedTask = this.backupTasks;
-      // }
     'Non ordinate'
     return this.unitedTask;
   }
@@ -341,12 +321,4 @@ export class HomepageComponent implements OnInit{
     'Non ordinate'
     return this.unitedTask;
   }
-
-  }
-
-  // updateTaskFather() 
-  // {
-  //   this.taskService.update();
-  // }
-
-  // si devono vedere le task degli ultimi due mesi senza le task che stanno nella homepage, quando scadono vanno in quella
+}

@@ -49,6 +49,4 @@ export class ProductsService {
     console.log(`SERVICE ${id} ${packagingTypeQuantity}`)
     return this.http.put<Product>(`/api/products/${id}/updateRemainingPackagesQuantity`, { packagingTypeQuantity });
   }
-
-
 }

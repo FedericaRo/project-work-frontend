@@ -1,283 +1,272 @@
-<div class="flex flex-col" >
-    <div class=" overflow-x-auto pt-1" >
-        <div class="min-w-full inline-block align-middle" >
+<div class="flex flex-col">
+  <div class=" overflow-x-auto pt-1">
+    <div class="min-w-full inline-block align-middle">
+      <div id="alert"
+        class="alert flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span class="font-medium"> </span>
+          <p>{{genericError}}</p>
+        </div>
+      </div>
 
 
+      <!-- dove inizia il div della barra di ricerca -->
+      <div class="relative flex text-gray-500 focus-within:text-gray-900 mb-4">
+        <!-- Icona della ricerca -->
+        <div class="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none">
+          <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z"
+              stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" />
+            <path
+              d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z"
+              stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
+            <path
+              d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z"
+              stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </div>
 
-          <div 
-          id="alert"
-          class="alert flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-            </svg>
-            <span class="sr-only">Info</span>
-            <div>
-              <span class="font-medium"> </span> <p>{{genericError}}</p>
+
+        <!-- Input di ricerca -->
+        <input [(ngModel)]="filterCriteria" type="text" id="default-search"
+          class="block w-[22rem] h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none"
+          placeholder="Filtra per fornitore, categoria o prodotto" (input)="filter()">
+
+        <!-- Contenitore del dial -->
+        <div [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}" data-dial-init
+          class="flex absolute right-10 group">
+          <!-- Menu del dial -->
+          <div id="speed-dial-menu-horizontal" class="flex items-center space-x-2 rtl:space-x-reverse mr-3"
+            [ngClass]="{'hidden': !isDialOpen}">
+
+            <!-- Bottone di stampa -->
+            <button type="button" (click)="toggleSupplierCreate()" matTooltip="Crea nuovo fornitore"
+              data-tooltip-target="tooltip-supplier" data-tooltip-placement="top"
+              class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-users">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span class="sr-only">Crea Nuovo Fornitore</span>
+            </button>
+
+
+            <!-- Tooltip di stampa -->
+            <div id="tooltip-print" role="tooltip"
+              class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              Print
+              <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+
+            <!-- Bottone di download -->
+            <button type="button" (click)="toggleCategoryCreate()" matTooltip="Aggiungi nuova categoria"
+              data-tooltip-target="tooltip-category" data-tooltip-placement="top"
+              class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-folder-plus">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                <line x1="12" y1="11" x2="12" y2="17"></line>
+                <line x1="9" y1="14" x2="15" y2="14"></line>
+              </svg>
+              <span class="sr-only">Aggiungi Nuova Categoria</span>
+            </button>
+
+
+            <!-- Tooltip di download -->
+            <div id="tooltip-download" role="tooltip"
+              class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              Download
+              <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            <!-- Bottone di copia -->
+            <button type="button" (click)="toggleStepperCreate()" matTooltip="Aggiungi Nuovo Prodotto"
+              data-tooltip-target="tooltip-product" data-tooltip-placement="top"
+              class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-package">
+                <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+              <span class="sr-only">Aggiungi Nuovo Prodotto</span>
+            </button>
+
+            <!-- Tooltip di copia -->
+            <div id="tooltip-copy" role="tooltip"
+              class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+              Copy
+              <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
           </div>
 
+          <!-- Bottone per aprire il menu del dial -->
+          <button (click)="toggleDial()" type="button" data-dial-toggle="speed-dial-menu-horizontal"
+            aria-controls="speed-dial-menu-horizontal" aria-expanded="false"
+            class="flex items-center justify-center text-white bg-[#003f5c] rounded-full w-12 h-12 ">
+            <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
 
-        <!-- dove inizia il div della barra di ricerca -->
-        <div class="relative flex text-gray-500 focus-within:text-gray-900 mb-4"> 
-            <!-- Icona della ricerca -->
-            <div class="absolute inset-y-0 left-1 flex items-center pl-3 pointer-events-none">
-                <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" />
-                    <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
-                    <path d="M17.5 17.5L15.4167 15.4167M15.8333 9.16667C15.8333 5.48477 12.8486 2.5 9.16667 2.5C5.48477 2.5 2.5 5.48477 2.5 9.16667C2.5 12.8486 5.48477 15.8333 9.16667 15.8333C11.0005 15.8333 12.6614 15.0929 13.8667 13.8947C15.0814 12.6872 15.8333 11.0147 15.8333 9.16667Z" stroke="black" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
-                </svg>
-            </div>
-            
-            
-            <!-- Input di ricerca -->
-            <input 
-                [(ngModel)]="filterCriteria" 
-                type="text" id="default-search" 
-                class="block w-[22rem] h-11 pr-5 pl-12 py-2.5 text-base font-normal shadow-xs text-gray-900 bg-transparent border border-gray-300 rounded-full placeholder-gray-400 focus:outline-none" 
-                placeholder="Filtra per fornitore, categoria o prodotto"
-                (input)="filter()"
-            >
-            
-            <!-- Contenitore del dial -->
-            <div [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}"
-            data-dial-init class="flex absolute right-10 group">
-                <!-- Menu del dial -->
-                <div id="speed-dial-menu-horizontal" class="flex items-center space-x-2 rtl:space-x-reverse mr-3" [ngClass]="{'hidden': !isDialOpen}">
-                    <!-- Bottone di condivisione
-                    <button type="button" data-tooltip-target="tooltip-share" data-tooltip-placement="top" class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 shadow-sm dark:hover:text-white dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                            <path d="M14.419 10.581a3.564 3.564 0 0 0-2.574 1.1l-4.756-2.49a3.54 3.54 0 0 0 .072-.71 3.55 3.55 0 0 0-.043-.428L11.67 6.1a3.56 3.56 0 1 0-.831-2.265c.006.143.02.286.043.428L6.33 6.218a3.573 3.573 0 1 0-.175 4.743l4.756 2.491a3.58 3.58 0 1 0 3.508-2.871Z"/>
-                        </svg>
-                        <span class="sr-only">Share</span>
-                    </button>
-                    Tooltip di condivisione
-                    <div id="tooltip-share" role="tooltip" class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Share
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> -->
-                    
-                    <!-- Bottone di stampa -->
-                    <button type="button" (click)="toggleSupplierCreate()" matTooltip="Crea nuovo fornitore" data-tooltip-target="tooltip-supplier" data-tooltip-placement="top" class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users">
-                           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                           <circle cx="9" cy="7" r="4"></circle>
-                           <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        <span class="sr-only">Crea Nuovo Fornitore</span>
-                     </button>
-                     
-                     
-                    <!-- Tooltip di stampa -->
-                    <div id="tooltip-print" role="tooltip" class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Print
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    
-                    <!-- Bottone di download -->
-                    <button type="button" (click)="toggleCategoryCreate()" matTooltip="Aggiungi nuova categoria" data-tooltip-target="tooltip-category" data-tooltip-placement="top" class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder-plus">
-                           <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                           <line x1="12" y1="11" x2="12" y2="17"></line>
-                           <line x1="9" y1="14" x2="15" y2="14"></line>
-                        </svg>
-                        <span class="sr-only">Aggiungi Nuova Categoria</span>
-                     </button>
-                     
-                     
-                    <!-- Tooltip di download -->
-                    <div id="tooltip-download" role="tooltip" class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Download
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <!-- Bottone di copia -->
-                    <button type="button" (click)="toggleStepperCreate()" matTooltip="Aggiungi Nuovo Prodotto" data-tooltip-target="tooltip-product" data-tooltip-placement="top" class="flex justify-center items-center w-[52px] h-[52px] text-gray-500 hover:text-gray-900 bg-white rounded-full border border-gray-200 dark:border-gray-600 dark:hover:text-white shadow-sm dark:text-gray-400 hover:bg-gray-50 dark:bg-gray-700 dark:hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 focus:outline-none dark:focus:ring-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-package">
-                           <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
-                           <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                           <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                           <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                        </svg>
-                        <span class="sr-only">Aggiungi Nuovo Prodotto</span>
-                     </button>
-                     
-                     
-                     
-                     
-                     
-                    <!-- Tooltip di copia -->
-                    <div id="tooltip-copy" role="tooltip" class="absolute z-10 invisible inline-block w-auto px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Copy
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-                
-                <!-- Bottone per aprire il menu del dial -->
-                <button (click)="toggleDial()" type="button" data-dial-toggle="speed-dial-menu-horizontal" aria-controls="speed-dial-menu-horizontal" aria-expanded="false" class="flex items-center justify-center text-white bg-[#003f5c] rounded-full w-12 h-12 ">
-                    <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
-                        
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
-                    <span class="sr-only">Open actions menu</span>
-                </button>
-                
-            </div>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+            <span class="sr-only">Open actions menu</span>
+          </button>
+
         </div>
-        
-          <!-- dove finisce il div della barra -->
-          <!-- inizio dial -->
-            
+      </div>
 
-           <!-- fine dial -->
-          <div class="overflow-auto">
-              <table class=" min-w-full rounded-xl">
-                  <thead>
-                      <tr class="bg-gray-50">
-                          <th scope="col" class="rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Identificativo {{ codeCounter % 3 == 0 ? "" : codeCounter % 3 == 2 ? "↓" : "↑"}}</th>
-                          <th scope="col" class="sortbtn p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortBySupplier()" style="position: relative;">
-                            Fornitore
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
-                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
-                                <path fill="#444444" d="M11 7h-6l3-4z"></path>
-                                <path fill="#444444" d="M5 9h6l-3 4z"></path>
-                              </svg>
-                            </span>
-                          </th>
-                          <th scope="col" class="sortbtn p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortByCategory()" style="position: relative;">
-                            Categoria
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
-                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
-                                <path fill="#444444" d="M11 7h-6l3-4z"></path>
-                                <path fill="#444444" d="M5 9h6l-3 4z"></path>
-                              </svg>
-                            </span>
-                          </th>
-                          
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" > Nome Prodotto </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Prezzo <br> unitario </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Unità <br> rimanenti </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> u.m.1 </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Confezioni <br> rimanenti </th>
-                          <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> u.m.2 </th>
-                          <th scope="col" class="sortbtn p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize" (click)="sortQuantityRemaining()" style="position: relative;">
-                            Totale <br> rimanente
-                            <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
-                              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
-                                <path fill="#444444" d="M11 7h-6l3-4z"></path>
-                                <path fill="#444444" d="M5 9h6l-3 4z"></path>
-                              </svg>
-                            </span>
-                          </th>
-                          
-                          <th scope="col" class="rounded-tr-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Azioni rapide </th>
-                      </tr>
-                  </thead>
-                  <tbody class="">
-                      @for (product of products; track product.id)
-                       {
-                            <tr 
-                            app-product
-                            (lastOrderEvent)="deleteLastOrder($event)"
-                            (newDeleteEvent)="deleteProduct($event)" 
-                            class="bg-white transition-all duration-500 hover:bg-[gray-50]" 
-                            [ngClass]="{'bg-white': $index % 2 === 0, 'bg-[#8aa7b41c]': $index % 2 !== 0, 'flash': flashId === product.id}" 
-                            [product]="product"
-                            (newOrder)="showToast('Ordine aggiunto')"
-                            (showErrorAlert)="errorAlert($event)"
+      <!-- dove finisce il div della barra -->
+      <div class="overflow-auto">
+        <table class=" min-w-full rounded-xl">
+          <thead>
+            <tr class="bg-gray-50">
+              <th scope="col"
+                class="rounded-tl-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize">
+                Identificativo {{ codeCounter % 3 == 0 ? "" : codeCounter % 3 == 2 ? "↓" : "↑"}}</th>
+              <th scope="col"
+                class="sortbtn p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
+                (click)="sortBySupplier()" style="position: relative;">
+                Fornitore
+                <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="16" height="16" viewBox="0 0 16 16">
+                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                  </svg>
+                </span>
+              </th>
+              <th scope="col"
+                class="sortbtn p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
+                (click)="sortByCategory()" style="position: relative;">
+                Categoria
+                <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="16" height="16" viewBox="0 0 16 16">
+                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                  </svg>
+                </span>
+              </th>
 
-                            >
-                        </tr>
-                    }
+              <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Nome
+                Prodotto </th>
+              <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize">
+                Prezzo <br> unitario </th>
+              <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> Unità
+                <br> rimanenti </th>
+              <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> u.m.1
+              </th>
+              <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize">
+                Confezioni <br> rimanenti </th>
+              <th scope="col" class="p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"> u.m.2
+              </th>
+              <th scope="col"
+                class="sortbtn p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize"
+                (click)="sortQuantityRemaining()" style="position: relative;">
+                Totale <br> rimanente
+                <span style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%);">
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    width="16" height="16" viewBox="0 0 16 16">
+                    <path fill="#444444" d="M11 7h-6l3-4z"></path>
+                    <path fill="#444444" d="M5 9h6l-3 4z"></path>
+                  </svg>
+                </span>
+              </th>
 
-                    <tr *ngIf="products.length==0">
-                      <td colspan="10" class="px-6 py-4 text-center text-gray-500">
-                        Nessun prodotto presente
-                      </td>
-                    </tr>
-                    <!-- (updateProduct)="onOrdersUpdate($event)" -->
-                  </tbody>
-              </table>
+              <th scope="col"
+                class="rounded-tr-2xl p-2 py-4 text-left text-sm leading-6 font-semibold text-gray-900 capitalize">
+                Azioni rapide </th>
+            </tr>
+          </thead>
+          <tbody class="">
+            @for (product of products; track product.id)
+            {
+            <tr app-product (lastOrderEvent)="deleteLastOrder($event)" (newDeleteEvent)="deleteProduct($event)"
+              class="bg-white transition-all duration-500 hover:bg-[gray-50]"
+              [ngClass]="{'bg-white': $index % 2 === 0, 'bg-[#8aa7b41c]': $index % 2 !== 0, 'flash': flashId === product.id}"
+              [product]="product" (newOrder)="showToast('Ordine aggiunto')" (showErrorAlert)="errorAlert($event)">
+            </tr>
+            }
+
+            <tr *ngIf="products.length==0">
+              <td colspan="10" class="px-6 py-4 text-center text-gray-500">
+                Nessun prodotto presente
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
 
-      <div 
-      *ngIf="showToastDiv"
-      id="toast-success"
-      class="z-50 fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
-      [ngClass]="{
+        <div *ngIf="showToastDiv" id="toast-success"
+          class="z-50 fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
+          [ngClass]="{
         'opacity-0 translate-y-5 duration-500 ease-in-out': !isVisible,
         'opacity-100 translate-y-0 duration-500 ease-in-out': isVisible
-      }" 
-      role="alert"
-      >
-        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-          </svg>
-          <span class="sr-only">Check icon</span>
-        </div>
-        <div class="ms-3 text-gray-900 text-sm font-normal">{{toastMessage}} <a *ngIf="'Ordine aggiunto' == toastMessage" class="text-gray-600 underline ms-3 text-[0.80rem]" [routerLink]="['/orders']">Vedi gli ordini</a></div>
-        <button
-          (click)="hideToast()"
-          type="button"
-          class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
-          aria-label="Close"
-        >
-          <span class="sr-only">Close</span>
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-          </svg>
-        </button>
-    </div>
-
-            
-
-
-
-
+      }" role="alert">
+          <div
+            class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+              viewBox="0 0 20 20">
+              <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+            </svg>
+            <span class="sr-only">Check icon</span>
           </div>
+          <div class="ms-3 text-gray-900 text-sm font-normal">{{toastMessage}} <a
+              *ngIf="'Ordine aggiunto' == toastMessage" class="text-gray-600 underline ms-3 text-[0.80rem]"
+              [routerLink]="['/orders']">Vedi gli ordini</a></div>
+          <button (click)="hideToast()" type="button"
+            class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
-    </div>
+  </div>
+</div>
 
 
-    <div style="background-color: rgba(0, 255, 0, 0.5);">
-        <app-new-product-stepper
-        class="fixed inset-0 flex items-center justify-center z-50 p-6"
-        style="background-color: rgba(0, 0, 0, 0.5);"
-        (toggleForm)="toggleDialDaFiglio($event)"
-        (createProduct)="saveNewProduct($event)"
-        [ngClass]="{'hidden': !openCreateProductStepper}"
-        >
-        </app-new-product-stepper>
-    </div>
+<div style="background-color: rgba(0, 255, 0, 0.5);">
+  <app-new-product-stepper class="fixed inset-0 flex items-center justify-center z-50 p-6"
+    style="background-color: rgba(0, 0, 0, 0.5);" (toggleForm)="toggleDialDaFiglio($event)"
+    (createProduct)="saveNewProduct($event)" [ngClass]="{'hidden': !openCreateProductStepper}">
+  </app-new-product-stepper>
+</div>
 
-    <div>
-        <app-new-category-form
-        class="fixed inset-0 flex items-center justify-center z-50 p-6"
-        style="background-color: rgba(0, 0, 0, 0.5);"
-        (toggleForm)="toggleCategoryDialDaFiglio($event)"
-        (showToast)="showToast('Categoria aggiunta con successo')"
-        (showErrorAlert)="errorAlert($event)"
-        [ngClass]="{'hidden': !openCreateCategory}"
-        >
-        </app-new-category-form>
-    </div>
+<div>
+  <app-new-category-form class="fixed inset-0 flex items-center justify-center z-50 p-6"
+    style="background-color: rgba(0, 0, 0, 0.5);" (toggleForm)="toggleCategoryDialDaFiglio($event)"
+    (showToast)="showToast('Categoria aggiunta con successo')" (showErrorAlert)="errorAlert($event)"
+    [ngClass]="{'hidden': !openCreateCategory}">
+  </app-new-category-form>
+</div>
 
-    <div>
-        <app-new-supplier-form
-            class="fixed inset-0 flex items-center justify-center z-50 p-6"
-            style="background-color: rgba(0, 0, 0, 0.5);"
-            (toggleForm)="toggleSupplierDialDaFiglio($event)"
-            [ngClass]="{'hidden': !openCreateSupplier}"
-            (showToast)="showToast('Fornitore aggiunto con successo')"
-        >
-        </app-new-supplier-form>
-    </div>
-
-
-<!-- <div class="fixed z-50">
-    <div>
-        <mat-icon aria-label="Example home icon" fontIcon="close" class=" flex z-50 p-6  w-96">close</mat-icon>
-    </div>
-</div> -->
+<div>
+  <app-new-supplier-form class="fixed inset-0 flex items-center justify-center z-50 p-6"
+    style="background-color: rgba(0, 0, 0, 0.5);" (toggleForm)="toggleSupplierDialDaFiglio($event)"
+    [ngClass]="{'hidden': !openCreateSupplier}" (showToast)="showToast('Fornitore aggiunto con successo')">
+  </app-new-supplier-form>
+</div>

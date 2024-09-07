@@ -41,16 +41,14 @@ export class OrderListComponent
   ngOnInit(): void {
     this.orderService.getOrdersInLast3Months().subscribe(data => {
       console.log("Data received from service:", data);
-      this.allOrders = data.reverse(); // Fetch all orders and reverse to latest first
+      this.allOrders = data.reverse();
       
-      // Initialize backups and filtered lists
-      this.ordersLastThreeMonths = this.showOnlyOlderOrders(); // Only arrived orders
-      this.ordersLastThreeMonthsBackup = [...this.ordersLastThreeMonths]; // Backup of all arrived orders
+      this.ordersLastThreeMonths = this.showOnlyOlderOrders(); 
+      this.ordersLastThreeMonthsBackup = [...this.ordersLastThreeMonths];
   
-      this.ordersLastDayAndNotArrived = this.showOnlyRecentOrders(); // Orders not arrived or within last 24 hours
-      this.ordersLastDayAndNotArrivedBackup = [...this.ordersLastDayAndNotArrived]; // Backup of recent orders
+      this.ordersLastDayAndNotArrived = this.showOnlyRecentOrders(); 
+      this.ordersLastDayAndNotArrivedBackup = [...this.ordersLastDayAndNotArrived];
   
-      // Initially show recent orders
       this.orders = [...this.ordersLastDayAndNotArrived];
       console.log("Initial orders displayed:", this.orders);
     });
@@ -62,9 +60,7 @@ export class OrderListComponent
     // Aggiorna tutte le liste
     this.updateList(this.ordersLastThreeMonths, updatedOrder);
     this.ordersLastThreeMonthsBackup = this.ordersLastThreeMonths
-    // this.updateList(this.ordersLastThreeMonthsBackup, updatedOrder);
     this.updateList(this.ordersLastDayAndNotArrived, updatedOrder);
-    // this.updateList(this.ordersLastDayAndNotArrivedBackup, updatedOrder);
     this.ordersLastDayAndNotArrivedBackup = this.ordersLastDayAndNotArrived
 
 
@@ -82,40 +78,30 @@ export class OrderListComponent
   }
 
   
-  
-
   showOnlyRecentOrders(): Order[] {
     console.log("Filtering recent orders...");
     return this.allOrders.filter(o => {
-      if (!o.arrived) { // Orders not yet arrived
+      if (!o.arrived) { 
         console.log(`Order ID: ${o.productCode} has not arrived yet.`);
         return true;
       }
       const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
       console.log(`Order ID: ${o.productCode}, Arrived: ${o.arrived}, Time Difference: ${timeDiff} hours`);
-      return timeDiff <= 24; // Orders arrived within last 24 hours
+      return timeDiff <= 24;
     });
   }
   
   
   showOnlyOlderOrders(): Order[] {
     console.log("Filtering older orders...");
-    // return this.allOrders.filter(o => {
-    //   if (o.arrived) {
-    //     const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
-    //     return timeDiff > 24; // Orders arrived more than 24 hours ago
-    //   }
-    //   return false; // Exclude orders that haven't arrived
-    // });
-    // return this.allOrders.filter(o => o.arrived && this.getTimeDifferenceBetweenDates(o.deliverDate) > 24) // Orders arrived more than 24 hours ago
       return this.allOrders.filter(o => {
         if (o.arrived) {
           const timeDiff = this.getTimeDifferenceBetweenDates(o.deliverDate);
           console.log(`Order ID: ${o.id}, Arrived: ${o.arrived}, Time Difference: ${timeDiff} hours`);
-          return timeDiff > 24; // Orders arrived more than 24 hours ago
+          return timeDiff > 24;
         }
         console.log(`Order ID: ${o.id} has not arrived yet or does not meet the criteria.`);
-        return false; // Exclude orders that haven't arrived
+        return false; 
       });
     
   
@@ -129,11 +115,11 @@ export class OrderListComponent
     if (!this.displayRecentOrders) {
       console.log("Switching to show recent orders");
       this.orders = this.ordersLastDayAndNotArrived;
-      this.displayRecentOrders = true; // Explicitly set to true
+      this.displayRecentOrders = true;
     } else {
       console.log("Switching to show all orders");
-      this.orders = this.ordersLastThreeMonths; // Restore the full list
-      this.displayRecentOrders = false; // Explicitly set to false
+      this.orders = this.ordersLastThreeMonths; 
+      this.displayRecentOrders = false; 
       
     }
     this.filterCriteria = "";
@@ -160,8 +146,6 @@ export class OrderListComponent
   }
 
 
-
-
   togglePopover() {
     this.showPopover = !this.showPopover;
   }
@@ -175,13 +159,11 @@ export class OrderListComponent
   }
 
   confirmCancellation() {
-    // Add logic for confirming cancellation
     console.log('Cancellation confirmed');
     this.showPopover = false;
   }
 
   cancelPopover() {
-    // Add logic for canceling the popover
     this.showPopover = false;
   }
   
@@ -210,18 +192,6 @@ export class OrderListComponent
   }
   
 
-  // private sortData() {
-  //   const orderingType = this.orderingMap[this.sortColumn] || 'default';
-  
-  //   if (orderingType === 'default') {
-  //     this.orders = [...this.ordersBackup];
-  //   } else {
-  //     this.orders = [...this.ordersBackup].sort((a, b) =>
-  //       this.sortByColumn(a, b, this.sortColumn, orderingType)
-  //     );
-  //   }
-  // }
-
   private sortData() {
     const orderingType = this.orderingMap[this.sortColumn] || 'default';
     if (this.displayRecentOrders)
@@ -238,15 +208,13 @@ export class OrderListComponent
   }
   }
   
-  
 
   private sortByColumn(a: Order, b: Order, sortColumn: string, orderingType: 'asc' | 'desc' | 'default'): number {
     const valueA = a[sortColumn as keyof Order];
     const valueB = b[sortColumn as keyof Order];
 
-    // Handle null values directly
   if (valueA == null && valueB == null) {
-    return 0; // Both null, consider them equal
+    return 0; 
   } else if (valueA == null) { 
     return orderingType === 'asc' ? 1 : -1;
   } else if (valueB == null) {
@@ -268,8 +236,8 @@ export class OrderListComponent
   }
 
   resetSorting() {
-    this.sortColumn = 'id'; // Or set to default column if applicable
-    this.orderingMap = {}; // Clear sorting states
+    this.sortColumn = 'id'; 
+    this.orderingMap = {}; 
   }
   
 
@@ -301,8 +269,8 @@ export class OrderListComponent
   }
 
 private matchesCriteria(order: Order, criteria: string): boolean {
-  const orderDate = this.formatDateToDDMMYYYY(new Date(order.orderDate)); // convert orderDate to 'dd-MM-yyyy' format
-  const deliverDate = this.formatDateToDDMMYYYY(new Date(order.deliverDate)); // convert deliverDate to 'dd-MM-yyyy' format
+  const orderDate = this.formatDateToDDMMYYYY(new Date(order.orderDate)); 
+  const deliverDate = this.formatDateToDDMMYYYY(new Date(order.deliverDate)); 
 
   const values = [orderDate, deliverDate, ...Object.values(order).filter(v => v != null)];
   console.log('Values to match:', values);
@@ -316,8 +284,8 @@ private matchesCriteria(order: Order, criteria: string): boolean {
  
 
   private formatDateToDDMMYYYY(date: Date): string {
-    const day = date.getDate().toString().padStart(2, '0'); // Ensure 2-digit day
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Ensure 2-digit month (Month is 0-indexed)
+    const day = date.getDate().toString().padStart(2, '0'); 
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
   
     return `${day}-${month}-${year}`;
@@ -340,10 +308,10 @@ private matchesCriteria(order: Order, criteria: string): boolean {
   }
   
   hideDeleteToast() {
-    this.isVisibleD = false; // Trigger the fade-out effect
+    this.isVisibleD = false; 
     setTimeout(() => {
-      this.showDeleteToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showDeleteToastDiv = false; 
+    }, 500); 
   }
 
   deleteOrder(order:Order) 
@@ -379,7 +347,6 @@ private matchesCriteria(order: Order, criteria: string): boolean {
       error: err => {
         this.loadingService.hide();
         console.log(err);
-        // console.log(JSON.stringify(err));
         this.genericError = err.error;
         console.log("Errore nell'invio: ", err.error);
         this.loadingService.hide();
@@ -395,18 +362,6 @@ private matchesCriteria(order: Order, criteria: string): boolean {
     this.animateError()
   }
 
-  // animateMailError() {
-  //   const alertElement = document.getElementById('alertmail');
-  //   if (alertElement) {
-  //     alertElement.classList.add('show');
-  //     setTimeout(() => {
-  //       alertElement.classList.add('hide');
-  //       setTimeout(() => {
-  //         alertElement.classList.remove('show', 'hide');
-  //       }, 500); // Durata dell'animazione di uscita
-  //     }, 5000); // Durata della visualizzazione
-  //   }
-  // }
 
   animateError() {
     const alertElement = document.getElementById('alert');

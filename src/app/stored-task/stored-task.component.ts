@@ -15,7 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class StoredTaskComponent {
   constructor(
     public authService: AuthService,
-    private elementRef: ElementRef // Per rilevare clic esterni
+    private elementRef: ElementRef // Per rilevare click esterni
   ) {}
 
   @Input() storedTask!: StoredTask;

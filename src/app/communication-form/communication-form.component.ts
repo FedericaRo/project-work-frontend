@@ -64,20 +64,12 @@ export class CommunicationFormComponent
 
   onSubmit()
   {
-    // form data per mandare il pdf
     
     const formData = new FormData();
     
     
     console.log(this.communicationForm.value)
 
-    
-
-
-    // if(this.selectedFile!.size /1000 < 5000)
-    // {
-
-    
     this.communicationService.addNewCommunication(this.communicationForm.value)
     .subscribe(
       {
@@ -122,7 +114,4 @@ export class CommunicationFormComponent
 
     )
   }
-    
-
-
 }

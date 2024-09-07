@@ -2,33 +2,6 @@
   filter: saturate(0.5) hue-rotate(15deg) brightness(1.2);
 }
 
-
-
-
-/* confirmation-popover.component.css
-.popover {
-    position: absolute;
-    z-index: 1050;
-  }
-  
-  .popover-content {
-    max-width: 300px;
-  }
-  
-  .popover-arrow {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 5px;
-    border-color: transparent transparent white transparent;
-  }
-  
-  .popover-top .popover-arrow {
-    top: 1%;
-    right: 1%;
-    transform: translateX(-2%);
-  } */
-
   @keyframes slideIn {
     from {
       transform: translateY(-100%);

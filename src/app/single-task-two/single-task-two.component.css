@@ -1,17 +1,17 @@
 .detail-item {
     flex: 1;
-    min-width: 120px; /* Imposta la larghezza minima per evitare il ridimensionamento */
-    text-align: center; /* Opzionale: per centrare il testo */
-    white-space: nowrap; /* Impedisce il wrapping del testo */
+    min-width: 120px; 
+    text-align: center; 
+    white-space: nowrap; 
 }
 
 
 .title-item {
-    flex: 2; /* Puoi aumentare il flex se il titolo richiede più spazio */
+    flex: 2; 
 }
 
 .frequency-item {
-    margin-left: 20px; /* Imposta un margine a sinistra per spostare un po' a destra */
+    margin-left: 20px; 
 }
 .badge-settimanale {
     background-color: #DBD6E5;

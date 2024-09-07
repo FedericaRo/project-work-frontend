@@ -222,24 +222,21 @@ export class ProductComponent implements OnInit
     this.isRestrictedEditModeActivePackage = !this.isRestrictedEditModeActivePackage;
   }
 
-  isPopoverVisible: boolean = false; // Property to manage popover visibility
+  isPopoverVisible: boolean = false; 
 
-  // Toggle the visibility of the popover
   togglePopover() {
     this.isPopoverVisible = !this.isPopoverVisible;
     if (!this.isPopoverVisible)
       this.orderForm.reset();
   }
 
-  // Close the popover when clicking outside
   @HostListener('document:click', ['$event'])
   clickOutside(event: MouseEvent) {
     const buttonElement = event.target as HTMLElement;
-    const popoverElement = document.querySelector('.popoverConfirm'); // Make sure this matches the popover class
+    const popoverElement = document.querySelector('.popoverConfirm');
 
-    // Check if the click target is outside the popover and the button
     if (popoverElement && !popoverElement.contains(buttonElement) && !buttonElement.closest('button')) {
-      this.isPopoverVisible = false; // Close the popover
+      this.isPopoverVisible = false;
       this.orderForm.reset();
     }
   }
@@ -261,18 +258,6 @@ export class ProductComponent implements OnInit
       console.log("Error AAAAAAAAAAAAAAAAAAAA:", badResponse);
       this.showErrorAlert.emit(badResponse.error)
       this.orderForm.reset();
-
-
-      // this.updateProduct.emit(this.product);
-      /**
-       * * Il reload serve per mostrare in tempo reale la modifica della spunta che
-       * * mostra il prodotto come già ordinato
-       * ! Essendo un reload intero di pagina non è il top a livello di prestazioni quindi più avanti magari
-       * ! Possiamo capire se con un BehaviourSubject o un EventEmitter è possibile ottenere un risultato più leggero.
-       * @Santo
-       */
-      // window.location.reload(); 
-
     }})
   }
 
@@ -292,10 +277,10 @@ export class ProductComponent implements OnInit
   }
   
   hideOrderToast() {
-    this.isVisibleO = false; // Trigger the fade-out effect
+    this.isVisibleO = false;
     setTimeout(() => {
-      this.showOrderToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showOrderToastDiv = false; 
+    }, 500); 
   }
 
   deleteLatestOrderDone()
@@ -307,8 +292,6 @@ export class ProductComponent implements OnInit
           console.log(data);
           console.log("Ultimo ordine eliminato con successo");
           this.orders.splice(this.orders.length-1,1)
-          // this.lastOrderEvent.emit(data)
-          // window.location.reload();
           this.showOrderToast();
         },
         error: err => {
@@ -360,27 +343,9 @@ export class ProductComponent implements OnInit
   }
   
   hideToast() {
-    this.isVisible = false; // Trigger the fade-out effect
+    this.isVisible = false; 
     setTimeout(() => {
-      this.showToastDiv = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showToastDiv = false; 
+    }, 500); 
   }
-  // employeeEditProductUnitsToggle()
-  // {
-  //   this.isRestrictedEditModeActiveUnits = false;
-  // }
-  // employeeEditProductUnitsToggleDone()
-  // {
-  //   this.isRestrictedEditModeActiveUnits = true;
-  // }
-  // employeeEditProductPackageToggle()
-  // {
-  //   this.isRestrictedEditModeActivePackage = false;
-  // }
-
-  // employeeEditProductPackageToggleDone()
-  // {
-  //   this.isRestrictedEditModeActivePackage = true;
-  // }
-
 }

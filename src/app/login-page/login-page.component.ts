@@ -20,8 +20,6 @@ export class LoginPageComponent {
   
   togglePasswordVisibility(): void {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text' : 'password';
-    // If you need to toggle icons or other elements based on this state, 
-    // you would update those states here as well.
   }
 
   loginForm:FormGroup = new FormGroup
@@ -33,21 +31,9 @@ export class LoginPageComponent {
     
   )
 
-  // requestFasulla()
-  // {
-  //   this.authService.requestFauslla().subscribe();
-  // }
-
-  // logout()
-  // {
-  //   this.authService.logout();
-  // }
 
   login()
   {
-    //MOCK, li prende da una form ovviamente
-    // let username = 'stefano@mailfinta.fint';
-    // let password = 'paperino2';
 
     this.authService.login(this.loginForm.value).subscribe(
       {
@@ -56,7 +42,6 @@ export class LoginPageComponent {
           localStorage.setItem("token",data.accessToken);
           localStorage.setItem("role",data.role);
           localStorage.setItem("username",data.username);
-          // this.router.navigate(['']);
           this.router.navigate(["homepage"]);
         },
         error: err=>

@@ -47,17 +47,16 @@ export class DeleteSupCatComponent implements OnInit {
   }
 
   hideToastCateg() {
-    this.isVisibleC = false; // Trigger the fade-out effect
+    this.isVisibleC = false;
     setTimeout(() => {
-      this.showToastDivCateg = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showToastDivCateg = false;
+    }, 500); 
   }
 
   deleteCategory(id: number): void {
     this.fatherService.deleteCat(id).subscribe({
       next: data => {
         console.log("Categoria eliminata", data);
-        // Update the previous unit quantity after successful edit
         this.categories = this.categories.filter(c => c.id !== id);
         this.showToastCateg();
       },
@@ -83,17 +82,16 @@ export class DeleteSupCatComponent implements OnInit {
   }
 
   hideToastSup() {
-    this.isVisibleS = false; // Trigger the fade-out effect
+    this.isVisibleS = false;
     setTimeout(() => {
-      this.showToastDivSup = false; // Remove the toast from the DOM after fade-out
-    }, 500); // Match this duration with the CSS transition duration
+      this.showToastDivSup = false; 
+    }, 500); 
   }
 
   deleteSupplier(id: number): void {
     this.fatherService.deleteSup(id).subscribe({
       next: data => {
         console.log("Fornitore eliminato", data);
-        // Update the previous unit quantity after successful edit
         this.suppliers = this.suppliers.filter(s => s.id !== id);
         this.showToastSup();
       },
@@ -125,12 +123,10 @@ export class DeleteSupCatComponent implements OnInit {
     }
   }
 
-  // Closure of popover when clicked outside for categories and suppliers
   @HostListener('document:click', ['$event'])
   clickOutside(event: MouseEvent) {
     const target = event.target as HTMLElement;
 
-    // Check for category popover
     if (this.selectedCategoryId !== null) {
       const popoverCategory = document.querySelector('.category-popover');
       if (popoverCategory && !popoverCategory.contains(target) && !target.closest('button')) {
@@ -138,7 +134,6 @@ export class DeleteSupCatComponent implements OnInit {
       }
     }
 
-    // Check for supplier popover
     if (this.selectedSupplierId !== null) {
       const popoverSupplier = document.querySelector('.supplier-popover');
       if (popoverSupplier && !popoverSupplier.contains(target) && !target.closest('button')) {

@@ -72,31 +72,16 @@ export class TaskListComponent implements OnInit {
 
   filterSearchTask() : Task[] {
 
-    // if (task.name.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-    //   this.filteredTasks = this.tasksbackup.filter(t => t.name.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-    // } else if (task.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-    //   this.filteredTasks = this.tasksbackup.filter(t => t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-    // } else if (task.status.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-    //   this.filteredTasks = this.tasksbackup.filter(t => t.status.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-    // } else if (task.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-    //   this.filteredTasks = this.tasksbackup.filter(t => t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-    // } else if (task.description.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-    //   this.filteredTasks = this.tasksbackup.filter(t => t.description.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-    // } else if (task.signature.toLowerCase().includes(this.filterCriteria.toLowerCase())) {
-    //   this.filteredTasks = this.tasksbackup .filter(t => t.signature.toLowerCase().includes(this.filterCriteria.toLowerCase()));
-    // }
-    
     return this.tasksbackup.filter(
       t => 
         // t.name.toLowerCase().includes(this.filterCriteria.toLowerCase())          ||
-        t.name.toLowerCase().includes(this.filterCriteria.toLowerCase())          ||
-        t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())     ||
-        t.status.toLowerCase().includes(this.filterCriteria.toLowerCase())        ||
-        t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())  ||
-        t.description.toLowerCase().includes(this.filterCriteria.toLowerCase())   ||
+        t.name.toLowerCase().includes(this.filterCriteria.toLowerCase())             ||
+        t.frequency.toLowerCase().includes(this.filterCriteria.toLowerCase())        ||
+        t.status.toLowerCase().includes(this.filterCriteria.toLowerCase())           ||
+        t.creationDate.toLowerCase().includes(this.filterCriteria.toLowerCase())     ||
+        t.description.toLowerCase().includes(this.filterCriteria.toLowerCase())      ||
         t.signature.toLowerCase().includes(this.filterCriteria.toLowerCase())
-
-    );
+    )                                                                                 ;
   }  
 
 
@@ -153,5 +138,4 @@ export class TaskListComponent implements OnInit {
       });
     }
   }
-  
 }

@@ -22,14 +22,10 @@ export class FormRegisterComponent {
 
   togglePasswordVisibility(): void {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text' : 'password';
-    // If you need to toggle icons or other elements based on this state, 
-    // you would update those states here as well.
   }
 
   togglePasswordConfirmationVisibility(): void {
     this.passwordConfirmInputType = this.passwordConfirmInputType === 'password' ? 'text' : 'password';
-    // If you need to toggle icons or other elements based on this state, 
-    // you would update those states here as well.
   }
 
   registerForm:FormGroup = new FormGroup
@@ -40,8 +36,6 @@ export class FormRegisterComponent {
       passwordConfirmation: new FormControl('', [Validators.required]),
       role: new FormControl('', [Validators.required])
     }, 
-    // { validators: passwordMatchCheck('password','passwordConfirmation')}
-    // ^(?=.[a-z])(?=.[A-Z])(?=.\d).{8,}$
   )
 
 }

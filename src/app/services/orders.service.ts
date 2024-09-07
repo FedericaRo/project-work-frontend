@@ -47,12 +47,6 @@ export class OrdersService{
 
   addOrder(productId:number, data:any):Observable<Order>
   {
-    // const productId = 1;
-    // const data = {
-    //   "packagingOrderedQuantity": 10,
-    //   "unitOrderedQuantity": 5
-    // };
-
     console.log("Sending data:", data);
 
     return this.http.post<Order>(`api/orders/${productId}/addOrder`, data);

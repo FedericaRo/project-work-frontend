@@ -61,7 +61,6 @@ export class CommunicationComponent
     // mi assicuro che communication.id non sia null o undefined
     if (this.communication.id !== null && this.communication.id !== undefined) {
       this.delete.emit(this.communication.id);
-      // this.displayAlertError.emit(errore)
     } else {
       console.error("ID della comunicazione è null o undefined");
       
@@ -87,26 +86,7 @@ export class CommunicationComponent
         console.log(badResponse);
         this.displayAlertError.emit(badResponse.error);
       }
-
     }
-  )
+   )
   }
-
-
-  // loadPdf(id: number) {
-  //     this.communicationService.getPdf(id)
-  //     .subscribe((blob: Blob) => {
-  //         this.pdfBlobUrl = URL.createObjectURL(blob);
-  //         window.open(this.pdfBlobUrl, '_blank');
-  //       }, error => {
-  //         console.error('PDF loading failed', error);
-  //       });
-    
-  // }
-  // getRandomRotation(): string {
-  //   const min = -3;
-  //   const max = 3;
-  //   const randomDegree = Math.random() * (max - min) + min;
-  //   return `rotate(${randomDegree}deg)`;
-  // }
 }

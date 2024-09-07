@@ -22,26 +22,19 @@ export class RegisterPageComponent {
 
   togglePasswordVisibility(): void {
     this.passwordInputType = this.passwordInputType === 'password' ? 'text' : 'password';
-    // If you need to toggle icons or other elements based on this state, 
-    // you would update those states here as well.
   }
 
   togglePasswordConfirmationVisibility(): void {
     this.passwordConfirmInputType = this.passwordConfirmInputType === 'password' ? 'text' : 'password';
-    // If you need to toggle icons or other elements based on this state, 
-    // you would update those states here as well.
   }
 
   registerForm:FormGroup = new FormGroup
   (
     {
       username: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required, ]),   //Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$')
+      password: new FormControl('', [Validators.required, ]),  
       passwordConfirmation: new FormControl('', [Validators.required]),
-      // role: new FormControl('', [Validators.required])
     }, { validators: passwordMatchCheck('password','passwordConfirmation')}
-    // ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$
-    
   )
   register() {
     
@@ -77,10 +70,7 @@ export class RegisterPageComponent {
             );
           },
           error: err => {
-            // event.preventDefault()
             console.log('Errore durante la registrazione:', err);
-            // this.router.navigate(['auth/register'])
-            // this.animateError();
             this.registerForm.setErrors({'usernameTaken': true});
             console.log('Errore impostato nel form:', this.registerForm.errors);
             console.log('Errore impostato nel fcsdasdasdaorm:', this.registerForm.hasError('usernameTaken'));
