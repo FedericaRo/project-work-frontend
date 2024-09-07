@@ -1,24 +1,25 @@
 <div class="min-h-screen text-gray-900 flex justify-center">
     <div class="max-w-screen-xl m-8 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 items-center flex flex-col justify-center">
-            <!-- <div>
-                <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
-                    class="w-32 mx-auto" />
-            </div> -->
             <div class="mt-12 w-full flex flex-col items-center">
                 <h1 class="text-2xl xl:text-3xl font-extrabold">
                     Accedi
                 </h1>
                 <div class="w-full flex-1 mt-8">
-                    <!-- <div class="flex flex-col items-center"> -->
             
                     <div class="mx-auto max-w-xs ">
                        <form [formGroup]="loginForm" (ngSubmit)="login()">
-                            <input
-                                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
-                                type="email" placeholder="Email" formControlName="username"/>
-                                <div *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
-                                    Email non può essere vuota
+                        <input
+                        class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                        type="email" placeholder="Email" formControlName="username"
+                        [ngClass]="{
+                            'border-red-500': loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched,
+                            'border-gray-300': !(loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched)
+                        }"
+                    />
+                                <div *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched"
+                                    class="absolute text-red-600 p-2 text-sm">
+                                    L'email non può essere vuota
                                 </div>
 
                             <div class="relative">
@@ -26,7 +27,8 @@
                                     class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
                                     [type]="passwordInputType"     
                                     placeholder="Password" 
-                                    formControlName="password"/>
+                                    formControlName="password"
+                                    />
                                 <button type="button" 
                                 (click)="togglePasswordVisibility()"
                                 type="button" class="absolute top-16 end-0 p-3.5">
@@ -42,43 +44,36 @@
                                       <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
                                     </svg>
                                 </button>
-                                <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-                                    Password non può essere vuota
-                                </div>
+                                <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched && !error"
+                                    class="absolute text-red-600 p-2 text-sm">
+                                    La password non può essere vuota
+                                    </div>
                             </div> 
+                            <div *ngIf="error && !loginForm.get('password')?.hasError('required')"
+                                class="absolute text-red-600 p-2 text-sm">
+                                L'username o la password non sono validi
+                            </div>
                             <button [disabled]="loginForm.invalid"
-                                [ngClass]="{ 'bg-gray-400 text-[#EEEE]': loginForm.invalid, 'bg-[#6A64F1] text-white  hover:bg-indigo-700': loginForm.valid }"
-                                type="submit" class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-                                <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                                    <circle cx="8.5" cy="7" r="4" />
-                                    <path d="M20 8v6M23 11h-6" />
-                                </svg>
-                                <span class="ml-3">
-                                    ACCEDI
-                                </span>
-                            </button>
+                            [ngClass]="{ 'bg-gray-400 text-[#EEEE]': loginForm.invalid, 'bg-[#6A64F1] text-white hover:bg-indigo-700': loginForm.valid }"
+                            type="submit"
+                            class="mt-5 tracking-wide font-semibold w-full py-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                            <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                <circle cx="8.5" cy="7" r="4" />
+                                <path d="M20 8v6M23 11h-6" />
+                            </svg>
+                            <span class="ml-3">ACCEDI</span>
+                        </button>
                         </form> 
                         <div class="text-center pt-3">
 							<a class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
 								href="/auth/register">
-								Don't have an account? Register here!
+								Non hai un account? Registrati
 							</a>
 						</div>
                         <div class="mt-6 text-xs text-gray-600 text-center"></div>
-                        <!-- <p class="mt-6 text-xs text-gray-600 text-center">
-                            I agree to abide by templatana's
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Terms of Service
-                            </a>
-                            and its
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Privacy Policy
-                            </a>
-                        </p> -->
                     </div>
-                    <!-- </div> -->
                 </div>
             </div>
         </div>

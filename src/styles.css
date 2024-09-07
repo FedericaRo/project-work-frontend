@@ -1,11 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.font-courgette {
+    font-family: 'Indie Flower' !important;
+    font-size: 20px;
+}
+.title-font {
+    font-family: 'Indie Flower' !important;
+    font-size: 23px;
+}
+.content-font {
+    font-family: 'Indie Flower' !important;
+    font-size: 19px;
+}
+

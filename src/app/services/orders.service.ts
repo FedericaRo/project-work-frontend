@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Order } from '../model/Order';
 
 @Injectable({
@@ -9,16 +9,22 @@ import { Order } from '../model/Order';
 export class OrdersService{
   
   constructor(private http:HttpClient) { }
+
   
   getAll():Observable<Order[]>
   {
     return this.http.get<Order[]>("/api/orders");
   }
 
-  changeArrivedStatus(id:number, arrivedStatus:boolean):Observable<any>
+  getOrdersInLast3Months():Observable<Order[]>
   {
-    console.log(`SERVICE ${id} ${arrivedStatus}`)
-    return this.http.put<any>(`/api/orders/${id}/changeArrivedStatus`, {arrivedStatus});
+    return this.http.get<Order[]>("/api/orders/recent");
+  }
+
+  updateOrderArrivalDetails(id: number, order: Order): Observable<any> 
+  {
+    console.log(`SERVICE ${id} ${order}`);
+    return this.http.put<void>(`/api/orders/${id}/updateOrderArrivalDetails`, order);
   }
   
 
@@ -37,6 +43,24 @@ export class OrdersService{
   delete(id: number):Observable<Order>
   {
     return this.http.delete<Order>(`/api/orders/${id}`);
+  }
+
+  addOrder(productId:number, data:any):Observable<Order>
+  {
+    console.log("Sending data:", data);
+
+    return this.http.post<Order>(`api/orders/${productId}/addOrder`, data);
+    
+  }
+
+  deleteLastOrder(productName:string):Observable<any>
+  {
+    return this.http.delete<any>(`/api/orders/deleteLast/${productName}`);
+  }
+
+  sendOrders()
+  {
+    return this.http.get<Order[]>("/api/orders/sendOrders");
   }
 
 }

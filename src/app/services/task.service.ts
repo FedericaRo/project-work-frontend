@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Product } from '../model/Product';
+import { Observable } from 'rxjs';
 import { Task } from '../model/Task';
 import { completionTask } from '../model/completionTask';
 
@@ -25,7 +24,4 @@ export class TaskService {
     console.log(ct);
     return this.http.put<Task>(`${this.apiUrl}/${id}`, ct);
   }
-
-  
-
 }

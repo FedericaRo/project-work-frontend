@@ -1,0 +1,162 @@
+    <button mat-icon-button class="close-button" (click)="toggleFormNewProduct()">
+      <mat-icon>close</mat-icon>
+    </button>
+  
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper class="w-1/3">
+    <form [formGroup]="createProductForm">
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Codice prodotto</ng-template>
+        <mat-form-field class="w-3/4">
+          <mat-label>Codice</mat-label>
+          <input matInput placeholder="RUIC101" formControlName="code" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+  
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Inserisci nome del fornitore</ng-template>
+        <mat-form-field class="w-3/4">
+          <mat-label>Fornitore</mat-label>
+          <select matNativeControl formControlName="supplierName" placeholder="Fornitore X s.p.a" (keydown.enter)="stepper.next()">
+            @for (supplier of suppliers; track $index) {
+              <option [value]="supplier.name">{{supplier.name}}</option>
+            }
+          </select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+  
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Assegna una categoria</ng-template>
+        <mat-form-field class="w-3/4">
+          <mat-label>Categoria</mat-label>
+          <select matNativeControl formControlName="categoryName" placeholder="Biscotti" (keydown.enter)="stepper.next()">
+            @for (category of categories; track $index) {
+              <option [value]="category.name">{{category.name}}</option>
+            }
+          </select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+  
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Inserisci nome del prodotto</ng-template>
+        <mat-form-field class="w-3/4">
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="Gocciole" formControlName="productName" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+  
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Inserisci prezzo unitario</ng-template>
+        <mat-form-field class="w-3/4">
+          <mat-label>Prezzo</mat-label>
+          <input matInput type="number" min=0 max=99999999 placeholder="0.00" formControlName="unitPrice" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>U.M.1</ng-template>
+        <p>Tipologia/unità di misura delle singole unità</p>
+        <mat-form-field class="w-3/4">
+          <mat-label>unità di misura 1</mat-label>
+          <input matInput placeholder="KG" formControlName="unitType" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Inserisci numero unità</ng-template>
+        <p>Numero di unità sfuse presenti attualmente in magazzino</p>
+        <mat-form-field class="w-3/4">
+          <mat-label>n° unità</mat-label>
+          <input matInput type="number" min=0 max=99999999 formControlName="unitTypeQuantity" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>U.M.2</ng-template>
+        <p>Tipologia/unità di misura delle confezioni</p>
+        <mat-form-field class="w-3/4">
+          <mat-label>unità di misura 2</mat-label>
+          <input matInput placeholder="CT" formControlName="packagingType" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Inserisci numero confezioni</ng-template>
+        <p>Numero di confezioni del prodotto presenti attualmente in magazzino</p>
+        <mat-form-field class="w-3/4">
+          <mat-label>n° confezioni</mat-label>
+          <input matInput type="number" min=0 max=99999999 formControlName="packagingTypeQuantity" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Unità per confezione</ng-template>
+        <p>Numero di unità contenute nella confezione singola di questo prodotto</p>
+        <mat-form-field class="w-3/4">
+          <mat-label>qtà/confezione</mat-label>
+          <input matInput type="number" min=0 max=99999999 placeholder="10" formControlName="unitsPerPackaging" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+
+      <mat-step [stepControl]="createProductForm">
+        <ng-template matStepLabel>Punto di riordino</ng-template>
+        <p>Limite numerico di unità singole sotto cui si ritiene necessario riordinare</p>
+        <mat-form-field class="w-3/4">
+          <mat-label>minimo</mat-label>
+          <input matInput type="number" min=0 max=99999999 placeholder="5" formControlName="reorderPoint" (keydown.enter)="stepper.next()">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Indietro</button>
+          <button mat-button matStepperNext>Avanti</button>
+        </div>
+      </mat-step>
+  
+      <mat-step>
+        <ng-template matStepLabel>Conclusione</ng-template>
+        <p>Abbiamo terminato, non ti resta che cliccare su "Crea".</p>
+        <div>
+          <button mat-button type="submit" [disabled]="createProductForm.invalid" (click)="emitCreationEvent()">Crea</button>
+          <button mat-button (click)="stepper.reset()">Annulla tutto</button>
+        </div>
+      </mat-step>
+    </form>
+  </mat-stepper>
+  

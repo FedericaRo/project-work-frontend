@@ -1,0 +1,53 @@
+.detail-item {
+    flex: 1;
+    min-width: 120px; 
+    text-align: center; 
+    white-space: nowrap; 
+}
+
+
+.title-item {
+    flex: 2; 
+}
+
+.frequency-item {
+    margin-left: 20px; 
+}
+.badge-settimanale {
+    background-color: #DBD6E5;
+    color: #665191;
+}
+.badge-bisettimanale {
+    background-color: #FFF7D0;
+    color: #FFA600;
+}
+.badge-mensile {
+    background-color: #EAF4E0;
+    color: #7eb745;;
+}
+
+.badge-soft-nevercompleted {
+    background-color: #6c757d;
+    color: white;
+}
+.badge-soft-pending {
+    background-color: #FFE0D4;
+    color: #FF7C43;
+ }
+.badge-soft-completed {
+    background-color: #D1F2FE;
+    color: #003F5C;
+ }
+
+.badge-soft-good {
+    color: #6cd468;
+    background-color: rgba(247,204,83,.1);
+}
+ 
+ .badge-soft-success {
+     color: #51d28c;
+     background-color: rgba(81,210,140,.1);
+ }
+ 
+
+

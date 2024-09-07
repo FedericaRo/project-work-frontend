@@ -1,24 +1,28 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Communication } from '../model/Communication';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { CommunicationsService } from '../services/communications.service';
 
 @Component({
   selector: 'app-communication',
   standalone: true,
-  imports: [CommonModule,MatIconModule],
+  imports: [CommonModule,MatIconModule, DatePipe],
   templateUrl: './communication.component.html',
   styleUrl: './communication.component.css'
 })
 export class CommunicationComponent 
 {
-
-  constructor(public authService:AuthService){}
-
+  pdfBlobUrl: string | null = null;
+  
+  constructor(public authService:AuthService, private communicationService:CommunicationsService){}
+  
   @Input() communication!:Communication;
 
   @Output() delete = new EventEmitter<number>();
+  @Output() displayAlertError = new EventEmitter<string>()
+  
 
   typeLable(type: string): string 
   {
@@ -36,7 +40,7 @@ export class CommunicationComponent
     }
   }
 
-
+  
   
   importanceLable(importance: string): string
   {
@@ -47,17 +51,42 @@ export class CommunicationComponent
         return 'bg-yellow-200 text-yellow-600 font-bold';
       case 'BASSA':
         return 'bg-green-200 text-green-600 font-bold';
-      default:
+        default:
         return 'bg-gray-200 text-white font-bold';
     }
   }
   
-  onDelete(): void {
+  onDelete(errore:string): void {
+   
     // mi assicuro che communication.id non sia null o undefined
     if (this.communication.id !== null && this.communication.id !== undefined) {
       this.delete.emit(this.communication.id);
     } else {
       console.error("ID della comunicazione è null o undefined");
+      
     }
+  }
+  
+  
+
+
+  loadPdf(id: number) 
+  {
+   this.communicationService.getPdf(id).subscribe
+   (
+    {
+      next: data =>
+      {
+        console.log(data)
+        this.pdfBlobUrl = URL.createObjectURL(data);
+          window.open(this.pdfBlobUrl, '_blank');
+      },
+      error: badResponse =>
+      {
+        console.log(badResponse);
+        this.displayAlertError.emit(badResponse.error);
+      }
+    }
+   )
   }
 }

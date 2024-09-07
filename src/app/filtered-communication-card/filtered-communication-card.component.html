@@ -1,0 +1,36 @@
+
+<div class="relative"
+  [ngClass]="{
+              'amministrativa-card': communication.type==='AMMINISTRATIVA',
+              'informativa-card': communication.type==='INFORMATIVA',
+              'organizzativa-card': communication.type==='ORGANIZZATIVA',
+              'cambio-turno-card': communication.type==='CAMBIOTURNO',
+            }"
+              
+>
+<!-- <span class="absolute inset-0 w-full h-full bg-white opacity-60 z-50"></span> -->
+  <div class="header">
+    <h3>{{ communication.communicationName }}</h3>
+  </div>
+  <div class="details">
+    <p><strong>Per:</strong> {{ communication.toPerson }}</p>
+    <p class="description">{{ communication.description }}</p>
+  </div>
+  <div class="tags relative">
+    <span
+        [ngClass]="{
+                  'amministrativa-label': communication.type==='AMMINISTRATIVA',
+                  'informativa-label': communication.type==='INFORMATIVA',
+                  'organizzativa-label': communication.type==='ORGANIZZATIVA',
+                  'cambio-turno-label': communication.type==='CAMBIOTURNO',
+                  }"
+      >{{ communication.type }}</span>
+    <!-- <span [ngClass]="getImportanceLable()" class="importance-label">{{ communication.importance }}</span> -->
+  <div class="absolute right-2 bottom-0 ">
+    <p><strong><i>{{ communication.fromPerson }}</i></strong></p>
+    <p class="date">{{ getTimeFromDate() }}</p>
+  </div>
+  </div>
+</div>
+
+

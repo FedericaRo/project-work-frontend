@@ -1,4 +1,4 @@
-export interface Task
+export interface StoredTask
 {
   id: number | null;
   name:string;

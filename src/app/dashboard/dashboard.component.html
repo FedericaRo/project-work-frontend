@@ -1,6 +1,184 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
+<!-- ? Inizio della finestra dei profili -->
+<!-- * Dialog che mostra e permette di selezionare tutti i profili-->
+<div [ngClass]="{'hidden': areProfilesVisible}" class="w-full h-full fixed z-50 bg-black opacity-70"></div>
+<div 
+  [ngClass]="{'hidden': areProfilesVisible}"
+  class="fixed inset-0 flex items-center justify-center z-60"
+>
+  <div (click)="onOverlayClick($event)" #fatherElement class="fixed inset-0 flex items-center justify-center z-60">
+    <div #profileGrid  class="p-4 bg-[#ffffff] shadow-md rounded-lg flex flex-col items-center justify-center content-grid">
+      <div class="grid grid-cols-3 gap-4 justify-center">
+
+         <!-- * Visualizzazione dei profili tramite iterazione -->
+        @for (profile of profiles; track profile.id) 
+        { 
+         <div class="relative">
+            <div 
+                (click)="showToast()"
+                (click)="changeProfile(profile)" 
+                [ngClass]="{'active-profile': profile.id?.toString() === userId, 'not-active-profile': profile.id?.toString() !== userId}"
+                class="cursor-pointer flex-none rounded-lg
+                       bg-gray-50 h-52 w-52 flex items-center justify-center 
+                       hover:border-[#ffffff] transition-all duration-300 relative"
+            >
+                <!-- L'immagine di sfondo -->
+                <img class="object-cover h-full w-full rounded-lg z-0" 
+                     [src]="imgUrls[profile.id!] ? imgUrls[profile.id!] : 'nopropic.png'" 
+                     alt="Una bella immagine">
+                     
+                <!-- Il div bianco semi-trasparente sopra l'immagine -->
+                <div class="absolute inset-0 bg-white z-10 backname">
+
+                   <!-- I testi sopra il div bianco e l'immagine -->
+                   <div class="relative text-center z-20 name">
+                       <h1><b>{{profile.name}}</b></h1>
+                       <h1><b>{{profile.surname}}</b></h1>
+                   </div>
+               </div>
+            </div>
+        
+            <!-- * Bottoncino che permette di eliminare un profilo -->
+               <div 
+               (click)="showPopover(profile.id!)"
+               class="absolute btn-controller z-50 bg-red-500 hover:bg-red-400 rounded-full w-7 h-7 flex items-center justify-center cursor-pointer" matTooltip="Elimina profilo">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="8" y1="12" x2="16" y2="12"></line>
+               </svg>
+               </div>
+         </div>
+
+            <!-- * Popover conferma eliminazione profilo -->
+           <div *ngIf="isPopoverOpen && idPopover == profile.id" class="popover fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg border border-gray-300 p-4 rounded-lg z-60">
+            <div class="popover-content">
+                <p class="text-gray-700">Vuoi confermare l'eliminazione del profilo {{profile.name}} {{profile.surname}}?</p>
+                <div class="mt-3 flex justify-end space-x-2">
+                    <button class="btn bg-green-400 hover:bg-green-500 text-white" (click)="deleteProfile(profile.id!);">Conferma</button>
+                    <button class="btn bg-red-400 hover:bg-red-500 text-white" (click)="cancelPopover()">Annulla</button>
+                </div>
+            </div>
+            <div class="popover-arrow absolute top-0 right-1 bg-white"></div>
+        
+           </div>
+
+           <div *ngIf="showDeleteToastDiv" id="toast-success"
+               class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
+               [ngClass]="
+                  {
+                     'opacity-0 translate-y-5 duration-500 ease-in-out': !isDeleteVisible,
+                     'opacity-100 translate-y-0 duration-500 ease-in-out': isDeleteVisible
+                  }" role="alert">
+                  <div
+                     class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                           d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                     </svg>
+                     <span class="sr-only">Check icon</span>
+                  </div>
+               <div class="ms-3 text-gray-900 text-sm font-normal">Profilo eliminato con successo!</div>
+                  <button (click)="hideDeleteToast()" type="button"
+                     class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                     aria-label="Close">
+                     <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                  </button>
+               </div>
+
+
+        } 
+        <!-- * Bottone gigante che permette di aggiungere un profilo -->
+        @if (profiles.length < 6) 
+        {
+          <div 
+          (click)="toggleForm()"
+          [ngClass]="{'hidden': isClicked}"
+          class="container h-52 w-52 flex items-center justify-center bg-gray-400 bg-opacity-50 btn-add-controller rounded-lg">
+            <svg  xmlns="http://www.w3.org/2000/svg" 
+              width="60rem" 
+              height="60rem" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="#ededed" 
+              stroke-width="2" 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              [ngClass]="{'plusclicked': isClicked, 'hidden': isClicked,}"
+              class="feather feather-plus-circle hover:stroke-white cursor-pointer transition duration-300 plus">
+              <!-- <circle cx="12" cy="12" r="10"></circle> -->
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+              <line x1="8" y1="12" x2="16" y2="12"></line>
+            </svg>
+         </div>
+            <!-- * Form con cui aggiungere un profilo -->
+            @if (isClicked) 
+            {
+               <div #formix class="h-52 w-52 flex items-center justify-center content-center bg-gray-400 bg-opacity-50 p-1 relative rounded-lg">
+                  <form name="newProfile" #newProfile (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="form-container z-50 items-center form-control">
+                     <mat-form-field class="w-full">
+                     <mat-label>Nome</mat-label>
+                     <input 
+                     matInput 
+                     id="name"
+                     name="name"
+                     [(ngModel)]="profile_to_send.name"
+                     placeholder="Inserisci il nome"
+                     >
+                     </mat-form-field>
+               
+                     <mat-form-field class="w-full">
+                     <mat-label>Cognome</mat-label>
+                     <input 
+                     matInput 
+                     id="surname"
+                     name="surname"
+                     [(ngModel)]="profile_to_send.surname"
+                     placeholder="Inserisci il cognome"
+                     >
+                     </mat-form-field>
+                     
+                     <!-- * Pulsante di aggiunta file -->
+                     <input type="file" id="fileInput" class="absolute pointer-events-none bottom-0 left-0 opacity-0 cursor-pointer" (change)="onFileSelected($event)">
+                     <label for="fileInput" class="bg-blue-500 flex justify-center text-white text-center py-2 px-4 w-2/4 rounded-md cursor-pointer hover:bg-blue-600 transition">
+                        <span id="fileLabelText" class="text-center">{{!isFileSelected ? 'Immagine' : img.slice(-8)}}</span>
+                     </label>
+               
+                     <!-- * Bottone di SUBMIT -->
+                     <button class="bg-blue-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-14 bottom-2 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-plus-circle text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="8" x2="12" y2="16"></line>
+                          <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                     </button>
+                      
+                     <!-- * "Bottone" di chiusura Form -->
+                      <a 
+                      (click)="toggleForm()"
+                      class="bg-red-600 ml-2 h-10 w-10 rounded-lg flex items-center justify-center absolute right-2.5 bottom-2 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="feather feather-x-circle text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="15" y1="9" x2="9" y2="15"></line>
+                          <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                     </a>
+                  </form>
+               </div>
+            }
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ? Fine della finestra dei profili -->
+
 <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
       <div class="flex items-center justify-between">
@@ -11,227 +189,160 @@
                  <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
               </svg>
            </button>
-          <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+          <a href="https://www.collegiorui.it/it/" class="flex ms-2 md:me-24">
+            <img src="https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F252892649%2F270195188790%2F1%2Foriginal.20220323-104227?w=512&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C3472%2C3472&s=eb35d7322df6acb06300049004cca884" class="h-8 me-3" alt="Rui Logo" />
+            <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Residenza Rui</span>
           </a>
-        </div>
-        <!-- inizio user menu -->
-        <div class="flex items-center" #userMenu0>
+         </div>
+         <!-- inizio user menu -->
+         <div class="flex items-center" #userMenu0>
+           <div class="flex items-center">
+              <h2 class="inline-flex justify-end"><b>{{userName}} {{userSurname}}</b></h2>
+           </div>
             <div class="flex items-center ms-3">
               <div>
-                <!-- <button (click)="authService.logout()">LOGOUT</button> -->
                 <button type="button" (click)="toggleUserMenu()" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                   <span class="sr-only">Open user menu</span>
-                  <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                  <!-- * USER PHOTO -->
+                  <img class="w-8 h-8 rounded-full" [src]="imgUrls[userId!] ? imgUrls[userId!] : 'nopropic.png'" alt="user photo">
                 </button>
               </div>
               <div 
               #userMenu
               [ngClass]="{'hidden': !isUserMenuOpen, 'block': isUserMenuOpen,}"
-              class="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 setPosition" id="dropdown-user">
-                <div class="px-4 py-3" role="none">
+              class="z-50 my-4 text-base w-80 list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600 setPosition" id="dropdown-user">
+                <div class="px-4 w-80 py-3 justify-center" role="none">
                   <p class="text-sm text-gray-900 dark:text-white" role="none">
-                    Neil Sims
+                    <b>{{email}}</b>
                   </p>
                   <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                    <!-- neil.sims@flowbite.com -->
                   </p>
                 </div>
-                <ul class="py-1" role="none">
+                <ul class="py-1 w-80" role="none">
                   <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                    <a href="userPage" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Vedi Profilo</a>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
+                    <a (click)="toggleProfileList()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Cambia Profilo</a>
                   </li>
                   <li>
-                    <a (click)="authService.logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Logout</a>
+                    <a (click)="authService.logout()" class="cursor-pointer block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Esci</a>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                    <a href="auth/register" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Registrati</a>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <!-- fine user menu -->
+          <!-- * fine user menu -->
       </div>
     </div>
   </nav>
-  <!-- [ngClass]="{'transform translate-x-0': isSidebarOpen, 'transform -translate-x-full': !isSidebarOpen}" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:translate-x-0" aria-label="Sidebar"> -->
   <aside id="logo-sidebar" [ngClass]="{'transform translate-x-0': !isSidebarOpen, 'transform -translate-x-full': isSidebarOpen}" class="fixed top-6 left-0 z-40 w-64 h-screen pt-20 transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <ul class="space-y-2 font-medium">
-           <li>
-              <a [routerLink]="['/homepage']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                 <mat-icon style="font-size: 1.7rem;" class="align-bottom material-icons-outlined">home</mat-icon>
-                 <span class="ms-3">Dashboard</span>
-              </a>
+   <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+       <ul class="space-y-2 font-medium">
+           <li class="menu-item">
+               <a [routerLink]="['/homepage']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home align-bottom" style="font-size: 1.7rem;">
+                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                   </svg>
+                   <span class="ms-3">Dashboard</span>
+               </a>
            </li>
-           <li>
-              <a [routerLink]="['/products']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <mat-icon class="align-bottom material-icons-outlined">inventory</mat-icon>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Prodotti</span>
+           <li class="menu-item">
+               <a [routerLink]="['/products']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box align-bottom" style="font-size: 1.7rem;">
+                       <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                       <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                       <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                   </svg>
+                   <span class="flex-1 ms-3 whitespace-nowrap">Prodotti</span>
+               </a>
+           </li>
+           <li class="menu-item">
+               <a [routerLink]="['/orders']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck align-bottom" style="font-size: 1.7rem;">
+                       <rect x="1" y="3" width="15" height="13"></rect>
+                       <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                       <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                       <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                   </svg>
+                   <span class="flex-1 ms-3 whitespace-nowrap">Ordini</span>
+               </a>
+           </li>
+           <li class="menu-item">
+               <a [routerLink]="['/communications']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="align-bottom" style="font-size: 1.7rem;">
+                       <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                       <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path>
+                   </svg>
+                   <span class="flex-1 ms-3 whitespace-nowrap">Bacheca</span>
+               </a>
+           </li>
+           <li class="menu-item">
+               <a [routerLink]="['/tasks']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square align-bottom" style="font-size: 1.7rem;">
+                       <polyline points="9 11 12 14 22 4"></polyline>
+                       <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                   </svg>
+                   <span class="flex-1 ms-3 whitespace-nowrap">Task</span>
+               </a>
+           </li>
+        <li class="menu-item"  [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}">
+            <a [routerLink]="['storedtasks']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard align-bottom" style="font-size:1.7rem;">
+                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                </svg>
+                <span class="flex-1 ms-3 whitespace-nowrap">Gestisci Task</span>
+            </a>
+        </li>
 
-                 <!-- <span class="flex-1 ms-3 whitespace-nowrap">Kanban</span> -->
-                 <!-- <span class="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> -->
-              </a>
-           </li>
-           <li>
-              <a [routerLink]="['/orders']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <mat-icon class="align-bottom material-icons-outlined">archive</mat-icon>
-               <span class="flex-1 ms-3 whitespace-nowrap">Ordini</span>
-               <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-              </a>
-           </li>
+        
 
-           <!--bacheca-->
-           <li>
-              <a [routerLink]="['/communications']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <mat-icon class="align-bottom material-icons-outlined">push_pin</mat-icon>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Bacheca</span>
-              </a>
-           </li>
-
-
-           <li>
-              <a [routerLink]="['products']" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <mat-icon class="align-bottom material-icons-outlined">task</mat-icon>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Task</span>
-              </a>
-           </li>
-           <li>
-              <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-               <mat-icon class="align-bottom material-icons-outlined">info</mat-icon>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Istruzioni</span>
-              </a>
-           </li>
-           <li>
-              <a (click)="authService.logout()" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
-                 </svg>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
-              </a>
-           </li>
-           <li>
-              <a [routerLink]="['storedtasks']" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
-                    <path d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z"/>
-                    <path d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z"/>
-                 </svg>
-                 <span class="flex-1 ms-3 whitespace-nowrap">Gestisci Task</span>
-              </a>
-           </li>
+     <li class="menu-item" [ngClass]="{'hidden': authService.getUserRole()?.toUpperCase() === 'DIPENDENTE'}">
+      <a [routerLink]="['/fathersPage']" routerLinkActive="active-link" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tool align-bottom" style="font-size: 1.7rem;">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+        </svg>
+          <span class="flex-1 ms-3 whitespace-nowrap">Gestisci Fornitori</span>
+      </a>
+  </li>
         </ul>
-     </div>
-  </aside>
-  <!-- <div>
-    
-  </div> -->
-  
-  <div class="p-4 sm:ml-64 mt-14">
+        </div>
+        </aside>
+  <div class="p-4 bg-gray-50 sm:ml-64 mt-14">
     <router-outlet></router-outlet>
-     <!-- <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-        <div class="grid grid-cols-3 gap-4 mb-4">
-           <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
+   </div>
+   <div 
+      *ngIf="showToastDiv"
+      id="toast-success"
+      class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-3 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800 transition-opacity duration-300 ease-out transform"
+      [ngClass]="{
+        'opacity-0 translate-y-5 duration-500 ease-in-out': !isVisible,
+        'opacity-100 translate-y-0 duration-500 ease-in-out': isVisible
+      }" 
+      role="alert"
+      >
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+          </svg>
+          <span class="sr-only">Check icon</span>
         </div>
-        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-           <p class="text-2xl text-gray-400 dark:text-gray-500">
-              <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-              </svg>
-           </p>
-        </div>
-        <div class="grid grid-cols-2 gap-4 mb-4">
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-        </div>
-        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-           <p class="text-2xl text-gray-400 dark:text-gray-500">
-              <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-              </svg>
-           </p>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-           <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-              <p class="text-2xl text-gray-400 dark:text-gray-500">
-                 <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                 </svg>
-              </p>
-           </div>
-        </div> -->
-    <!-- </div> -->
-    <!-- <router-outlet></router-outlet> -->
-  </div> 
+        <div class="ms-3 text-gray-900 text-sm font-normal">Nuovo profilo attivo: <p><b>{{userName}} {{userSurname}}</b></p></div>
+        <button
+          (click)="hideToast()"
+          type="button"
+          class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+          aria-label="Close"
+        >
+          <span class="sr-only">Close</span>
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+        </button>
+    </div>
+     

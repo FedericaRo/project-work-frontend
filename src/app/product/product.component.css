@@ -3,7 +3,28 @@ td {
     position: relative;
 }
 
-/* Stile per il testo che appare al passaggio del mouse */
+.general-svg-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svg-container{
+    display: flex;
+    height: 0.5rem;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    justify-content: center;
+}
+
+.svg-odioso{
+    display: flex;
+    position: relative;
+    height: 1rem;
+    padding-right: 0.4rem;
+}
+
 .hover-text {
     visibility: hidden; /* Inizialmente nascosto */
     width: 16rem; /* Modifica la larghezza secondo necessità */
@@ -19,6 +40,8 @@ td {
     transform: translateX(-50%); /* Centro il testo orizzontalmente */
     opacity: 0; /* Inizialmente trasparente */
     transition: opacity 0.3s, visibility 0.3s; /* Transizione dolce */
+    pointer-events: none;
+    overflow: visible;
 }
 
 /* Mostra il testo al passaggio del mouse */
@@ -35,7 +58,6 @@ td:hover .hover-text {
     border-radius: 50rem;
     position: absolute;
     transform: translateY(0.3rem);
-    /* transform: translateX(0.5rem); */
 }
 .statusDotYellow{
     background-color: rgb(238, 210, 49);
@@ -45,7 +67,6 @@ td:hover .hover-text {
     border-radius: 50rem;
     position: absolute;
     transform: translateY(0.3rem);
-    /* transform: translateX(0.5rem); */
 }
 .statusDotGreen{
     background-color: rgb(115, 230, 87);
@@ -55,12 +76,34 @@ td:hover .hover-text {
     border-radius: 50rem;
     position: absolute;
     transform: translateY(0.3rem);
-    /* transform: translateX(0.5rem); */
 }
 
-/* .hidden{
+.general-svg-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.svg-container{
+    display: flex;
+    height: 0.5rem;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+    justify-content: center;
+}
+
+.hide{
     display: none !important;
 }
+
+.svg-odioso{
+    display: flex;
+    position: relative;
+    height: 1rem;
+    padding-right: 0.4rem;
+}
+
 
 .hidden2{
     display: none !important;
@@ -68,12 +111,21 @@ td:hover .hover-text {
 
 .btnBg{
     background-color: transparent;
-    /* border-radius: 50rem; */
 }
 
 .btnBg:hover{
     background-color: rgb(226, 226, 226);
-    /* border-radius: 50rem; */
 }
+
+.example-form {
+
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
 
 
