@@ -1,0 +1,41 @@
+.stored-task {
+  border-radius: 8px;
+}
+
+.card-footer button {
+  margin-left: 8px;
+}
+
+#taskModal.hidden {
+  display: none;
+}
+
+#taskModal.flex {
+  display: flex;
+}
+
+.stored-task {
+  border-radius: 8px;
+}
+
+.task-list-box {
+  background-color: #f8f9fa;
+}
+
+.modal-content {
+  border-radius: 8px;
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: none;
+}

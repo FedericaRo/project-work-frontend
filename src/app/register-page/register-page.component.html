@@ -1,10 +1,19 @@
 <div class="min-h-screen  text-gray-900 flex justify-center">
     <div class="max-w-screen-xl m-8 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 items-center flex flex-col justify-center">
-            <!-- <div>
-                <img src="https://storage.googleapis.com/devitary-image-host.appspot.com/15846435184459982716-LogoMakr_7POjrN.png"
-                    class="w-32 mx-auto" />
-            </div> -->
+
+            <div 
+  id="alert"
+  class="alert flex absolute z-50 right-0 top-16 w-10/12 bg-opacity-100 items-center p-4 mb-4 text-sm text-red-800 border-1 border-red-300 rounded-lg bg-[#FEF2F2] dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+    </svg>
+    <span class="sr-only">Info</span>
+    <div>
+      <span class="font-medium">Errore nell'invio!</span> <p>gfg</p>
+    </div>
+  </div>
+
             <div class="mt-12 w-full flex flex-col items-center">
                 <h1 class="text-2xl xl:text-3xl font-extrabold">
                     Registrati
@@ -13,12 +22,17 @@
                     <!-- <div class="flex flex-col items-center"> -->
             
                     <div class="mx-auto max-w-xs ">
-                       <form [formGroup]="registerForm" (ngSubmit)="register()">
+                       <form [formGroup]="registerForm" >
                             <input
                                 class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                                 type="email" placeholder="Email" formControlName="username"/>
-                                <div *ngIf="registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched">
+                                <div *ngIf="registerForm.get('username')?.hasError('required') && registerForm.get('username')?.touched"
+                                    class="absolute text-red-600 p-2 text-sm">
                                     Email non può essere vuota
+                                </div>
+                                <div *ngIf="registerForm.hasError('usernameTaken')"
+                                class="absolute text-red-600 p-2 text-sm">
+                                L'username è già registrato
                                 </div>
 
                             <div class="relative">
@@ -45,7 +59,10 @@
                                 </button>
                             </div> 
 
-
+                                <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched"
+                                class="absolute text-red-600 p-2 text-sm">
+                                Password non può essere vuota
+                                </div>
                                 <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched">
                                     La password deve avere almeno 8 caratteri, una lettera maiuscola, una minuscola e un numero.
                                 </div>
@@ -70,25 +87,22 @@
                                       <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
                                     </svg>
                                 </button>
-                                <div *ngIf="registerForm.errors?.['passwordNotMatch'] && registerForm.get('passwordConfirmation')?.touched">
+                                <div *ngIf="registerForm.errors?.['passwordNotMatch'] && registerForm.get('passwordConfirmation')?.touched"
+                                class="absolute text-red-600 p-2 text-sm">
                                     Le password non corrispondono.
                                 </div>
-
-
-                                <div *ngIf="registerForm.get('passwordConfirmation')?.hasError('passwordConfirmation')">
-                                    Password confirmation non può essere vuota
+                                <div *ngIf="registerForm.get('passwordConfirmation')?.hasError('required') && registerForm.get('passwordConfirmation')?.touched && !registerForm.errors?.['passwordNotMatch']" 
+                                    class="absolute text-red-600 p-2 text-sm">
+                                    La conferma della password non può essere vuota
                                 </div>
                             </div>
                                
-                            <!-- <select id="role" name="role"  formControlName="role"
-                                class="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5" required>
-                                <option selected disabled value="">Select role</option>
-                                <option value="customer">Customer</option>
-                                <option value="seller">Seller</option>
-                            </select> -->
                             <button [disabled]="registerForm.invalid"
-                                [ngClass]="{ 'bg-gray-400 text-[#EEEE]': registerForm.invalid, 'bg-[#6A64F1] text-white hover:bg-indigo-700': registerForm.valid }"
-                                type="submit" class="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                            [ngClass]="{ 'bg-gray-400 text-[#EEEE]': registerForm.invalid, 'bg-[#6A64F1] text-white hover:bg-indigo-700': registerForm.valid }"
+                                type="button" 
+                                class="mt-5 tracking-wide font-semibold w-full py-4 rounded-lg transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                (click)="register()"
+                                >
                                 <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -103,21 +117,10 @@
                         <div class="text-center pt-3">
 							<a class="inline-block text-sm text-blue-500 dark:text-blue-500 align-baseline hover:text-blue-800"
 								href="/auth/login">
-								Already have an account? Login!
+							    Hai già un account? Login!
 							</a>
 						</div>
-                        <!-- <p class="mt-6 text-xs text-gray-600 text-center">
-                            I agree to abide by templatana's
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Terms of Service
-                            </a>
-                            and its
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Privacy Policy
-                            </a>
-                        </p> -->
                     </div>
-                    <!-- </div> -->
                 </div>
             </div>
         </div>

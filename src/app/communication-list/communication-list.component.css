@@ -1,22 +1,85 @@
+button[mat-fab] {
+  background-color: #FFA600; /* Colore blu scuro per il pulsante */
+  color: white; /* Colore del testo e dell'icona bianco */
+  width: 48px; /* Larghezza del pulsante */
+  height: 48px; /* Altezza del pulsante */
+  border-radius: 50%; /* Forma circolare */
+  position: relative; /* Usa 'absolute' per posizionare il pulsante */
+  margin-right: 80px; /* Posiziona il pulsante a destra */
+  
+  
+}
+
+.icon {
+  width: 48px; /* Larghezza dell'icona aumentata */
+  height: 48px; /* Altezza dell'icona aumentata */
+  stroke-width: 2; /* Spessore delle linee dell'icona aumentato per arrotondarle */
+  
+}
+
+/* Barra di ricerca */
+.search-bar {
+  flex: 1; /* Espande la barra di ricerca per occupare lo spazio disponibile */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Stile per la modale */
 .comform {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 600px; /* Imposta una larghezza massima */
-    height: auto;
-    max-height: calc(100vh - 40px); /* Limita l'altezza del modal in base all'altezza dello schermo */
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    z-index: 1000;
-    box-sizing: border-box; /* Include padding e border nella larghezza e altezza */
-    overflow-y: auto; /* Aggiungi uno scroll verticale se il contenuto supera l'altezza */
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  max-height: calc(100vh - 40px);
+  background-color: white;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  padding: 16px;
+  z-index: 1000;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* Sfondo della modale */
+.modalBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.alert {
+  /* Imposta la visibilità dell'elemento e lo stile iniziale */
+  position: absolute;
+  top: 4rem;
+  /* left: 5rem; */
+  transform: translateX(-10%);
+  width: 80%;
+  background-color: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: #B91C1C;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.alert.show {
+  /* Animazione di entrata */
+  animation: slideIn 0.5s forwards;
+  opacity: 1;
+  visibility: visible;
+}
+
+.alert.hide {
+  /* Animazione di uscita */
+  animation: slideOut 0.5s forwards;
+}

@@ -1,7 +1,96 @@
-.active-link
-{
-    color:red;
+.menu-item a {
+    transition: transform 0.4s ease;
+    background-color: transparent; /* Evita lo sfondo grigio al passaggio del mouse */
 }
+
+#toast-success {
+    z-index: 1000;
+}
+
+.menu-item a:hover {
+    transform: translateX(20px);
+    background-color: #9cc4dc3a; /* Mantiene lo sfondo trasparente al passaggio del mouse */
+    border-top-left-radius: 50rem;
+    border-bottom-left-radius: 50rem;
+}
+
+.menu-item .active-link {
+    font-weight: bold;
+    color:#2f4b7c;
+    transform: translateX(20px) !important;  /* Ferma il movimento per l'elemento attivo */
+    transition: none !important;          /* Disabilita qualsiasi transizione */
+    cursor: default !important;
+    background-color: #9cc4dc3a;          /* Cambia il cursore in freccia */
+    border-top-left-radius: 50rem;
+    border-bottom-left-radius: 50rem;
+}
+
+.menu-item .active-link:hover {
+    transform: translateX(20px) !important;           /* Nessuna trasformazione */
+    transition: none !important;          /* Nessuna transizione */
+    background-color: #9cc4dc3a;
+}
+
+.z-60 {
+    z-index: 60;
+}
+
+.btn-controller {
+    bottom: 11.8rem;
+    left: 11.8rem;
+}
+
+.form-control {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: none;
+}
+
+.name {
+    opacity: 0;
+    top: 35%;
+    font-size: 1.5rem;
+}
+
+.backname {
+    opacity: 0;
+    border-radius: 0.4rem;
+}
+
+.backname:hover {
+    opacity: 0.7;
+}
+
+.backname:hover .name {
+    opacity: 1;
+}
+
+.btn-add-controller:hover {
+    /* border: solid 0.4rem #ffffff; */
+    transition-duration: 300ms;
+    background: #dbdfe6;
+}
+
+.content-grid {
+    /* border: solid 0.4rem #003F5C; */
+    height: 70%;
+    width: 50%;
+}
+
+.active-profile {
+    border: solid 0.4rem #22C55E;
+    border-radius: 0.9rem;
+}
+
+.not-active-profile {
+    border: solid 0rem #ffffff;
+    /* border-radius: 10rem !important; */
+}
+
 .hidden
 {
     display: none;
@@ -46,3 +135,23 @@
         
     }
 }
+
+.container {
+    border-radius: 0.5rem;
+}
+
+.clickedClass {
+    border-radius: 1rem !important;
+}
+
+.plus {
+    opacity: 100%;
+}
+
+.plusclicked {
+    opacity: 0%;
+}
+
+  
+  
+

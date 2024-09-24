@@ -46,21 +46,20 @@
 	position: fixed;
 	top: 1rem;
 	left: 0.7rem;
-	background: #ffffff; /* White background */
-	color: #000000; /* Black text */
+	background: #ffffff; 
+	color: #000000; 
 	border-radius: 1.5rem;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	overflow-y: auto;
 	z-index: 500;
-	transition: transform 0.3s ease; /* Smooth slide effect */
+	transition: transform 0.3s ease; 
   }
   
-  /* Sidebar content */
   #sidebar h1 {
 	text-align: center;
 	padding: 1rem;
 	font-size: 2rem;
-	color: #007bff; /* Primary color for the logo */
+	color: #007bff; 
 	margin: 0;
   }
   
@@ -80,7 +79,7 @@
   
   #sidebar .components li a {
 	display: block;
-	color: #333; /* Dark text */
+	color: #333; 
 	text-decoration: none;
 	border-radius: 2px;
 	padding: 0.5rem 1rem;
@@ -118,20 +117,20 @@
 	background: #f8f9fa;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	position: fixed;
-	top: 1rem; /* Space from the top */
-	width: calc(100% - 14rem - 2rem); /* Adjust for sidebar width and margins */
-	left: 14rem; /* Adjust for sidebar width */
-	margin-left: 0.5rem; /* Left margin */
-	margin-right: 0.5rem; /* Right margin */
+	top: 1rem; 
+	width: calc(100% - 14rem - 2rem); 
+	left: 14rem; 
+	margin-left: 0.5rem; 
+	margin-right: 0.5rem; 
 	z-index: 500;
 	display: flex;
 	justify-content: space-between;
 	padding: 0.5rem 1rem;
 	box-sizing: border-box;
-	border-radius: 0.5rem; /* Rounded corners */
+	border-radius: 0.5rem; 
   }
   
-  /* Navbar Buttons */
+  
   .navbar-left {
 	display: flex;
 	align-items: center;
@@ -149,26 +148,25 @@
   }
   
   .navbar-left .btn-segnala {
-	background: #28a745; /* Green */
+	background: #28a745; 
   }
   
   .navbar-left .btn-crea-task {
-	background: #007bff; /* Blue */
+	background: #007bff; 
   }
   
   .navbar-left .btn-cambio-turno {
-	background: #ffc107; /* Yellow */
+	background: #ffc107; 
   }
   
   .navbar-left .btn-comunicazione {
-	background: #dc3545; /* Red */
+	background: #dc3545;
   }
   
   .navbar-left .btn:hover {
 	opacity: 0.9;
   }
   
-  /* Navbar Right */
   .navbar-right {
 	display: flex;
 	align-items: center;
@@ -203,7 +201,6 @@
 	color: #fff;
   }
   
-  /* Profile Icon */
   .profile-icon {
 	position: relative;
 	display: inline-block;
@@ -249,10 +246,9 @@
 	display: block;
   }
   
-  /* Content Padding */
   #content {
-	margin-top: 3rem; /* Height of the navbar plus extra space */
-	margin-left: 250px; /* Offset for the sidebar width */
+	margin-top: 3rem; 
+	margin-left: 250px; 
 	padding: 1rem;
 	box-sizing: border-box;
   }

@@ -1,123 +1,121 @@
-
-
-
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<!-- <div class="wrapper"> -->
-  
-    <!-- Sidebar -->
-    <nav id="sidebar">
-      <h1><a href="index.html" class="logo">M.</a></h1>
-      <ul class="list-unstyled components mb-5">
-        <li [class.active]="isActive('home')">
-          
-          <a href="/homepage" (click)="setActive('home')">
-            <mat-icon style="font-size: 1.7rem;" class="align-bottom material-icons-outlined">home</mat-icon>
-          <div style="display: inline; margin-left: 0.7rem;"></div>
-          <span class="fa fa-home"></span> Home</a>
-        </li>
 
-        <li [class.active]="isActive('about')">
+<!-- Sidebar -->
+<nav id="sidebar">
+  <h1><a href="index.html" class="logo">M.</a></h1>
+  <ul class="list-unstyled components mb-5">
+    <li [class.active]="isActive('home')">
 
-          <a href="/products" (click)="setActive('about')">
-          <mat-icon class="align-bottom material-icons-outlined">inventory</mat-icon>
-          <div style="display: inline; margin-left: 0.7rem;"></div>
-          <span class="fa fa-user"></span> Prodotti</a>
-        </li>
+      <a href="/homepage" (click)="setActive('home')">
+        <mat-icon style="font-size: 1.7rem;" class="align-bottom material-icons-outlined">home</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-home"></span> Home
+      </a>
+    </li>
 
-        <li [class.active]="isActive('blog')">
+    <li [class.active]="isActive('about')">
 
-          <a href="#" (click)="setActive('blog')">
-          <mat-icon class="align-bottom material-icons-outlined">archive</mat-icon>
-          <div style="display: inline; margin-left: 0.7rem;"></div>
-          <span class="fa fa-sticky-note"></span> Archivio Ordini</a>
-        </li>
+      <a href="/products" (click)="setActive('about')">
+        <mat-icon class="align-bottom material-icons-outlined">inventory</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-user"></span> Prodotti
+      </a>
+    </li>
 
-        <li [class.active]="isActive('services')">
+    <li [class.active]="isActive('blog')">
 
-          <a href="#" (click)="setActive('services')">
-          <mat-icon class="align-bottom material-icons-outlined">push_pin</mat-icon>
-          <div style="display: inline; margin-left: 0.7rem;"></div>
-          <span class="fa fa-cogs"></span> Bacheca</a>
-        </li>
+      <a href="#" (click)="setActive('blog')">
+        <mat-icon class="align-bottom material-icons-outlined">archive</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-sticky-note"></span> Archivio Ordini
+      </a>
+    </li>
 
-        <li [class.active]="isActive('contacts')">
+    <li [class.active]="isActive('services')">
 
-          <a href="#" (click)="setActive('contacts')">
-          <mat-icon class="align-bottom material-icons-outlined">task</mat-icon>
-          <div style="display: inline; margin-left: 0.7rem;"></div>
-          <span class="fa fa-paper-plane"></span> Task</a>
-        </li>
+      <a href="#" (click)="setActive('services')">
+        <mat-icon class="align-bottom material-icons-outlined">push_pin</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-cogs"></span> Bacheca
+      </a>
+    </li>
 
-        <li [class.active]="isActive('contacts')">
+    <li [class.active]="isActive('contacts')">
 
-            <a href="#" (click)="setActive('contacts')">
-            <mat-icon class="align-bottom material-icons-outlined">info</mat-icon>
-            <div style="display: inline; margin-left: 0.7rem;"></div>
-            <span class="fa fa-paper-plane"></span> Istruzioni</a>
-          </li>
+      <a href="#" (click)="setActive('contacts')">
+        <mat-icon class="align-bottom material-icons-outlined">task</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-paper-plane"></span> Task
+      </a>
+    </li>
 
-          <li [class.active]="isActive('contacts')">
+    <li [class.active]="isActive('contacts')">
 
-            <a href="#" (click)="setActive('contacts')">
-            <mat-icon class="align-bottom material-icons-outlined">assignment_ind</mat-icon>
-            <div style="display: inline; margin-left: 0.7rem;"></div>
-            <span class="fa fa-paper-plane"></span> Mansioni</a>
-          </li>
+      <a href="#" (click)="setActive('contacts')">
+        <mat-icon class="align-bottom material-icons-outlined">info</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-paper-plane"></span> Istruzioni
+      </a>
+    </li>
 
-      </ul>
-  
-      <div class="footer">
-        <p>
-          Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
-        </p>
-      </div>
-    </nav>
-  
-    <!-- Page Content -->
-    <div id="content">
-      <!-- Navbar -->
-      <nav class="navbar">
-        <!-- Buttons on the left -->
-        <div class="navbar-left">
-          <button class="btn btn-segnala">SEGNALA</button>
-          <button class="btn btn-crea-task">CREA TASK</button>
-          <button class="btn btn-cambio-turno">CAMBIO TURNO</button>
-          <button class="btn btn-comunicazione">COMUNICAZIONE</button>
+    <li [class.active]="isActive('contacts')">
+
+      <a href="#" (click)="setActive('contacts')">
+        <mat-icon class="align-bottom material-icons-outlined">assignment_ind</mat-icon>
+        <div style="display: inline; margin-left: 0.7rem;"></div>
+        <span class="fa fa-paper-plane"></span> Mansioni
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="footer">
+    <p>
+      Copyright &copy;
+      <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
+        class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib.com</a>
+    </p>
+  </div>
+</nav>
+
+<!-- Page Content -->
+<div id="content">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <!-- Buttons on the left -->
+    <div class="navbar-left">
+      <button class="btn btn-segnala">SEGNALA</button>
+      <button class="btn btn-crea-task">CREA TASK</button>
+      <button class="btn btn-cambio-turno">CAMBIO TURNO</button>
+      <button class="btn btn-comunicazione">COMUNICAZIONE</button>
+    </div>
+
+    <!-- Buttons and Profile on the right -->
+    <div class="navbar-right">
+      <button class="btn btn-outline-primary" (click)="toggleModal()">REGISTER</button>
+      <button class="btn btn-outline-secondary">LOGIN</button>
+
+      <!-- Profile Icon -->
+      <div class="profile-icon">
+        <img src="https://via.placeholder.com/40" alt="Profile Picture">
+        <div class="profile-dropdown">
+          <a href="#">User Profile</a>
+          <a (click)="authService.logout()">Logout</a>
+          <a href="#" class="dropdown-toggle">Switch Profile</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Profile 1</a></li>
+            <li><a href="#">Profile 2</a></li>
+            <li><a href="#">Profile 3</a></li>
+          </ul>
         </div>
-  
-        <!-- Buttons and Profile on the right -->
-        <div class="navbar-right">
-          <button class="btn btn-outline-primary" (click)="toggleModal()">REGISTER</button>
-          <button class="btn btn-outline-secondary">LOGIN</button>
-  
-          <!-- Profile Icon -->
-          <div class="profile-icon">
-            <img src="https://via.placeholder.com/40" alt="Profile Picture">
-            <div class="profile-dropdown">
-              <a href="#">User Profile</a>
-              <a (click)="authService.logout()">Logout</a>
-              <a href="#" class="dropdown-toggle">Switch Profile</a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Profile 1</a></li>
-                <li><a href="#">Profile 2</a></li>
-                <li><a href="#">Profile 3</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
-      
-      <!-- Main Content -->
-      <div id="main-content" class="p-4 p-md-5">
-        <router-outlet></router-outlet>
-        <!-- <h2 class="mb-4">Sidebar #07</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
       </div>
     </div>
-  <!-- </div> -->
-     
-  
+  </nav>
+
+  <!-- Main Content -->
+  <div id="main-content" class="p-4 p-md-5">
+    <router-outlet></router-outlet>
+  </div>
+</div>

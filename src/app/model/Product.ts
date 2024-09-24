@@ -1,8 +1,7 @@
 export interface Product
 {
-  id: number | null;
-  category_id: number | null;
-  supplier_id: number | null;
+  
+  id: number;
   productName: string;
   unitPrice: number;
   unitType: string;
@@ -12,5 +11,6 @@ export interface Product
   unitsPerPackaging: number;
   categoryName: string;
   supplierName: string;
-  supplierCode: string;
+  reorderPoint: number;
+  code:string;
 }
